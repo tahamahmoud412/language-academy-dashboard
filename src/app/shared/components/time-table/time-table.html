@@ -1,0 +1,110 @@
+<div class="flex flex-col gap-6 w-full">
+    <!-- Summary Section -->
+    <div class="bg-gradient-to-r from-[#EFF6FF] to-[#FAF5FF] border-2 border-[#0066CC] rounded-2xl p-6 md:p-7 flex flex-col gap-2 relative shadow-sm">
+        <div class="flex items-center gap-3 justify-start">
+            <h3 class="font-['Cairo'] font-normal text-xl text-[#101828] m-0">الجدول الزمني</h3>
+            <span class="text-[#0066CC]">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+            </span>
+        </div>
+        <p class="font-['Cairo'] font-normal text-base text-[#4A5565] m-0">عدد الأيام: {{ lectures.length }}</p>
+    </div>
+
+    <!-- Add Lecture Form Container -->
+    <div class="bg-white border-2 border-[#D1D5DC] rounded-2xl p-6 md:p-7 flex flex-col gap-4" [formGroup]="addLectureForm">
+        <div class="flex items-center gap-2 justify-start mb-2">
+            <span class="text-[#0066CC]">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+            </span>
+            <h4 class="font-['Cairo'] font-normal text-base text-[#101828] m-0">إضافة موعد محاضرة</h4>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4 w-full">
+            <!-- Date Selection -->
+            <div class="flex flex-col gap-2 flex-1">
+                <label class="font-['Cairo'] font-normal text-base text-[#101828]">التاريخ *</label>
+                <div class="relative box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                     [class.border-red-500]="addLectureForm.get('date')?.invalid && addLectureForm.get('date')?.touched"
+                     [class.border-gray-200]="!(addLectureForm.get('date')?.invalid && addLectureForm.get('date')?.touched)"
+                     [class.focus-within:border-[#0066CC]]="!(addLectureForm.get('date')?.invalid && addLectureForm.get('date')?.touched)">
+                    <input type="date" formControlName="date" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent">
+                </div>
+                @if (addLectureForm.get('date')?.invalid && addLectureForm.get('date')?.touched) {
+                    <span class="text-red-500 text-xs font-['Cairo']">هذا الحقل مطلوب</span>
+                }
+            </div>
+
+            <!-- Start Time -->
+            <div class="flex flex-col gap-2 flex-1">
+                <label class="font-['Cairo'] font-normal text-base text-[#101828]">من *</label>
+                <div class="box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                     [class.border-red-500]="(addLectureForm.get('startTime')?.invalid && addLectureForm.get('startTime')?.touched) || addLectureForm.errors?.['timeRangeInvalid']"
+                     [class.border-gray-200]="!((addLectureForm.get('startTime')?.invalid && addLectureForm.get('startTime')?.touched) || addLectureForm.errors?.['timeRangeInvalid'])"
+                     [class.focus-within:border-[#0066CC]]="!((addLectureForm.get('startTime')?.invalid && addLectureForm.get('startTime')?.touched) || addLectureForm.errors?.['timeRangeInvalid'])">
+                    <input type="time" formControlName="startTime" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent">
+                </div>
+                @if (addLectureForm.get('startTime')?.invalid && addLectureForm.get('startTime')?.touched) {
+                    <span class="text-red-500 text-xs font-['Cairo']">هذا الحقل مطلوب</span>
+                }
+            </div>
+
+            <!-- End Time -->
+            <div class="flex flex-col gap-2 flex-1">
+                <label class="font-['Cairo'] font-normal text-base text-[#101828]">إلى *</label>
+                <div class="box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                     [class.border-red-500]="(addLectureForm.get('endTime')?.invalid && addLectureForm.get('endTime')?.touched) || addLectureForm.errors?.['timeRangeInvalid']"
+                     [class.border-gray-200]="!((addLectureForm.get('endTime')?.invalid && addLectureForm.get('endTime')?.touched) || addLectureForm.errors?.['timeRangeInvalid'])"
+                     [class.focus-within:border-[#0066CC]]="!((addLectureForm.get('endTime')?.invalid && addLectureForm.get('endTime')?.touched) || addLectureForm.errors?.['timeRangeInvalid'])">
+                    <input type="time" formControlName="endTime" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent">
+                </div>
+                @if (addLectureForm.get('endTime')?.invalid && addLectureForm.get('endTime')?.touched) {
+                    <span class="text-red-500 text-xs font-['Cairo']">هذا الحقل مطلوب</span>
+                }
+            </div>
+        </div>
+        @if (addLectureForm.errors?.['timeRangeInvalid'] && (addLectureForm.get('startTime')?.touched || addLectureForm.get('endTime')?.touched)) {
+            <span class="text-red-500 text-xs font-['Cairo']">وقت النهاية يجب أن يكون بعد وقت البداية</span>
+        }
+
+        <!-- Add Button -->
+        <button (click)="addLecture()" class="w-full h-[56px] bg-gradient-to-b from-[#0066CC] to-[#6B4FBB] rounded-2xl border-none cursor-pointer flex items-center justify-center gap-2 text-white font-['Cairo'] font-normal text-base transition-all mt-2"
+                [class.opacity-50]="addLectureForm.invalid">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>إضافة الموعد</span>
+        </button>
+    </div>
+
+    <!-- Lectures List Section -->
+    @if (lectures.controls.length > 0) {
+        <div class="flex flex-col gap-3">
+            <h4 class="font-['Cairo'] font-normal text-base text-[#101828] mb-1">مواعيد المحاضرات:</h4>
+            @for (lecture of lectures.controls; track $index; let i = $index) {
+                <div class="bg-[#F9FAFB] border-2 border-[#E5E7EB] rounded-[14px] p-4 flex justify-between items-center transition-all hover:border-blue-200">
+                    <div class="flex items-center gap-4">
+                        <!-- Date Badge -->
+                        <div class="bg-[#0066CC] text-white px-4 py-1.5 rounded-full font-['Cairo'] text-sm">{{ lecture.value.date }}</div>
+                        <!-- Time Range -->
+                        <div class="flex items-center gap-2 text-[#364153] font-['Cairo'] text-base">
+                            <span>{{ lecture.value.startTime }} - {{ lecture.value.endTime }}</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Delete Button -->
+                    <button (click)="removeLecture(i)" class="bg-transparent border-none p-2 text-[#E7000B] cursor-pointer hover:bg-red-50 rounded-lg transition-colors">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/>
+                        </svg>
+                    </button>
+                </div>
+            }
+        </div>
+    }
+</div>

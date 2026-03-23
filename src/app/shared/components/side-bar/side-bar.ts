@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-side-bar',
-  imports: [],
+  imports: [RouterLink, NgOptimizedImage],
   templateUrl: './side-bar.html',
   styleUrl: './side-bar.css',
 })

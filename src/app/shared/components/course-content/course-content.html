@@ -1,0 +1,103 @@
+<div class="flex flex-col gap-6 w-full">
+    <!-- Summary Section -->
+    <div class="bg-gradient-to-r from-[#EFF6FF] to-[#FAF5FF] border-2 border-[#0066CC] rounded-2xl p-6 md:p-7 flex flex-col gap-2 relative shadow-sm">
+        <div class="flex items-center gap-3 justify-start">
+            <h3 class="font-['Cairo'] font-normal text-xl text-[#101828] m-0">محتوى الدورة</h3>
+            <span class="text-[#0066CC]">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+            </span>
+        </div>
+        <p class="font-['Cairo'] font-normal text-base text-[#4A5565] m-0">عدد الموضوعات: {{ topics.length }}</p>
+    </div>
+
+    <!-- Add Topic Form Container -->
+    <div class="bg-white border-2 border-[#D1D5DC] rounded-2xl p-6 md:p-7 flex flex-col gap-4" [formGroup]="addTopicForm">
+        <div class="flex items-center gap-2 justify-start mb-2">
+            <span class="text-[#0066CC]">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+            </span>
+            <h4 class="font-['Cairo'] font-normal text-base text-[#101828] m-0">إضافة موضوع جديد</h4>
+        </div>
+
+        <!-- Topic Title -->
+        <div class="flex flex-col gap-2 w-full">
+            <label class="font-['Cairo'] font-normal text-base text-[#101828]">عنوان الموضوع *</label>
+            <div class="box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                 [class.border-red-500]="addTopicForm.get('title')?.invalid && addTopicForm.get('title')?.touched"
+                 [class.border-gray-200]="!(addTopicForm.get('title')?.invalid && addTopicForm.get('title')?.touched)"
+                 [class.focus-within:border-[#0066CC]]="!(addTopicForm.get('title')?.invalid && addTopicForm.get('title')?.touched)">
+                <input type="text" formControlName="title" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent placeholder:text-gray-400" placeholder="مثال: القواعد الأساسية">
+            </div>
+            @if (addTopicForm.get('title')?.invalid && addTopicForm.get('title')?.touched) {
+                <span class="text-red-500 text-xs font-['Cairo']">هذا الحقل مطلوب</span>
+            }
+        </div>
+
+        <!-- Topic Description -->
+        <div class="flex flex-col gap-2 w-full">
+            <label class="font-['Cairo'] font-normal text-base text-[#101828]">وصف الموضوع *</label>
+            <div class="box-border flex flex-row items-start px-4 py-3 h-[80px] bg-white border-2 rounded-2xl transition-colors"
+                 [class.border-red-500]="addTopicForm.get('description')?.invalid && addTopicForm.get('description')?.touched"
+                 [class.border-gray-200]="!(addTopicForm.get('description')?.invalid && addTopicForm.get('description')?.touched)"
+                 [class.focus-within:border-[#0066CC]]="!(addTopicForm.get('description')?.invalid && addTopicForm.get('description')?.touched)">
+                <textarea formControlName="description" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent placeholder:text-gray-400 resize-none h-full" placeholder="وصف مختصر للموضوع..."></textarea>
+            </div>
+            @if (addTopicForm.get('description')?.invalid && addTopicForm.get('description')?.touched) {
+                <span class="text-red-500 text-xs font-['Cairo']">هذا الحقل مطلوب</span>
+            }
+        </div>
+
+        <!-- Hours (Optional) -->
+        <div class="flex flex-col gap-2">
+            <label class="font-['Cairo'] font-normal text-base text-[#101828]">عدد الساعات (اختياري)</label>
+            <div class="box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                 [class.border-red-500]="addTopicForm.get('hours')?.invalid && addTopicForm.get('hours')?.touched"
+                 [class.border-gray-200]="!(addTopicForm.get('hours')?.invalid && addTopicForm.get('hours')?.touched)"
+                  [class.focus-within:border-[#0066CC]]="!(addTopicForm.get('hours')?.invalid && addTopicForm.get('hours')?.touched)">
+                <input type="number" formControlName="hours" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent placeholder:text-gray-400" placeholder="4">
+            </div>
+            @if (addTopicForm.get('hours')?.invalid && addTopicForm.get('hours')?.touched) {
+                <span class="text-red-500 text-xs font-['Cairo']">عدد الساعات يجب أن يكون 1 أو أكثر</span>
+            }
+        </div>
+
+        <!-- Add Topic Button -->
+        <button (click)="addTopic()" class="w-full h-[56px] bg-gradient-to-b from-[#0066CC] to-[#6B4FBB] rounded-2xl border-none cursor-pointer flex items-center justify-center gap-2 text-white font-['Cairo'] font-normal text-base transition-all"
+                [class.opacity-50]="addTopicForm.invalid">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>إضافة الموضوع</span>
+        </button>
+    </div>
+
+    <!-- Topics List Section -->
+    @if (topics.controls.length > 0) {
+        <div class="flex flex-col gap-3">
+            <h4 class="font-['Cairo'] font-normal text-base text-[#101828] mb-1">الموضوعات المضافة:</h4>
+            @for (topic of topics.controls; track $index; let i = $index) {
+                <div class="bg-[#F9FAFB] border-2 border-[#E5E7EB] rounded-2xl p-4 flex justify-between items-start transition-all hover:border-blue-200">
+                    <div class="flex flex-col gap-1">
+                        <div class="flex items-center gap-2">
+                             <div class="bg-[#0066CC] text-white w-6 h-6 rounded-full flex items-center justify-center font-['Cairo'] text-xs">{{ i + 1 }}</div>
+                             <span class="font-['Cairo'] font-bold text-[#101828]">{{ topic.value.title }}</span>
+                             @if (topic.value.hours) {
+                                 <span class="text-gray-400 text-sm">({{ topic.value.hours }} ساعة)</span>
+                             }
+                        </div>
+                        <p class="font-['Cairo'] text-sm text-gray-500 m-0 pr-8">{{ topic.value.description }}</p>
+                    </div>
+                    <button (click)="removeTopic(i)" class="bg-transparent border-none p-2 text-[#E7000B] cursor-pointer hover:bg-red-50 rounded-lg transition-colors">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/>
+                        </svg>
+                    </button>
+                </div>
+            }
+        </div>
+    }
+</div>

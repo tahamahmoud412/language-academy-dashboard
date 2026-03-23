@@ -1,0 +1,91 @@
+<!-- Table Container (Horizontal Scroll on Small Screens) -->
+<section class="w-full overflow-x-auto">
+    <table class="w-full border-collapse">
+        <!-- Table Header -->
+        <thead>
+            <tr class="bg-gray-50 border-b border-gray-100">
+                <th class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap">اسم
+                    الكورس</th>
+                <th class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap">
+                    المدرب</th>
+                <th class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap">
+                    المستوى</th>
+                <th class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap">
+                    المدة</th>
+                <th class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap">
+                    تاريخ البدء</th>
+                <th class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap">
+                    الطلاب</th>
+                <th class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap">
+                    السعر</th>
+                <th class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap">
+                    الحالة</th>
+                <th
+                    class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap text-center">
+                    إجراءات</th>
+            </tr>
+        </thead>
+        <!-- Table Body -->
+        <tbody class="divide-y divide-gray-50">
+            @for (course of courses; track $index) {
+                <tr class="hover:bg-gray-50/50 transition-colors">
+                    <td class="px-6 py-4 font-['Cairo'] text-sm text-gray-900 whitespace-nowrap">
+                        {{ course.name }}
+                    </td>
+                    <td class="px-6 py-4 font-['Cairo'] text-sm text-gray-600 whitespace-nowrap">
+                        {{ course.instructor_name }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span
+                            class="px-3 py-1 bg-purple-100 text-[#8200DB] font-medium text-xs rounded-full font-['Cairo']">
+                            {{ course.level_translated }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 font-['Cairo'] text-sm text-gray-600 whitespace-nowrap">
+                        {{ course.duration_days }} يوم
+                    </td>
+                    <td class="px-6 py-4 font-['Cairo'] text-sm text-gray-600 whitespace-nowrap">
+                        {{ course.start_date }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-semibold text-gray-900 font-['Cairo']">
+                                {{ course.enrolled_students }}/{{ course.max_students }}
+                            </span>
+                            <div class="w-16 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-[#AD46FF]" [style.width]="getProgressWidth(course)"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 font-['Cairo'] text-sm text-gray-900 font-medium whitespace-nowrap">
+                        {{ course.price }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span
+                            [class]="'px-3 py-1 font-medium text-xs rounded-full font-[' + 'Cairo' + '] ' + getStatusClass(course.status)">
+                            {{ getStatusText(course.status) }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <button (click)="deleteCourse()"
+                                class="w-8 h-8 flex items-center justify-center bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors">
+                                <img [ngSrc]="'images/icons/delete.svg'" alt="Delete" class="w-4 h-4 object-contain" width="16" height="16">
+                            </button>
+                            <button
+                                class="w-8 h-8 flex items-center justify-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors">
+                                <img [ngSrc]="'images/icons/eye.svg'" alt="Edit" class="w-8 h-8 object-contain" width="16" height="16">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            } @empty {
+                <tr>
+                    <td colspan="9" class="px-6 py-10 text-center text-gray-500 font-['Cairo']">
+                        لا توجد كورسات متاحة حالياً
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

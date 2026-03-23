@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-  selector: 'app-top-metric-cards',
+  selector: 'app-courses-filter',
   imports: [NgOptimizedImage],
-  templateUrl: './top-metric-cards.html',
-  styleUrl: './top-metric-cards.css',
+  templateUrl: './courses-filter.html',
+  styleUrl: './courses-filter.css',
 })
-export class TopMetricCards {
+export class CoursesFilter {
 
 }

@@ -1,0 +1,75 @@
+<!-- Header & Level Summary Section -->
+<section class="flex flex-col p-6 gap-6 border-bottom border-gray-100">
+    <!-- Header Row -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 w-full">
+        <!-- Title & Count -->
+        <div class="flex items-center gap-3">
+            <div class="flex justify-center items-center w-10 h-10 bg-purple-50 rounded-xl">
+                <img [ngSrc]="'images/icons/courses.svg'" alt="Courses Icon" class="w-6 h-6 object-contain" width="24" height="24" priority>
+            </div>
+            <div class="flex items-baseline gap-2">
+                <h2 class="text-gray-900 font-normal text-lg font-['Cairo'] m-0">جميع الكورسات</h2>
+                @if (stats) {
+                    <span class="text-gray-500 font-normal text-sm font-['Cairo']">({{ stats.running_courses }} كورس)</span>
+                }
+            </div>
+        </div>
+        <!-- Add New Course Button -->
+        <button
+            (click)="onAddCourse.emit()"
+            class="flex items-center cursor-pointer gap-2 px-5 py-2 bg-[#AD46FF] hover:bg-[#9810FA] transition-colors text-white text-sm font-normal font-['Cairo'] rounded-lg shadow-sm">
+            <img [ngSrc]="'images/icons/add.svg'" alt="Add Icon" class="w-4 h-4 object-contain" width="16" height="16" priority>
+            إضافة كورس جديد
+        </button>
+    </div>
+
+    <!-- Level Summary Cards Grid -->
+    @if (stats) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+        <!-- All Courses Card -->
+        <div
+            class="flex justify-between items-center p-4 bg-gradient-to-br from-[#AD46FF] to-[#9810FA] rounded-2xl shadow-md min-h-[88px]">
+            <div class="flex flex-col gap-1">
+                <p class="text-purple-50 font-normal text-sm font-['Cairo'] m-0">جميع الكورسات</p>
+                <p class="text-white font-normal text-2xl font-['Cairo'] m-0">{{ stats.running_courses }}</p>
+            </div>
+            <div class="flex justify-center items-center w-8 h-8 rounded-lg bg-white/20">
+                <img [ngSrc]="'images/icons/courses.svg'" alt="All Icon" class="w-5 h-5 object-contain" width="20" height="20" priority>
+            </div>
+        </div>
+
+        <!-- Beginner Card -->
+        <div class="flex justify-between items-center p-4 bg-green-50 rounded-2xl min-h-[88px]">
+            <div class="flex flex-col gap-1">
+                <p class="text-green-700 font-normal text-sm font-['Cairo'] m-0">مبتدئ</p>
+                <p class="text-green-900 font-normal text-2xl font-['Cairo'] m-0">{{ stats.courses_by_level['مبتدئ'] || 0 }}</p>
+            </div>
+            <div class="flex justify-center items-center w-8 h-8 rounded-lg">
+                <img [ngSrc]="'images/icons/focus.svg'" alt="Beginner Icon" class="w-6 h-6 object-contain" width="24" height="24">
+            </div>
+        </div>
+
+        <!-- Intermediate Card -->
+        <div class="flex justify-between items-center p-4 bg-yellow-50 rounded-2xl min-h-[88px]">
+            <div class="flex flex-col gap-1">
+                <p class="text-yellow-700 font-normal text-sm font-['Cairo'] m-0">متوسط</p>
+                <p class="text-yellow-900 font-normal text-2xl font-['Cairo'] m-0">{{ stats.courses_by_level['متوسط'] || 0 }}</p>
+            </div>
+            <div class="flex justify-center items-center w-8 h-8 rounded-lg">
+                <img [ngSrc]="'images/icons/arrow.svg'" alt="Intermediate Icon" class="w-6 h-6 object-contain" width="24" height="24">
+            </div>
+        </div>
+
+        <!-- Advanced Card -->
+        <div class="flex justify-between items-center p-4 bg-red-50 rounded-2xl min-h-[88px]">
+            <div class="flex flex-col gap-1">
+                <p class="text-red-700 font-normal text-sm font-['Cairo'] m-0">متقدم</p>
+                <p class="text-red-900 font-normal text-2xl font-['Cairo'] m-0">{{ stats.courses_by_level['متقدم'] || 0 }}</p>
+            </div>
+            <div class="flex justify-center items-center w-8 h-8 rounded-lg">
+                <img [ngSrc]="'images/icons/exams.svg'" alt="Advanced Icon" class="w-6 h-6 object-contain" width="24" height="24">
+            </div>
+        </div>
+    </div>
+    }
+</section>

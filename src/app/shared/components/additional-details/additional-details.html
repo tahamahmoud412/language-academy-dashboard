@@ -1,0 +1,184 @@
+<div class="flex flex-col gap-6 w-full" [formGroup]="form">
+    <!-- Row 1: Max Students & Price -->
+    <div class="flex flex-col md:flex-row gap-6 w-full">
+        <!-- Price -->
+        <div class="flex flex-col gap-2 flex-1">
+            <div class="flex items-center gap-2 justify-start">
+                <span class="text-[#0066CC]">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="5" width="20" height="14" rx="2"/>
+                        <line x1="2" y1="10" x2="22" y2="10"/>
+                    </svg>
+                </span>
+                <label class="font-['Cairo'] font-normal text-base text-[#101828]">السعر (جنيه مصري) *</label>
+            </div>
+            <div class="box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                 [class.border-red-500]="form.get('price')?.invalid && form.get('price')?.touched"
+                 [class.border-gray-200]="!(form.get('price')?.invalid && form.get('price')?.touched)"
+                 [class.focus-within:border-[#0066CC]]="!(form.get('price')?.invalid && form.get('price')?.touched)">
+                <input type="number" formControlName="price" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent placeholder:text-gray-400" placeholder="3000">
+            </div>
+            @if (form.get('price')?.invalid && form.get('price')?.touched) {
+                <span class="text-red-500 text-xs font-['Cairo']">
+                    {{ form.get('price')?.errors?.['required'] ? 'هذا الحقل مطلوب' : 'السعر يجب أن يكون 0 أو أكثر' }}
+                </span>
+            }
+        </div>
+        <!-- Max Students -->
+        <div class="flex flex-col gap-2 flex-1">
+            <div class="flex items-center gap-2 justify-start">
+                <span class="text-[#0066CC]">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </span>
+                <label class="font-['Cairo'] font-normal text-base text-[#101828]">الحد الأقصى للطلاب *</label>
+            </div>
+            <div class="box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                 [class.border-red-500]="form.get('maxStudents')?.invalid && form.get('maxStudents')?.touched"
+                 [class.border-gray-200]="!(form.get('maxStudents')?.invalid && form.get('maxStudents')?.touched)"
+                 [class.focus-within:border-[#0066CC]]="!(form.get('maxStudents')?.invalid && form.get('maxStudents')?.touched)">
+                <input type="number" formControlName="maxStudents" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent placeholder:text-gray-400" placeholder="25">
+            </div>
+            @if (form.get('maxStudents')?.invalid && form.get('maxStudents')?.touched) {
+                <span class="text-red-500 text-xs font-['Cairo']">
+                    {{ form.get('maxStudents')?.errors?.['required'] ? 'هذا الحقل مطلوب' : 'الحد الأدنى هو طالب واحد' }}
+                </span>
+            }
+        </div>
+    </div>
+
+    <!-- Row 2: Location & Last Registration Date -->
+    <div class="flex flex-col md:flex-row gap-6 w-full">
+        <!-- Last Registration Date -->
+        <div class="flex flex-col gap-2 flex-1">
+            <div class="flex items-center gap-2 justify-start">
+                <span class="text-[#0066CC]">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                </span>
+                <label class="font-['Cairo'] font-normal text-base text-[#101828]">آخر موعد للتسجيل *</label>
+            </div>
+            <div class="box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                 [class.border-red-500]="form.get('lastRegistrationDate')?.invalid && form.get('lastRegistrationDate')?.touched"
+                 [class.border-gray-200]="!(form.get('lastRegistrationDate')?.invalid && form.get('lastRegistrationDate')?.touched)"
+                 [class.focus-within:border-[#0066CC]]="!(form.get('lastRegistrationDate')?.invalid && form.get('lastRegistrationDate')?.touched)">
+                <input type="date" formControlName="lastRegistrationDate" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent">
+            </div>
+            @if (form.get('lastRegistrationDate')?.invalid && form.get('lastRegistrationDate')?.touched) {
+                <span class="text-red-500 text-xs font-['Cairo']">
+                    {{ form.get('lastRegistrationDate')?.errors?.['required'] ? 'هذا الحقل مطلوب' : 'يجب أن يكون تاريخاً لاحقاً لليوم' }}
+                </span>
+            }
+        </div>
+        <!-- Location -->
+        <div class="flex flex-col gap-2 flex-1">
+            <div class="flex items-center gap-2 justify-start">
+                <span class="text-[#0066CC]">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                </span>
+                <label class="font-['Cairo'] font-normal text-base text-[#101828]">مكان الدورة *</label>
+            </div>
+            <div class="relative box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                 [class.border-red-500]="form.get('location')?.invalid && form.get('location')?.touched"
+                 [class.border-gray-200]="!(form.get('location')?.invalid && form.get('location')?.touched)"
+                 [class.focus-within:border-[#0066CC]]="!(form.get('location')?.invalid && form.get('location')?.touched)">
+                <select formControlName="location" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent appearance-none cursor-pointer">
+                    <option value="" disabled>اختر المكان</option>
+                    <option value="أونلاين">أونلاين</option>
+                    <option value="الحرم الجامعي">الحرم الجامعي</option>
+                    <option value="هجين (أونلاين + حضوري)">هجين (أونلاين + حضوري)</option>
+                </select>
+                <div class="absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-500"></div>
+            </div>
+            @if (form.get('location')?.invalid && form.get('location')?.touched) {
+                <span class="text-red-500 text-xs font-['Cairo']">هذا الحقل مطلوب</span>
+            }
+        </div>
+    </div>
+
+    <!-- Row 3: Language & Level -->
+    <div class="flex flex-col md:flex-row gap-6 w-full">
+         <!-- Level -->
+        <div class="flex flex-col gap-2 flex-1">
+            <div class="flex items-center gap-2 justify-start">
+                <span class="text-[#0066CC]">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
+                    </svg>
+                </span>
+                <label class="font-['Cairo'] font-normal text-base text-[#101828]">المستوى *</label>
+            </div>
+            <div class="relative box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                 [class.border-red-500]="form.get('level')?.invalid && form.get('level')?.touched"
+                 [class.border-gray-200]="!(form.get('level')?.invalid && form.get('level')?.touched)"
+                 [class.focus-within:border-[#0066CC]]="!(form.get('level')?.invalid && form.get('level')?.touched)">
+                <select formControlName="level" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent appearance-none cursor-pointer">
+                    <option value="" disabled>اختر المستوى</option>
+                    <option value="مبتدئ">مبتدئ</option>
+                    <option value="متوسط">متوسط</option>
+                    <option value="متقدم">متقدم</option>
+                    <option value="جميع المستويات">جميع المستويات</option>
+                </select>
+                <div class="absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-500"></div>
+            </div>
+            @if (form.get('level')?.invalid && form.get('level')?.touched) {
+                <span class="text-red-500 text-xs font-['Cairo']">هذا الحقل مطلوب</span>
+            }
+        </div>
+        <!-- Language -->
+        <div class="flex flex-col gap-2 flex-1">
+            <div class="flex items-center gap-2 justify-start">
+                <span class="text-[#0066CC]">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                </span>
+                <label class="font-['Cairo'] font-normal text-base text-[#101828]">لغة التدريس *</label>
+            </div>
+            <div class="relative box-border flex flex-row items-center px-4 h-[60px] bg-white border-2 rounded-2xl transition-colors"
+                 [class.border-red-500]="form.get('language')?.invalid && form.get('language')?.touched"
+                 [class.border-gray-200]="!(form.get('language')?.invalid && form.get('language')?.touched)"
+                 [class.focus-within:border-[#0066CC]]="!(form.get('language')?.invalid && form.get('language')?.touched)">
+                <select formControlName="language" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent appearance-none cursor-pointer">
+                    <option value="" disabled>اختر اللغة</option>
+                    <option value="العربية">العربية</option>
+                    <option value="الإنجليزية">الإنجليزية</option>
+                    <option value="العربية والإنجليزية">العربية والإنجليزية</option>
+                </select>
+                <div class="absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-500"></div>
+            </div>
+            @if (form.get('language')?.invalid && form.get('language')?.touched) {
+                <span class="text-red-500 text-xs font-['Cairo']">هذا الحقل مطلوب</span>
+            }
+        </div>
+    </div>
+
+    <!-- Course Description -->
+    <div class="flex flex-col gap-2 w-full">
+        <div class="flex items-center gap-2 justify-start">
+            <span class="text-[#0066CC]">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                </svg>
+            </span>
+            <label class="font-['Cairo'] font-normal text-base text-[#101828]">وصف الدورة *</label>
+        </div>
+        <div class="box-border flex flex-row items-start px-4 py-3 h-[100px] bg-white border-2 rounded-2xl transition-colors"
+             [class.border-red-500]="form.get('description')?.invalid && form.get('description')?.touched"
+             [class.border-gray-200]="!(form.get('description')?.invalid && form.get('description')?.touched)"
+             [class.focus-within:border-[#0066CC]]="!(form.get('description')?.invalid && form.get('description')?.touched)">
+            <textarea formControlName="description" class="flex-1 border-none outline-none font-['Cairo'] font-normal text-base text-[#101828] bg-transparent placeholder:text-gray-400 resize-none h-full" placeholder="أضف وصفاً مفصلاً للدورة..."></textarea>
+        </div>
+        @if (form.get('description')?.invalid && form.get('description')?.touched) {
+            <span class="text-red-500 text-xs font-['Cairo']">هذا الحقل مطلوب</span>
+        }
+    </div>
+</div>

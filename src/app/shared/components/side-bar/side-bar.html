@@ -1,33 +1,33 @@
-<aside class="flex flex-col w-[256px] min-h-screen bg-white border-l border-[#E5E7EB]" dir="rtl">
+<aside class="flex flex-col w-[256px] h-full bg-white border-l border-[#E5E7EB] overflow-y-auto" dir="rtl">
   <!-- Navigation -->
   <nav class="flex-1 flex flex-col pt-4 px-4 gap-1 w-full">
     <!-- Active Item: Overview -->
-    <a href="#" class="flex items-center gap-3 px-3 w-[223px] h-[44px] bg-[#EFF6FF] rounded-[14px] hover:bg-blue-50 transition-colors">
-      <img src="images/icons/overview.svg" alt="Overview" class="w-5 h-5 object-contain">
+    <a routerLink="home" class="cursor-pointer flex items-center gap-3 px-3 w-[223px] h-[44px] bg-[#EFF6FF] rounded-[14px] hover:bg-blue-50 transition-colors">
+      <img [ngSrc]="'images/icons/overview.svg'" alt="Overview" class="w-5 h-5 object-contain" width="20" height="20" priority>
       <span class="text-[#155DFC] font-medium text-[14px] leading-5 font-['Cairo'] text-right">نظرة عامة</span>
     </a>
 
     <!-- Inactive Item: Tests -->
-    <a href="#" class="flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
-      <img src="images/icons/exams.svg" alt="Tests" class="w-5 h-5 object-contain">
+    <a routerLink="" class="cursor-pointer flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
+      <img [ngSrc]="'images/icons/exams.svg'" alt="Tests" class="w-5 h-5 object-contain" width="20" height="20" priority>
       <span class="text-[#4A5565] font-medium text-[14px] leading-5 font-['Cairo'] text-right">الاختبارات</span>
     </a>
 
     <!-- Inactive Item: Courses -->
-    <a href="#" class="flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
-      <img src="images/icons/courses.svg" alt="Courses" class="w-5 h-5 object-contain">
+    <a routerLink="courses/list" class="cursor-pointer flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
+      <img [ngSrc]="'images/icons/courses.svg'" alt="Courses" class="w-5 h-5 object-contain" width="20" height="20" priority>
       <span class="text-[#4A5565] font-medium text-[14px] leading-5 font-['Cairo'] text-right">الكورسات</span>
     </a>
 
     <!-- Inactive Item: Services -->
-    <a href="#" class="flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
-      <img src="images/icons/services.svg" alt="Services" class="w-5 h-5 object-contain">
+    <a routerLink="" class="cursor-pointer flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
+      <img [ngSrc]="'images/icons/services.svg'" alt="Services" class="w-5 h-5 object-contain" width="20" height="20">
       <span class="text-[#4A5565] font-medium text-[14px] leading-5 font-['Cairo'] text-right">الخدمات</span>
     </a>
 
     <!-- Inactive Item: Service Requests -->
-    <a href="#" class="flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
-      <img src="images/icons/services-requests.svg" alt="Service Requests" class="w-5 h-5 object-contain">
+    <a routerLink="" class="cursor-pointer flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
+      <img [ngSrc]="'images/icons/services-requests.svg'" alt="Service Requests" class="w-5 h-5 object-contain" width="20" height="20">
       <span class="text-[#4A5565] font-medium text-[14px] leading-5 font-['Cairo'] text-right">طلبات الخدمات</span>
     </a>
   </nav>
@@ -44,7 +44,7 @@
 
     <!-- Logout Button -->
     <button class="flex items-center justify-center cursor-pointer gap-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
-      <img src="images/icons/signout.svg" alt="Logout" class="w-5 h-5 object-contain">
+      <img [ngSrc]="'images/icons/signout.svg'" alt="Logout" class="w-5 h-5 object-contain" width="20" height="20">
       <span class="text-[#4A5565] font-normal text-[14px] leading-5 font-['Cairo'] text-center">تسجيل الخروج</span>
     </button>
   </div>
