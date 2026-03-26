@@ -1,0 +1,77 @@
+ <!-- Main Container (Filters + Table) -->
+    <div class="bg-white border border-[#F3F4F6] rounded-2xl shadow-[0px_1px_3px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden">
+        
+        <!-- Filters Area -->
+        <!-- <div class="p-6 border-b border-[#F3F4F6] flex flex-col md:flex-row gap-4 items-center">
+            <div class="relative flex-grow w-full">
+                <input type="text" 
+                       placeholder="البحث بالاسم، الوصف، أو التصنيف..." 
+                       class="w-full bg-white border border-[#E5E7EB] rounded-xl pr-11 pl-4 py-3 outline-none focus:border-[#FF6900] focus:ring-4 focus:ring-orange-50 transition-all font-['Cairo'] text-sm placeholder:text-gray-400" />
+                <i class="pi pi-search absolute right-4 top-1/2 -translate-y-1/2 text-[#99A1AF]"></i>
+            </div>
+            
+            <div class="relative w-full md:w-[200px]">
+                <select class="w-full bg-white border border-[#E5E7EB] rounded-xl px-4 py-3 outline-none focus:border-[#FF6900] focus:ring-4 focus:ring-orange-50 appearance-none font-['Cairo'] text-sm text-[#0A0A0A] cursor-pointer">
+                    <option>جميع الأسعار</option>
+                    <option>أقل من 500 ج.م</option>
+                    <option>500 - 1000 ج.م</option>
+                    <option>أكثر من 1000 ج.م</option>
+                </select>
+                <i class="pi pi-angle-down absolute left-4 top-1/2 -translate-y-1/2 text-[#99A1AF] pointer-events-none"></i>
+            </div>
+        </div> -->
+
+        <!-- Services Table -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-right border-collapse">
+                <thead class="bg-[#F9FAFB] border-b border-[#F3F4F6]">
+                    <tr>
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo']">اسم الخدمة</th>
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo']">الوصف</th>
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo']">التصنيف</th>
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">إجراءات</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F9FAFB]">
+                    @for (service of services(); track service.id) {
+                        <tr class="hover:bg-gray-50/50 transition-colors group">
+                            <td class="px-6 py-5 text-sm font-medium text-[#101828] font-['Cairo']">
+                                {{ service.title }}
+                            </td>
+                            <td class="px-6 py-5">
+                                <p class="text-sm text-[#4A5565] font-['Cairo'] line-clamp-1 max-w-[320px]">
+                                    {{ service.description }}
+                                </p>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="inline-flex items-center px-3 py-1 bg-[#FFEDD4] text-[#CA3500] rounded-full text-xs font-semibold font-['Cairo']">
+                                    {{ service.features && service.features.length > 0 ? service.features[0] : 'خدمة' }}
+                                </span>
+                            </td>
+                           
+                            <td class="px-6 py-5">
+                                <div class="flex items-center justify-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <button (click)="editService(service)" class="cursor-pointer p-2 text-[#98A2B3] hover:text-[#00A63E] hover:bg-green-50 rounded-lg transition-all" title="تعديل">
+                                        <i class="pi pi-pencil text-sm"></i>
+                                    </button>
+                                    <button (click)="deleteService(service.id)" class="cursor-pointer p-2 text-[#98A2B3] hover:text-[#E7000B] hover:bg-red-50 rounded-lg transition-all" title="حذف">
+                                        <i class="pi pi-trash text-sm"></i>
+                                    </button>
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr>
+                            <td colspan="7" class="px-6 py-10 text-center text-gray-500 font-['Cairo']">
+                                لا توجد خدمات متاحة حالياً.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+
+            </table>
+        </div>
+
+    </div>

@@ -1,0 +1,14 @@
+<div class="flex flex-col w-full min-h-screen p-4 md:p-8 space-y-6 bg-[#F9FAFB]" dir="rtl">
+    <app-top-metric-cards [totalServices]="totalServices()"></app-top-metric-cards>
+    <!-- Header Section -->
+    <app-services-header [totalServices]="totalServices()" (onAddService)="openAddService()"></app-services-header>
+
+   <app-services-table [services]="services()" (onDelete)="deleteService($event)" (onEdit)="openEditService($event)"></app-services-table>
+
+</div>
+
+@if (isAddServiceVisible()) {
+    <app-service-add [serviceToEdit]="selectedService()" (onClose)="closeAddService()" (onServiceAdded)="loadServices()"></app-service-add>
+}
+
+

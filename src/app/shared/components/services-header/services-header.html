@@ -1,0 +1,52 @@
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div class="flex items-center gap-3">
+        <div class="p-2 bg-orange-100 rounded-xl">
+            <i class="pi pi-th-large text-[#FF6900] text-xl"></i>
+        </div>
+        <div>
+            <h1 class="text-xl font-bold text-[#101828] font-['Cairo']">جميع الخدمات</h1>
+            <p class="text-sm text-[#6A7282] font-['Cairo']">({{ totalServices() }} خدمة)</p>
+        </div>
+    </div>
+
+    <button
+        (click)="addService()"
+        class="bg-[#FF6900] text-white px-6 py-2.5 rounded-xl flex items-center gap-2 hover:bg-[#e55e00] transition-all font-['Cairo'] shadow-[0px_1px_3px_rgba(0,0,0,0.1)] active:scale-95">
+        <i class="pi pi-plus text-xs"></i>
+        <span>إضافة خدمة جديدة</span>
+    </button>
+</div>
+
+<!-- Stats Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Total Orders Card -->
+    <!-- <div
+        class="bg-gradient-to-br from-[#2B7FFF] to-[#155DFC] rounded-2xl p-6 text-white flex justify-between items-center shadow-sm relative overflow-hidden group">
+        <div
+            class="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all">
+        </div>
+        <div class="flex flex-col gap-1 relative z-10">
+            <p class="text-[#DBEAFE] font-['Cairo'] text-sm">إجمالي الطلبات</p>
+            <h3 class="text-3xl font-bold font-['Cairo'] leading-none">335</h3>
+        </div>
+        <div class="p-4 bg-white/10 rounded-xl backdrop-blur-md relative z-10 border border-white/10">
+            <i class="pi pi-shopping-cart text-2xl text-[#BEDBFF]"></i>
+        </div>
+    </div> -->
+
+    <!-- Total Services Card -->
+    <div
+        class="bg-gradient-to-br from-[#FF6900] to-[#F54900] rounded-2xl p-6 text-white flex justify-between items-center shadow-sm relative overflow-hidden group">
+        <div
+            class="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all">
+        </div>
+        <div class="flex flex-col gap-1 relative z-10">
+            <p class="text-[#FFEDD4] font-['Cairo'] text-sm">إجمالي الخدمات</p>
+            <h3 class="text-3xl font-bold font-['Cairo'] leading-none">{{ totalServices() }}</h3>
+        </div>
+
+        <div class="p-4 bg-white/10 rounded-xl backdrop-blur-md relative z-10 border border-white/10">
+            <i class="pi pi-briefcase text-2xl text-[#FFD6A7]"></i>
+        </div>
+    </div>
+</div>

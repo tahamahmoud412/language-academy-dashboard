@@ -5,7 +5,7 @@ export const routes: Routes = [
     path: '',
     redirectTo: '/home', pathMatch: 'full'
   },
-  
+
   {
     path: '',
     loadComponent: () => import('./layouts/main-layout/main-layout').then((m) => m.MainLayout),
@@ -17,9 +17,18 @@ export const routes: Routes = [
       {
         path: 'courses',
         loadChildren: () => import('./features/courses/course.routes').then((m) => m.coursesRoutes),
+      },
+      {
+        path: 'services',
+        loadComponent: () => import('./features/services/components/service-list/service-list').then((m) => m.ServiceList),
       }
 
+
     ],
+  },
+  {
+    path: '**',
+    redirectTo: '/home', pathMatch: 'full'
   },
 
 ];

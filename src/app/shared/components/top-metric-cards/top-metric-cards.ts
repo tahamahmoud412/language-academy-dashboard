@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
@@ -8,5 +8,7 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrl: './top-metric-cards.css',
 })
 export class TopMetricCards {
-
+  totalServices = input<number>(0);
 }
+
+
