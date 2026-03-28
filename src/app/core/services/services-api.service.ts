@@ -20,8 +20,6 @@ export class ServicesApiService {
   }
 
   updateService(id: number, formData: FormData): Observable<ApiResponse<Service>> {
-    // If our backend is Laravel/PHP, it might not handle FormData on pure PUT/PATCH.
-    // Adding _method field and using POST is the standard workaround.
     formData.append('_method', 'PUT');
     return this.http.post<ApiResponse<Service>>(`${this.apiUrl}/${id}`, formData);
   }

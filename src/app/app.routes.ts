@@ -20,10 +20,21 @@ export const routes: Routes = [
       },
       {
         path: 'services',
-        loadComponent: () => import('./features/services/components/service-list/service-list').then((m) => m.ServiceList),
+        loadChildren: () => import('./features/content/services/service.routes').then((m) => m.servicesRoutes),
+      },
+      {
+        path: 'faq',
+        loadChildren: () => import('./features/content/faq/faq.routes').then((m) => m.faqRoutes),
+      },
+      {
+        path: 'events',
+        loadChildren: () => import('./features/who-we-are/events/events.routes').then((m) => m.eventsRoutes),
       }
-
-
+      ,
+      {
+        path: 'about-us',
+        loadChildren: () => import('./features/who-we-are/about-us/about-us.routes').then((m) => m.aboutUsRoutes),
+      }
     ],
   },
   {

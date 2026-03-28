@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter, inject, signal, input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ServicesApiService } from '../../../../core/services/services-api.service';
-import { Service } from '../../../../core/models/service.model';
+import { ServicesApiService } from '../../../../../core/services/services-api.service';
+import { Service } from '../../../../../core/models/service.model';
 import Swal from 'sweetalert2';
 
 @Component({

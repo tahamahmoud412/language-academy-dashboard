@@ -1,11 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ServicesTable } from '../../../../shared/components/services-table/services-table';
-import { ServicesHeader } from '../../../../shared/components/services-header/services-header';
-import { TopMetricCards } from '../../../../shared/components/top-metric-cards/top-metric-cards';
+import { ServicesTable } from '../../../../../shared/components/services-table/services-table';
+import { ServicesHeader } from '../../../../../shared/components/services-header/services-header';
+import { TopMetricCards } from '../../../../../shared/components/top-metric-cards/top-metric-cards';
 import { ServiceAdd } from '../service-add/service-add';
-import { ServicesApiService } from '../../../../core/services/services-api.service';
-import { Service } from '../../../../core/models/service.model';
+import { ServicesApiService } from '../../../../../core/services/services-api.service';
+import { Service } from '../../../../../core/models/service.model';
 import Swal from 'sweetalert2';
 
 @Component({

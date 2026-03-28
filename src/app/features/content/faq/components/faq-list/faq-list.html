@@ -1,0 +1,74 @@
+<div class="flex flex-col w-full min-h-screen p-4 md:p-8 space-y-6 bg-[#F9FAFB]" dir="rtl">
+
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-orange-100 rounded-xl">
+                <i class="pi pi-question-circle text-[#FF6900] text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-[#101828] font-['Cairo']">الأسئلة الشائعة (FAQ)</h1>
+                <p class="text-sm text-[#6A7282] font-['Cairo']">  اجمالي الأسئلة ({{ totalFaqs() }} سؤال) </p>
+            </div>
+        </div>
+
+        <button
+            (click)="openAddFaq()"
+            class="bg-[#FF6900] text-white px-6 py-2.5 rounded-xl flex items-center gap-2 hover:bg-[#e55e00] transition-all font-['Cairo'] shadow-[0px_1px_3px_rgba(0,0,0,0.1)] active:scale-95">
+            <i class="pi pi-plus text-xs"></i>
+            <span>إضافة سؤال جديد</span>
+        </button>
+    </div>
+
+
+    <!-- FAQ Table -->
+    <div class="bg-white border border-[#F3F4F6] rounded-2xl shadow-[0px_1px_3px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-right border-collapse">
+                <thead class="bg-[#F9FAFB] border-b border-[#F3F4F6]">
+                    <tr>
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] w-[35%]">السؤال</th>
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] w-[45%]">الإجابة</th>
+
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">إجراءات</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F9FAFB]">
+                    @for (faq of faqs(); track faq.id) {
+                        <tr class="hover:bg-gray-50/50 transition-colors group">
+                            <td class="px-6 py-5 text-sm font-medium text-[#101828] font-['Cairo']">
+                                {{ faq.question }}
+                            </td>
+                            <td class="px-6 py-5">
+                                <p class="text-sm text-[#4A5565] font-['Cairo'] line-clamp-2">
+                                    {{ faq.answer }}
+                                </p>
+                            </td>
+
+                            <td class="px-6 py-5">
+                                <div class="flex items-center justify-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <button (click)="openEditFaq(faq)" class="cursor-pointer p-2 text-[#98A2B3] hover:text-[#FF6900] hover:bg-orange-50 rounded-lg transition-all" title="تعديل">
+                                        <i class="pi pi-pencil text-sm"></i>
+                                    </button>
+                                    <button (click)="deleteFaq(faq.id)" class="cursor-pointer p-2 text-[#98A2B3] hover:text-[#E7000B] hover:bg-red-50 rounded-lg transition-all" title="حذف">
+                                        <i class="pi pi-trash text-sm"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr>
+                            <td colspan="4" class="px-6 py-10 text-center text-gray-500 font-['Cairo']">
+                                لا توجد أسئلة متاحة حالياً.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@if (isAddFaqVisible()) {
+    <app-faq-add [faqToEdit]="selectedFaq()" (onClose)="closeAddFaq()" (onFaqSaved)="handleFaqSaved()"></app-faq-add>
+}

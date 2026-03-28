@@ -86,28 +86,34 @@
 
       @if(isSectionOpen('content')) {
         <div class="pr-12 space-y-1 animate-in slide-in-from-top-2 duration-200">
-          <a routerLink="/content/faq" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">الأسئلة الشائعة</a>
+          <a routerLink="/faq" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">الأسئلة الشائعة</a>
           <a routerLink="/services" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">الخدمات</a>
-          
-          <!-- About Us (Nested Sub-parent) -->
-          <div class="space-y-1">
-            <button (click)="toggleSection('aboutUs')"
-              class="flex items-center justify-between w-full py-2 group/about">
-              <span class="text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">من نحن</span>
-              <div [ngClass]="{'-rotate-90': isSectionOpen('aboutUs')}"
-                class="w-3.5 h-3.5 transition-transform duration-200 opacity-60 flex items-center justify-center">
-                <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 1L1 5L5 9" stroke="#4A5565" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </button>
-            @if(isSectionOpen('aboutUs')) {
-              <div class="pr-4 space-y-1 border-r-2 border-slate-100 mr-1 animate-in slide-in-from-top-1 duration-200">
-                <a routerLink="/content/about-us/timeline" routerLinkActive="text-[#155DFC]" class="block py-1.5 text-xs text-[#4A5565] hover:text-[#155DFC] font-['Cairo']">الأحداث الزمنية</a>
-                <a routerLink="/content/about-us/details" routerLinkActive="text-[#155DFC]" class="block py-1.5 text-xs text-[#4A5565] hover:text-[#155DFC] font-['Cairo']">تفاصيل عننا</a>
-              </div>
-            }
+        </div>
+      }
+    </div>
+
+    <!-- Who We Are (Parent) -->
+    <div class="space-y-1">
+      <button (click)="toggleSection('aboutUs')"
+        class="flex items-center justify-between w-full px-3 py-2.5 rounded-xl transition-all duration-200 hover:bg-slate-50 group">
+        <div class="flex items-center gap-3">
+          <div class="rounded-lg ">
+            <img [ngSrc]="'images/icons/students.svg'" alt="من نحن" class="w-8 h-8 object-contain" width="20" height="20">
           </div>
+          <span class="text-[#4A5565] font-semibold text-[14px] font-['Cairo']">من نحن</span>
+        </div>
+        <div [ngClass]="{'-rotate-90': isSectionOpen('aboutUs')}"
+          class="w-4 h-4 transition-transform duration-200 opacity-60 flex items-center justify-center">
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 1L1 5L5 9" stroke="#4A5565" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </button>
+
+      @if(isSectionOpen('aboutUs')) {
+        <div class="pr-12 space-y-1 animate-in slide-in-from-top-2 duration-200">
+          <a routerLink="/events" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">الأحداث الزمنية</a>
+          <a routerLink="/about-us" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">تفاصيل عننا</a>
         </div>
       }
     </div>
