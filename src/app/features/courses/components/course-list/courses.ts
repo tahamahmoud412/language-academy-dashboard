@@ -1,5 +1,4 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { TopMetricCards } from '../../../../shared/components/top-metric-cards/top-metric-cards';
 import { CoursesFilter } from '../../../../shared/components/courses-filter/courses-filter';
 import { CoursesHeader } from '../../../../shared/components/courses-header/courses-header';
 import { CoursesTable } from '../../../../shared/components/courses-table/courses-table';
@@ -10,7 +9,7 @@ import { Course, CourseStats } from '../../../../core/models/courses.model';
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [TopMetricCards, CoursesFilter, CoursesHeader, CoursesTable, CourseAdd],
+  imports: [CoursesFilter, CoursesHeader, CoursesTable, CourseAdd],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })

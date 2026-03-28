@@ -1,1 +1,143 @@
-<p>about-us-add works!</p>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto" (click)="close()"
+    dir="rtl">
+
+    <div class="bg-white rounded-2xl w-full max-w-[800px] max-h-[90vh] shadow-xl overflow-hidden"
+        (click)="$event.stopPropagation()">
+
+        <div class="max-h-[90vh] overflow-y-auto">
+            <!-- Header -->
+            <div
+                class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-[#F9FAFB] sticky z-10 top-0 rounded-t-2xl">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-rose-100 rounded-xl">
+                        <i class="pi pi-pencil text-[#FF6384] text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-[#101828] font-['Cairo']">تعديل تفاصيل "عن المركز"</h2>
+                </div>
+                <button (click)="close()" class="p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-500">
+                    <i class="pi pi-times"></i>
+                </button>
+            </div>
+
+            <form [formGroup]="aboutUsForm" (ngSubmit)="save()" class="p-8 space-y-8">
+                <!-- Hero Section -->
+                <div class="space-y-6 bg-gray-50/50 p-6 rounded-2xl border border-gray-100">
+                    <h3
+                        class="text-sm font-bold text-[#FF6384] uppercase tracking-wider font-['Cairo'] flex items-center gap-2">
+                        <i class="pi pi-desktop"></i>
+                        قسم الواجهة (Hero Section)
+                    </h3>
+
+                    <div class="space-y-4">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">عنوان
+                                الواجهة</label>
+                            <input type="text" formControlName="hero_title[ar]" placeholder="أدخل العنوان الرئيسي..."
+                                class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">وصف الواجهة</label>
+                            <textarea formControlName="hero_description[ar]" rows="3"
+                                placeholder="أدخل الوصف الرئيسي..."
+                                class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm resize-none"></textarea>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">الصورة
+                                الرئيسية</label>
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-24 h-24 rounded-xl bg-white border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden relative group">
+                                    @if (imagePreview()) {
+                                    <img [ngSrc]="imagePreview()!.replace('//storage', '/storage')" fill
+                                        class="object-cover">
+                                    } @else {
+                                    <i class="pi pi-image text-gray-300 text-3xl"></i>
+                                    }
+                                    <input type="file" (change)="onFileSelected($event)" accept="image/*"
+                                        class="absolute inset-0 opacity-0 cursor-pointer">
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs text-gray-500 font-['Cairo']">صيغ الصور: JPG, PNG, WebP</p>
+                                    <button type="button"
+                                        class="text-xs text-[#155DFC] font-bold font-['Cairo'] hover:underline relative">
+                                        تغيير الصورة
+                                        <input type="file" (change)="onFileSelected($event)" accept="image/*"
+                                            class="absolute inset-0 opacity-0 cursor-pointer">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision, Mission, Goals -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">رؤيتنا</label>
+                        <textarea formControlName="vision[ar]" rows="4" placeholder="أدخل الرؤية..."
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm resize-none"></textarea>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">رسالتنا</label>
+                        <textarea formControlName="mission[ar]" rows="4" placeholder="أدخل الرسالة..."
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm resize-none"></textarea>
+                    </div>
+                    <div class="space-y-2 col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">أهدافنا</label>
+                        <textarea formControlName="goals[ar]" rows="3" placeholder="أدخل الأهداف..."
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm resize-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- Advantages -->
+                <div class="space-y-4">
+                    <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">مميزاتنا (قائمة)</label>
+
+                    <div class="flex gap-2">
+                        <input type="text" formControlName="newAdvantage" placeholder="أضف ميزة جديدة..."
+                            (keyup.enter)="addAdvantage()"
+                            class="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                        <button type="button" (click)="addAdvantage()"
+                            class="px-6 bg-[#101828] text-white rounded-xl hover:bg-black transition-colors">
+                            إضافة
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        @for (adv of advantages.controls; track trackByFn($index)) {
+                        <div
+                            class="flex items-center gap-2 p-3 bg-orange-50/50 border border-orange-100 rounded-xl group animate-in fade-in slide-in-from-top-2">
+                            <i class="pi pi-check-circle text-orange-500 text-sm"></i>
+                            <span class="text-sm text-[#101828] font-['Cairo'] flex-1">{{ adv.value }}</span>
+                            <button type="button" (click)="removeAdvantage($index)"
+                                class="text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <i class="pi pi-trash"></i>
+                            </button>
+                        </div>
+                        }
+                    </div>
+
+                </div>
+
+                <!-- Footer -->
+                <div
+                    class="pt-6 border-t border-gray-100 flex justify-end gap-3 font-['Cairo'] bottom-0 bg-white pb-2">
+                    <button type="button" (click)="close()"
+                        class="px-8 py-3 bg-white border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 transition-colors font-bold">
+                        إلغاء
+                    </button>
+                    <button type="submit" [disabled]="isLoading() || aboutUsForm.invalid"
+                        class="px-10 py-3 bg-[#FF6900] text-white rounded-xl hover:bg-[#e55e00] transition-all font-bold shadow-lg shadow-orange-100 flex items-center gap-2">
+                        <span *ngIf="!isLoading()">حفظ كافة التعديلات</span>
+                        <i *ngIf="isLoading()" class="pi pi-spin pi-spinner"></i>
+                        <span *ngIf="isLoading()">جاري الحفظ...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+   
+</div>

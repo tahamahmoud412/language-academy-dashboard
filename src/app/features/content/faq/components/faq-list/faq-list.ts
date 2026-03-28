@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FAQ } from '../../../../../core/models/faq.model';
 import { FaqAdd } from '../faq-add/faq-add';
 import { FaqApiService } from '../../../../../core/services/faq-api.service';
-import { TopMetricCards } from '../../../../../shared/components/top-metric-cards/top-metric-cards';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-faq-list',
   standalone: true,
-  imports: [CommonModule, FaqAdd, TopMetricCards],
+  imports: [CommonModule, FaqAdd],
   templateUrl: './faq-list.html',
   styleUrl: './faq-list.css',
 })
