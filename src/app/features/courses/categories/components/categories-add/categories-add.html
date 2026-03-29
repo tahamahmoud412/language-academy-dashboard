@@ -1,0 +1,63 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" (click)="close()" dir="rtl">
+    <div class="bg-white rounded-2xl w-full max-w-[550px] shadow-xl overflow-hidden" (click)="$event.stopPropagation()">
+        <!-- Header -->
+        <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-[#F9FAFB]">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-blue-100 rounded-xl">
+                    <i class="pi pi-pencil text-[#155DFC] text-xl" *ngIf="categoryToEdit()"></i>
+                    <i class="pi pi-plus text-[#155DFC] text-xl" *ngIf="!categoryToEdit()"></i>
+                </div>
+                <h2 class="text-xl font-bold text-[#101828] font-['Cairo']">{{ categoryToEdit() ? 'تعديل التصنيف' : 'إضافة تصنيف جديد' }}</h2>
+            </div>
+            <button (click)="close()" class="p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-500">
+                <i class="pi pi-times"></i>
+            </button>
+        </div>
+
+        <form [formGroup]="categoryForm" (ngSubmit)="save()" class="p-8 space-y-6">
+            <!-- Name -->
+            <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">اسم التصنيف</label>
+                <input type="text" formControlName="name[ar]" placeholder="أدخل اسم التصنيف (مثال: لغات بمستوى مبتدئ)..."
+                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] focus:ring-4 focus:ring-orange-50 transition-all font-['Cairo'] text-sm">
+                @if (categoryForm.get('name[ar]')?.touched && categoryForm.get('name[ar]')?.invalid) {
+                    <span class="text-xs text-red-500 font-['Cairo']">الاسم مطلوب</span>
+                }
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Sort Order -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">ترتيب العرض</label>
+                    <input type="number" formControlName="sort_order" placeholder="1"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                </div>
+
+                <!-- Status -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">الحالة</label>
+                    <select formControlName="is_active" 
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                        <option [value]="1">نشط</option>
+                        <option [value]="0">غير نشط</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="pt-6 border-t border-gray-100 flex justify-end gap-3 font-['Cairo']">
+                <button type="button" (click)="close()"
+                    class="px-8 py-3 bg-white border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 transition-colors font-bold">
+                    إلغاء
+                </button>
+                <button type="submit" [disabled]="isLoading()"
+                    class="px-10 py-3 bg-[#FF6900] text-white rounded-xl hover:bg-[#e55e00] transition-all font-bold shadow-lg shadow-orange-100 flex items-center gap-2">
+                    <span *ngIf="!isLoading()">{{ categoryToEdit() ? 'حفظ التعديلات' : 'حفظ التصنيف' }}</span>
+                    <i *ngIf="isLoading()" class="pi pi-spin pi-spinner"></i>
+                    <span *ngIf="isLoading()">جاري الحفظ...</span>
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
