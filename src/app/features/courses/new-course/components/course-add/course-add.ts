@@ -1,13 +1,13 @@
 import { Component, Output, EventEmitter, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CourseInfo } from '../../../../shared/components/course-info/course-info';
-import { CourseContent } from '../../../../shared/components/course-content/course-content';
-import { AdditionalDetails } from '../../../../shared/components/additional-details/additional-details';
-import { TimeTable } from '../../../../shared/components/time-table/time-table';
-import { ReviewSave } from '../../../../shared/components/review-save/review-save';
-import { CourseService } from '../../../../core/services/course.service';
-import { CourseRequest } from '../../../../core/models/course.model';
+import { CourseInfo } from '../../../../../shared/components/course-info/course-info';
+import { CourseContent } from '../../../../../shared/components/course-content/course-content';
+import { AdditionalDetails } from '../../../../../shared/components/additional-details/additional-details';
+import { TimeTable } from '../../../../../shared/components/time-table/time-table';
+import { ReviewSave } from '../../../../../shared/components/review-save/review-save';
+import { CourseService } from '../../../../../core/services/course.service';
+import { CourseRequest } from '../../../../../core/models/course.model';
 import Swal from 'sweetalert2';
 
 @Component({

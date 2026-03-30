@@ -1,10 +1,10 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { CoursesFilter } from '../../../../shared/components/courses-filter/courses-filter';
-import { CoursesHeader } from '../../../../shared/components/courses-header/courses-header';
-import { CoursesTable } from '../../../../shared/components/courses-table/courses-table';
+import { CoursesFilter } from '../../../../../shared/components/courses-filter/courses-filter';
+import { CoursesHeader } from '../../../../../shared/components/courses-header/courses-header';
+import { CoursesTable } from '../../../../../shared/components/courses-table/courses-table';
 import { CourseAdd } from '../course-add/course-add';
-import { CourseService } from '../../../../core/services/course.service';
-import { Course, CourseStats } from '../../../../core/models/courses.model';
+import { CourseService } from '../../../../../core/services/course.service';
+import { Course, CourseStats } from '../../../../../core/models/courses.model';
 
 @Component({
   selector: 'app-courses',

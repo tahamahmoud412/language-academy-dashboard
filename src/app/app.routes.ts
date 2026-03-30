@@ -16,7 +16,15 @@ export const routes: Routes = [
       },
       {
         path: 'courses',
-        loadChildren: () => import('./features/courses/course.routes').then((m) => m.coursesRoutes),
+        loadChildren: () => import('./features/courses/new-course/course.routes').then((m) => m.coursesRoutes),
+      },
+      {
+        path: 'categories',
+        loadChildren: () => import('./features/courses/categories/categories.routes').then((m) => m.categoriesRoutes),
+      },
+      {
+        path: 'enrollments',
+        loadChildren: () => import('./features/courses/enrollments/enrollments.routes').then((m) => m.enrollmentsRoutes),
       },
       {
         path: 'services',
@@ -35,6 +43,7 @@ export const routes: Routes = [
         path: 'about-us',
         loadChildren: () => import('./features/who-we-are/about-us/about-us.routes').then((m) => m.aboutUsRoutes),
       }
+      
     ],
   },
   {
