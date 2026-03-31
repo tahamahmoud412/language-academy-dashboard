@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { DashboardStats } from '../../../core/models/dashboard.model';
 
 @Component({
   selector: 'app-top-metric-cards',
@@ -8,7 +9,8 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrl: './top-metric-cards.css',
 })
 export class TopMetricCards {
-  totalServices = input<number>(0);
+  stats = input<DashboardStats | null>(null);
 }
+
 
 

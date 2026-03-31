@@ -1,7 +1,15 @@
 <div class="flex flex-col w-full min-h-screen p-4 md:p-8 space-y-6" dir="rtl">
 
-  <app-main-banner></app-main-banner>
+  @if (stats()) {
+    <app-top-metric-cards [stats]="stats()"></app-top-metric-cards>
 
-  <app-bottom-dashboard></app-bottom-dashboard>
+    <app-main-banner></app-main-banner>
+
+    <app-bottom-dashboard [stats]="stats()"></app-bottom-dashboard>
+  } @else {
+    <div class="w-full flex justify-center py-20">
+      <i class="pi pi-spin pi-spinner text-4xl text-[#155DFC]"></i>
+    </div>
+  }
 
 </div>

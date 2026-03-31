@@ -5,7 +5,7 @@ import { SideBar } from '../../shared/components/side-bar/side-bar';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet, SideBar, TopMetricCards],
+  imports: [RouterOutlet, SideBar],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })

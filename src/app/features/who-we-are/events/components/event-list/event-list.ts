@@ -4,11 +4,12 @@ import { TimelineEvent } from '../../../../../core/models/event.model';
 import { EventAdd } from '../event-add/event-add';
 import { EventApiService } from '../../../../../core/services/event-api.service';
 import Swal from 'sweetalert2';
+import { TopMetricCards } from '../../../../../shared/components/top-metric-cards/top-metric-cards';
 
 @Component({
   selector: 'app-event-list',
   standalone: true,
-  imports: [CommonModule, EventAdd],
+  imports: [CommonModule, EventAdd, TopMetricCards],
   templateUrl: './event-list.html',
   styleUrl: './event-list.css',
 })

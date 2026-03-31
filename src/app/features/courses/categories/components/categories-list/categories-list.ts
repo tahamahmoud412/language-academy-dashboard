@@ -4,11 +4,12 @@ import { CourseCategory } from '../../../../../core/models/category.model';
 import { CategoriesAdd } from '../categories-add/categories-add';
 import { CourseCategoryApiService } from '../../../../../core/services/course-category-api.service';
 import Swal from 'sweetalert2';
+import { TopMetricCards } from '../../../../../shared/components/top-metric-cards/top-metric-cards';
 
 @Component({
   selector: 'app-categories-list',
   standalone: true,
-  imports: [CommonModule, CategoriesAdd],
+  imports: [CommonModule, CategoriesAdd, TopMetricCards],
   templateUrl: './categories-list.html',
   styleUrl: './categories-list.css',
 })

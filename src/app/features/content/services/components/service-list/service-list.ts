@@ -6,11 +6,12 @@ import { ServiceAdd } from '../service-add/service-add';
 import { ServicesApiService } from '../../../../../core/services/services-api.service';
 import { Service } from '../../../../../core/models/service.model';
 import Swal from 'sweetalert2';
+import { TopMetricCards } from '../../../../../shared/components/top-metric-cards/top-metric-cards';
 
 @Component({
   selector: 'app-service-list',
   standalone: true,
-  imports: [ServicesTable, ServicesHeader, ServiceAdd, CommonModule],
+  imports: [ServicesTable, ServicesHeader, ServiceAdd, CommonModule, TopMetricCards],
   templateUrl: './service-list.html',
   styleUrl: './service-list.css',
 })

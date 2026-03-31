@@ -5,11 +5,12 @@ import { CoursesTable } from '../../../../../shared/components/courses-table/cou
 import { CourseAdd } from '../course-add/course-add';
 import { CourseService } from '../../../../../core/services/course.service';
 import { Course, CourseStats } from '../../../../../core/models/courses.model';
+import { TopMetricCards } from '../../../../../shared/components/top-metric-cards/top-metric-cards';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [CoursesFilter, CoursesHeader, CoursesTable, CourseAdd],
+  imports: [CoursesFilter, CoursesHeader, CoursesTable, CourseAdd, TopMetricCards],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })
