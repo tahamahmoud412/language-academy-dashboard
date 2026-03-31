@@ -1,0 +1,9 @@
+/* Exams Header Component Styles */
+:host {
+    display: block;
+    width: 100%;
+}
+
+.border-b {
+    border-bottom: 1px solid #f3f4f6;
+}

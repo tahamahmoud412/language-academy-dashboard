@@ -1,0 +1,31 @@
+/* Exams Table Component Styles */
+:host {
+    display: block;
+    width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr:last-child {
+    border-bottom: none;
+}
+
+th {
+    letter-spacing: 0.05em;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+td {
+    vertical-align: middle;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.text-\[10px\] {
+    font-size: 10px;
+}

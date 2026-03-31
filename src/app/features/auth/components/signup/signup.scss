@@ -1,0 +1,29 @@
+// Elegant scrollbar styling
+.elegant-scroll {
+  // Smooth scrolling behavior
+  scroll-behavior: smooth;
+  
+  // Custom scrollbar for WebKit browsers (Chrome, Safari, Edge)
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(243, 244, 246, 0.5); // Light gray with transparency
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #3b82f6, #2563eb); // Blue gradient
+    border-radius: 10px;
+    transition: background 0.3s ease;
+    
+    &:hover {
+      background: linear-gradient(180deg, #2563eb, #1d4ed8); // Darker blue on hover
+    }
+  }
+
+  // For Firefox
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 rgba(243, 244, 246, 0.5);
+}

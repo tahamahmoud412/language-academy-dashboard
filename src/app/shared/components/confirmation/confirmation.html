@@ -1,0 +1,49 @@
+@if (visible()) {
+  <div
+    class="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black/50 p-4 backdrop-blur-sm transition-all"
+  >
+    <div
+      class="relative w-full max-w-md rounded-lg bg-white shadow-xl ring-1 ring-gray-900/5 dark:bg-gray-800"
+    >
+      <!-- Content -->
+      <div class="p-6 text-center">
+        @if (icon()) {
+          <div
+            class="mx-auto mb-4 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 p-2 w-fit"
+          >
+            <i [class]="icon()" class="text-gray-500 dark:text-gray-400"></i>
+          </div>
+        }
+
+        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+          {{ message() }}
+        </h3>
+
+        @if (showButtons()) {
+          <div class="flex justify-center gap-3">
+            <button
+              (click)="confirm()"
+              type="button"
+              [class]="
+                type() === 'danger'
+                  ? 'bg-red-600 hover:bg-red-800 focus:ring-red-300 dark:focus:ring-red-800'
+                  : 'bg-blue-600 hover:bg-blue-800 focus:ring-blue-300 dark:focus:ring-blue-800'
+              "
+              class="inline-flex items-center rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4"
+            >
+              {{ acceptLabel() }}
+            </button>
+
+            <button
+              (click)="cancel()"
+              type="button"
+              class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600"
+            >
+              {{ rejectLabel() }}
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}
