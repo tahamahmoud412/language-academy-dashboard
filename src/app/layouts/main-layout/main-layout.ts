@@ -7,7 +7,7 @@ import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet, SideBar],
+  imports: [RouterOutlet, SideBar, TopMetricCards],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })
@@ -22,15 +22,13 @@ export class MainLayout implements OnInit {
     this.dashboardService.fetchStats().subscribe();
 
     // Close sidebar on navigation (mobile)
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       this.closeSidebar();
     });
   }
 
   toggleSidebar(): void {
-    this.isSidebarOpen.update(val => !val);
+    this.isSidebarOpen.update((val) => !val);
   }
 
   closeSidebar(): void {

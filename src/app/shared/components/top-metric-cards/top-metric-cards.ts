@@ -4,6 +4,7 @@ import { DashboardStats } from '../../../core/models/dashboard.model';
 
 @Component({
   selector: 'app-top-metric-cards',
+  standalone: true,
   imports: [NgOptimizedImage],
   templateUrl: './top-metric-cards.html',
   styleUrl: './top-metric-cards.css',
