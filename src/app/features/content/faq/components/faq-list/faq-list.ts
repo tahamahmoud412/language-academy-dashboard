@@ -4,11 +4,12 @@ import { FAQ } from '../../../../../core/models/faq.model';
 import { FaqAdd } from '../faq-add/faq-add';
 import { FaqApiService } from '../../../../../core/services/faq-api.service';
 import Swal from 'sweetalert2';
+import { TopMetricCards } from '../../../../../shared/components/top-metric-cards/top-metric-cards';
 
 @Component({
   selector: 'app-faq-list',
   standalone: true,
-  imports: [CommonModule, FaqAdd],
+  imports: [CommonModule, FaqAdd, TopMetricCards],
   templateUrl: './faq-list.html',
   styleUrl: './faq-list.css',
 })

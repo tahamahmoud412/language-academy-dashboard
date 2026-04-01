@@ -4,11 +4,12 @@ import { Enrollment } from '../../../../../core/models/enrollment.model';
 import { EnrollmentsAdd } from '../enrollments-add/enrollments-add';
 import { EnrollmentApiService } from '../../../../../core/services/enrollment-api.service';
 import Swal from 'sweetalert2';
+import { TopMetricCards } from '../../../../../shared/components/top-metric-cards/top-metric-cards';
 
 @Component({
   selector: 'app-enrollments-list',
   standalone: true,
-  imports: [CommonModule, EnrollmentsAdd],
+  imports: [CommonModule, EnrollmentsAdd, TopMetricCards],
   templateUrl: './enrollments-list.html',
   styleUrl: './enrollments-list.css',
 })

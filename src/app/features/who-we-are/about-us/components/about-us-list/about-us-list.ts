@@ -4,11 +4,12 @@ import { AboutUs } from '../../../../../core/models/about-us.model';
 import { AboutUsAdd } from '../about-us-add/about-us-add';
 import { AboutUsApiService } from '../../../../../core/services/about-us-api.service';
 import Swal from 'sweetalert2';
+import { TopMetricCards } from '../../../../../shared/components/top-metric-cards/top-metric-cards';
 
 @Component({
   selector: 'app-about-us-list',
   standalone: true,
-  imports: [CommonModule, AboutUsAdd, NgOptimizedImage],
+  imports: [CommonModule, AboutUsAdd, NgOptimizedImage, TopMetricCards],
 
   templateUrl: './about-us-list.html',
   styleUrl: './about-us-list.css',

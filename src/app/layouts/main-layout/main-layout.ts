@@ -7,7 +7,7 @@ import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet, SideBar, TopMetricCards],
+  imports: [RouterOutlet, SideBar],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })

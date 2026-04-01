@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { DashboardStats } from '../../../core/models/dashboard.model';
 
 @Component({
   selector: 'app-top-metric-cards',
@@ -13,5 +14,3 @@ export class TopMetricCards {
   upcomingExams = input<number>(0);
   newServices = input<number>(0);
 }
-
-

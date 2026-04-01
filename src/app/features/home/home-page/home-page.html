@@ -1,6 +1,7 @@
 <div class="px-6 space-y-6">
 
-  <app-main-banner></app-main-banner>
+  @if (stats()) {
+    <app-top-metric-cards [stats]="stats()"></app-top-metric-cards>
 
   <app-bottom-dashboard
     [upcomingExams]="stats()?.upcoming_exams_list ?? []"
