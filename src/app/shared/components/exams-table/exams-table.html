@@ -63,10 +63,17 @@
                     </td>
                     <!-- Actions -->
                     <td class="px-6 py-5 whitespace-nowrap text-center">
-                        <a href="javascript:void(0)" class="flex items-center justify-center gap-1.5 text-[#155DFC] hover:text-[#104CC3] transition-colors font-['Cairo'] text-sm no-underline">
-                            <span>عرض المسجلين</span>
-                            <img [ngSrc]="'images/icons/eye.svg'" alt="View" class="w-4 h-4 object-contain" width="16" height="16">
-                        </a>
+                        <div class="flex items-center justify-center gap-3">
+                            <a href="javascript:void(0)" class="w-8 h-8 rounded-lg bg-[#EFF6FF] text-[#155DFC] hover:bg-[#155DFC] hover:text-white transition-colors flex items-center justify-center group" title="عرض المسجلين">
+                                <img [ngSrc]="'images/icons/eye.svg'" alt="View" class="w-4 h-4 object-contain filter group-hover:brightness-0 group-hover:invert" width="16" height="16">
+                            </a>
+                            <a href="javascript:void(0)" (click)="edit.emit(exam.id)" class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-500 hover:bg-emerald-500 hover:text-white transition-colors flex items-center justify-center" title="تعديل الاختبار">
+                                <i class="pi pi-pencil text-sm"></i>
+                            </a>
+                            <a href="javascript:void(0)" (click)="delete.emit(exam.id)" class="w-8 h-8 rounded-lg bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center" title="حذف الاختبار">
+                                <i class="pi pi-trash text-sm"></i>
+                            </a>
+                        </div>
                     </td>
                 </tr>
             } @empty {

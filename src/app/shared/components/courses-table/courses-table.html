@@ -21,7 +21,7 @@
                 <th class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap">
                     الحالة</th>
                 <th
-                    class="px-6 py-4 text-right text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap text-center">
+                    class="px-6 py-4 text-center text-gray-500 font-medium text-sm font-['Cairo'] whitespace-nowrap">
                     إجراءات</th>
             </tr>
         </thead>
@@ -68,13 +68,13 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-center">
                         <div class="flex items-center justify-center gap-2">
-                            <button (click)="deleteCourse()"
+                            <button (click)="onDelete(course.id)"
                                 class="w-8 h-8 flex items-center justify-center bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors">
                                 <img [ngSrc]="'images/icons/delete.svg'" alt="Delete" class="w-4 h-4 object-contain" width="16" height="16">
                             </button>
-                            <button
+                            <button (click)="onEdit(course.id)"
                                 class="w-8 h-8 flex items-center justify-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors">
-                                <img [ngSrc]="'images/icons/eye.svg'" alt="Edit" class="w-8 h-8 object-contain" width="16" height="16">
+                                <img [ngSrc]="'images/icons/eye.svg'" alt="Edit" class="w-4 h-4 object-contain" width="16" height="16">
                             </button>
                         </div>
                     </td>

@@ -80,7 +80,7 @@ export interface AuthUser {
   providedIn: 'root',
 })
 export class AuthService {
-  BASE_URL = 'https://translate.ghosnworld.com/public/api/';
+  baseUrl = environment.baseUrl;
   private readonly http = inject(HttpClient);
   private readonly platformId = inject(PLATFORM_ID);
 
@@ -124,7 +124,7 @@ export class AuthService {
    */
   forgotPassword(payload: { email: string }): Observable<{ success: boolean; message: string }> {
     return this.http.post<{ success: boolean; message: string }>(
-      `${this.BASE_URL}/forgot-password`,
+      `${this.baseUrl}forgot-password`,
       payload,
     );
   }
@@ -139,7 +139,7 @@ export class AuthService {
     otp: string;
   }): Observable<{ success: boolean; message: string }> {
     return this.http.post<{ success: boolean; message: string }>(
-      `${this.BASE_URL}/verify-otp`,
+      `${this.baseUrl}verify-otp`,
       payload,
     );
   }
@@ -156,7 +156,7 @@ export class AuthService {
     password_confirmation: string;
   }): Observable<{ success: boolean; message: string }> {
     return this.http.post<{ success: boolean; message: string }>(
-      `${this.BASE_URL}/reset-password`,
+      `${this.baseUrl}reset-password`,
       payload,
     );
   }
@@ -167,7 +167,7 @@ export class AuthService {
    * @returns Observable with login response containing access token
    */
   login(payload: LoginPayload): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.BASE_URL}/login`, payload);
+    return this.http.post<LoginResponse>(`${this.baseUrl}login`, payload);
   }
 
   /**
@@ -176,7 +176,7 @@ export class AuthService {
    * @returns Observable with registration response
    */
   register(data: RegisterRequest): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>(`${this.BASE_URL}/register`, data);
+    return this.http.post<RegisterResponse>(`${this.baseUrl}register`, data);
   }
 
   /**
@@ -225,7 +225,7 @@ export class AuthService {
    * @returns Observable with profile response
    */
   getProfile(): Observable<ProfileResponse> {
-    return this.http.get<ProfileResponse>(`${this.BASE_URL}/student/profile`);
+    return this.http.get<ProfileResponse>(`${this.baseUrl}profile`);
   }
 
   /**

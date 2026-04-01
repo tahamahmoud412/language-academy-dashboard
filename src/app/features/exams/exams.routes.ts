@@ -12,4 +12,15 @@ export const examsRoutes: Routes = [
       import('./exams-list/exams-list')
         .then(m => m.ExamsList)
   },
+  {
+    path: 'create',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
+  {
+    path: 'enrollments',
+    loadComponent: () =>
+      import('./exam-enrollments/exam-enrollments')
+        .then(m => m.ExamEnrollments)
+  },
 ];

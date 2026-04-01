@@ -19,6 +19,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 export interface LoginPayload {
   email: string;
   password: string;
+  role: string;
 }
 
 /** Form controls interface for type safety */
@@ -188,6 +189,7 @@ export class Sigin {
     return {
       email: formValue.email.trim().toLowerCase(),
       password: formValue.password,
+      role: 'admin',
     };
   }
 

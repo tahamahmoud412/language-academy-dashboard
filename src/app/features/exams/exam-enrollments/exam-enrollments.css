@@ -1,0 +1,81 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+/* Custom Refined Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #cbd5e1;
+    background-clip: content-box;
+}
+
+/* Table Specific Layouts */
+table {
+    border-spacing: 0;
+    min-width: 900px;
+}
+
+th {
+    transition: background-color 0.3s ease;
+}
+
+/* Status Type Overrides - Enhanced colors */
+.status-completed {
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #dcfce7;
+}
+
+.status-approved {
+    background-color: #eff6ff;
+    color: #1e40af;
+    border: 1px solid #dbeafe;
+}
+
+.status-pending {
+    background-color: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fef3c7;
+}
+
+.status-default {
+    background-color: #f8fafc;
+    color: #475569;
+    border: 1px solid #f1f5f9;
+}
+
+/* Media Query Refinements */
+@media (max-width: 640px) {
+    :host ::ng-deep .swal2-popup {
+        width: 90% !important;
+        padding: 1.5rem !important;
+    }
+}
+
+/* Card View Hover Effects */
+.lg\:hidden > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+    border-color: #e2e8f0;
+}
+
+/* Typography fix for Cairo font in mono areas */
+.font-mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}

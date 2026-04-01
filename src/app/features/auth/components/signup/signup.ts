@@ -22,6 +22,7 @@ export interface RegisterPayload {
   phone: string;
   password: string;
   password_confirmation: string;
+  role: string;
 }
 
 /** Form controls interface for type safety */
@@ -48,7 +49,7 @@ export class Signup {
   private readonly router = inject(Router);
 
   // Input to control modal from parent
-  open = input<boolean>(false);
+  open = input<boolean>(true);
   closed = output<void>();
   openSignIn = output<void>();
 
@@ -249,6 +250,7 @@ export class Signup {
       phone: formValue.phone.trim(),
       password: formValue.password,
       password_confirmation: formValue.password_confirmation,
+      role: 'admin',
     };
   }
 

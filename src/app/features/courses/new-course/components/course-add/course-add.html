@@ -6,7 +6,7 @@
     <div class="relative bg-white border border-gray-100 shadow-2xl rounded-3xl w-full max-w-[800px] h-full max-h-[750px] flex flex-col overflow-hidden animate-in fade-in zoom-in duration-300">
         <!-- Header -->
         <header class="bg-gradient-to-r from-white to-gray-50 border-b-2 border-gray-100 p-6 md:p-8 flex flex-col gap-2 relative min-h-[120px] md:h-[134px] justify-center">
-            <h2 class="font-['Cairo'] font-normal text-2xl md:text-4xl bg-gradient-to-b from-[#0066CC] to-[#6B4FBB] bg-clip-text text-fill-transparent m-0">إضافة دورة تدريبية جديدة</h2>
+            <h2 class="font-['Cairo'] font-normal text-2xl md:text-4xl bg-gradient-to-b from-[#0066CC] to-[#6B4FBB] bg-clip-text text-fill-transparent m-0">{{ courseId ? 'تعديل الدورة التدريبية' : 'إضافة دورة تدريبية جديدة' }}</h2>
             <p class="font-['Cairo'] font-normal text-sm md:text-lg text-[#4A5565] m-0">{{ steps[currentStep()-1].label }}</p>
             <button (click)="close()" class="absolute left-4 md:left-6 top-4 md:top-6 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border-none cursor-pointer text-[#99A1AF] hover:bg-gray-100 hover:text-gray-600 transition-all shadow-sm bg-white/10">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

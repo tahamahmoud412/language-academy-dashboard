@@ -59,3 +59,10 @@ export interface ExamsResponse {
         pagination: ExamPagination;
     };
 }
+
+export interface ExamTypeResponse {
+    success: boolean;
+    message: string;
+    data: ExamType[];
+}
+

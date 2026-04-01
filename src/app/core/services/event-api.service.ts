@@ -10,7 +10,7 @@ import { ApiResponse } from '../models/service.model';
 })
 export class EventApiService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.baseUrl}/timeline-events`;
+  private apiUrl = `${environment.baseUrl}admin/timeline-events`;
 
   getEvents(): Observable<ApiResponse<TimelineEvent[]>> {
     return this.http.get<ApiResponse<TimelineEvent[]>>(this.apiUrl);

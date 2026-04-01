@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgOptimizedImage, DecimalPipe } from '@angular/common';
 import { Exam } from '../../../core/models/exams.model';
 
@@ -11,6 +11,8 @@ import { Exam } from '../../../core/models/exams.model';
 })
 export class ExamsTable {
   @Input() exams: Exam[] = [];
+  @Output() edit = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<number>();
 
   getStatusClass(status: string): string {
     switch (status?.toLowerCase()) {

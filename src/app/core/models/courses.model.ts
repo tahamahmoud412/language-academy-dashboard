@@ -7,6 +7,7 @@ export interface CourseStats {
 }
 
 export interface Course {
+    id: number;
     name: string;
     instructor_name: string;
     level_translated: string;

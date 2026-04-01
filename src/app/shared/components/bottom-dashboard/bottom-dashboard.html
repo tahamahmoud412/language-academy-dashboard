@@ -10,33 +10,21 @@
 
     <!-- List Items (Upcoming Tests) -->
     <div class="flex flex-col gap-3">
-
-      <!-- Item 1 -->
-      <div
-        class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-3 sm:px-4 bg-gray-50 rounded-xl gap-3 sm:gap-0">
-        <div class="flex flex-col gap-1">
-          <p class="text-gray-900 font-normal text-sm font-['Cairo'] m-0">اختبار TOEFL - دفعة يناير</p>
-          <p class="text-gray-500 font-normal text-xs font-['Cairo'] m-0" dir="ltr">2025-01-15 - 09:00</p>
+      @for (exam of upcomingExams(); track exam.id) {
+        <div
+          class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-3 sm:px-4 bg-gray-50 rounded-xl gap-3 sm:gap-0">
+          <div class="flex flex-col gap-1 text-right">
+            <p class="text-gray-900 font-normal text-sm font-['Cairo'] m-0">{{ exam.name }}</p>
+            <p class="text-gray-500 font-normal text-xs font-['Cairo'] m-0" dir="ltr">{{ exam.exam_date }} - {{ exam.exam_time }}</p>
+          </div>
+          <div class="flex flex-col items-end gap-1">
+            <span class="text-blue-600 font-medium text-sm font-['Cairo']" dir="ltr">{{ exam.enrolled_students }}/{{ exam.max_students }}</span>
+            <span class="text-gray-500 font-normal text-xs font-['Cairo']">مسجل</span>
+          </div>
         </div>
-        <div class="flex flex-col items-end gap-1">
-          <span class="text-blue-600 font-medium text-sm font-['Cairo']" dir="ltr">35/50</span>
-          <span class="text-gray-500 font-normal text-xs font-['Cairo']">مسجل</span>
-        </div>
-      </div>
-
-      <!-- Item 2 -->
-      <div
-        class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-3 sm:px-4 bg-gray-50 rounded-xl gap-3 sm:gap-0">
-        <div class="flex flex-col gap-1">
-          <p class="text-gray-900 font-normal text-sm font-['Cairo'] m-0">اختبار IELTS - دفعة يناير</p>
-          <p class="text-gray-500 font-normal text-xs font-['Cairo'] m-0" dir="ltr">2025-01-20 - 10:00</p>
-        </div>
-        <div class="flex flex-col items-end gap-1">
-          <span class="text-blue-600 font-medium text-sm font-['Cairo']" dir="ltr">28/40</span>
-          <span class="text-gray-500 font-normal text-xs font-['Cairo']">مسجل</span>
-        </div>
-      </div>
-
+      } @empty {
+        <p class="text-center text-gray-500 font-['Cairo'] py-4">لا توجد اختبارات قادمة حظاً موفقاً!</p>
+      }
     </div>
   </div>
   <!-- Needs Review List -->

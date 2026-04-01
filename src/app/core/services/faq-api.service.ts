@@ -10,7 +10,7 @@ import { ApiResponse } from '../models/service.model';
 })
 export class FaqApiService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.baseUrl}/faqs`;
+  private apiUrl = `${environment.baseUrl}admin/faqs`;
 
   getFaqs(): Observable<ApiResponse<FAQ[]>> {
     return this.http.get<ApiResponse<FAQ[]>>(this.apiUrl);

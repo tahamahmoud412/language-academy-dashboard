@@ -8,7 +8,10 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrl: './top-metric-cards.css',
 })
 export class TopMetricCards {
-  totalServices = input<number>(0);
+  totalStudents = input<number>(0);
+  activeCourses = input<number>(0);
+  upcomingExams = input<number>(0);
+  newServices = input<number>(0);
 }
 
 
