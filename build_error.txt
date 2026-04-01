@@ -1,0 +1,808 @@
+﻿[33mΓ¥»[39m Building...
+[32mΓ£ö[39m Building...
+Application bundle generation failed. [4.498 seconds] - 2026-03-31T18:51:00.758Z
+
+node.exe : 
+[1m[31m[31mX [41;31m[
+[41;97mERROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module 
+'../service/auth.service' 
+or its corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (  
+  [1m[31m[31mX...r-co   
+ mpiler][0m:String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+
+    src/app/core/guard/aut
+h.guard.ts:3:28:
+[37m      3 Γöé import { 
+AuthService } from [32m'.
+./service/auth.service'[3
+7m;
+        Γò╡               
+              [32m~~~~~~~
+~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module '../service/auth-di
+alog.service' or its 
+corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/aut
+h.guard.ts:4:34:
+[37m      4 Γöé import { 
+AuthDialogService } from 
+[32m'../service/auth-dialo
+g.service'[37m;
+        Γò╡               
+                    [32m~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS18046: 'auth' is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/aut
+h.guard.ts:11:6:
+[37m      11 Γöé   if ([
+32mauth[37m.isAuthenticat
+ed()) {
+         Γò╡       
+[32m~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS18046: 'authDialog' 
+is of type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/aut
+h.guard.ts:15:2:
+[37m      15 Γöé   [32ma
+uthDialog[37m.openLogin()
+;
+         Γò╡   
+[32m~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module '../service/exam-st
+ate.service' or its 
+corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m-deactivate.guard.ts:3:33
+:
+[37m      3 Γöé import { 
+ExamStateService } from [
+32m'../service/exam-state.
+service'[37m;
+        Γò╡               
+                   [32m~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS18046: 'examState' 
+is of type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m-deactivate.guard.ts:12:6
+:
+[37m      12 Γöé   if ([
+32mexamState[37m.isSubmit
+ted()) return true;
+         Γò╡       
+[32m~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS18046: 'examState' 
+is of type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m-deactivate.guard.ts:13:7
+:
+[37m      13 Γöé   if (!
+[32mexamState[37m.hasUnsa
+vedProgress()) return 
+true;
+         Γò╡        
+[32m~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module '../service/exam-en
+roll.service' or its 
+corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m.guard.ts:4:34:
+[37m      4 Γöé import { 
+ExamEnrollService } from 
+[32m'../service/exam-enrol
+l.service'[37m;
+        Γò╡               
+                    [32m~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module 
+'../models/exam.model' or 
+its corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m.guard.ts:5:27:
+[37m      5 Γöé import { 
+ExamStatus } from [32m'..
+/models/exam.model'[37m;
+        Γò╡               
+             [32m~~~~~~~~
+~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module '../service/exam-st
+ate.service' or its 
+corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m.guard.ts:6:33:
+[37m      6 Γöé import { 
+ExamStateService } from [
+32m'../service/exam-state.
+service'[37m;
+        Γò╡               
+                   [32m~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS18046: 
+'examEnrollService' is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m.guard.ts:19:9:
+[37m      19 Γöé   
+return [32mexamEnrollServ
+ice[37m.checkEnrollmentSt
+atus(examId).pipe(
+         Γò╡          
+[32m~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS18046: 
+'examStateService' is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m.guard.ts:24:31:
+[37m      24 Γöé ...onst 
+hasActiveSession = [32mex
+amStateService[37m.hasAct
+iveSession(enrol...
+         Γò╡              
+              
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS18046: 
+'examStateService' is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m.guard.ts:27:8:
+[37m      27 Γöé         
+[32mexamStateService[37m
+.invalidateEnrollment(enro
+llId);
+         Γò╡         
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS18046: 
+'examStateService' is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m.guard.ts:40:10:
+[37m      40 Γöé         
+  [32mexamStateService[3
+7m.restoreEnrollmentIdFrom
+Session(enrollId);
+         Γò╡           
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS18046: 
+'examStateService' is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/exa
+m.guard.ts:49:6:
+[37m      49 Γöé       [
+32mexamStateService[37m.i
+nvalidateEnrollment(enroll
+Id);
+         Γò╡       
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module 
+'../service/auth.service' 
+or its corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/gue
+st.guard.ts:3:28:
+[37m      3 Γöé import { 
+AuthService } from [32m'.
+./service/auth.service'[3
+7m;
+        Γò╡               
+              [32m~~~~~~~
+~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS18046: 'auth' is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/core/guard/gue
+st.guard.ts:10:7:
+[37m      10 Γöé   if (!
+[32mauth[37m.isAuthentica
+ted()) {
+         Γò╡        
+[32m~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module '../../../../core/s
+ervice/auth.service' or 
+its corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:15:28:
+[37m      15 Γöé import 
+{ AuthService } from [32m
+'../../../../core/service/
+auth.service'[37m;
+         Γò╡              
+               [32m~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module '../../../../shared
+/components/success-pop-up
+/success-pop-up' or its 
+corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:16:29:
+[37m      16 Γöé ...Up } 
+from [32m'../../../../sha
+red/components/success-pop
+-up/success[37m...
+         Γò╡              
+[32m~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mNG1010: 'imports' 
+must be an array of 
+components, directives, 
+pipes, or NgModules.
+  Value could not be 
+determined 
+statically.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:20:12:
+[37m      20 Γöé   
+imports: 
+[[32mSuccessPopUp[37m, 
+ReactiveFormsModule],
+         Γò╡             
+[32m~~~~~~~~~~~~[0m
+
+  Unknown reference.
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:20:12:
+[37m      20 Γöé   
+imports: 
+[[32mSuccessPopUp[37m, 
+ReactiveFormsModule],
+         Γò╡             
+[32m~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2571: Object is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:212:4:
+[37m      212 Γöé     [3
+2mthis.authService[37m.fo
+rgotPassword({ email 
+}).subscribe({
+          Γò╡     
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS7006: Parameter 
+'error' implicitly has an 
+'any' type.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:218:14
+:
+[37m      218 Γöé       
+error: ([32merror[37m) 
+=> {
+          Γò╡             
+  [32m~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2571: Object is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:238:4:
+[37m      238 Γöé     [3
+2mthis.authService[37m.ve
+rifyOtp({ email: 
+this.storedEmail(), otp 
+}...
+          Γò╡     
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS7006: Parameter 
+'error' implicitly has an 
+'any' type.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:243:14
+:
+[37m      243 Γöé       
+error: ([32merror[37m) 
+=> {
+          Γò╡             
+  [32m~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2571: Object is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:267:4:
+[37m      267 Γöé     [3
+2mthis.authService[37m.re
+setPassword(payload).subsc
+ribe({
+          Γò╡     
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS7006: Parameter 
+'error' implicitly has an 
+'any' type.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:278:14
+:
+[37m      278 Γöé       
+error: ([32merror[37m) 
+=> {
+          Γò╡             
+  [32m~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2571: Object is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:292:4:
+[37m      292 Γöé     [3
+2mthis.authService[37m.fo
+rgotPassword({ email: 
+this.storedEmail() }...
+          Γò╡     
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS7006: Parameter 
+'error' implicitly has an 
+'any' type.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/forgot-password
+/forgot-password.ts:297:14
+:
+[37m      297 Γöé       
+error: ([32merror[37m) 
+=> {
+          Γò╡             
+  [32m~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module '../../../../shared
+/components/success-pop-up
+/success-pop-up' or its 
+corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/sigin/sigin.ts:
+15:29:
+[37m      15 Γöé ...Up } 
+from [32m'../../../../sha
+red/components/success-pop
+-up/success[37m...
+         Γò╡              
+[32m~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module '../../../../core/s
+ervice/auth.service' or 
+its corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/sigin/sigin.ts:
+16:28:
+[37m      16 Γöé import 
+{ AuthService } from [32m
+'../../../../core/service/
+auth.service'[37m;
+         Γò╡              
+               [32m~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mNG1010: 'imports' 
+must be an array of 
+components, directives, 
+pipes, or NgModules.
+  Value could not be 
+determined 
+statically.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/sigin/sigin.ts:
+32:12:
+[37m      32 Γöé   
+imports: 
+[[32mSuccessPopUp[37m, 
+ReactiveFormsModule],
+         Γò╡             
+[32m~~~~~~~~~~~~[0m
+
+  Unknown reference.
+
+    src/app/features/auth/
+components/sigin/sigin.ts:
+32:12:
+[37m      32 Γöé   
+imports: 
+[[32mSuccessPopUp[37m, 
+ReactiveFormsModule],
+         Γò╡             
+[32m~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2571: Object is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/sigin/sigin.ts:
+157:4:
+[37m      157 Γöé     [3
+2mthis.authService[37m.lo
+gin(payload).subscribe({
+          Γò╡     
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS7006: Parameter 
+'response' implicitly has 
+an 'any' type.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/sigin/sigin.ts:
+158:13:
+[37m      158 Γöé       
+next: 
+([32mresponse[37m) => {
+          Γò╡             
+ [32m~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2571: Object is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/sigin/sigin.ts:
+160:8:
+[37m      160 Γöé        
+ [32mthis.authService[37
+m.setToken(response.data.t
+oken);
+          Γò╡         
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2571: Object is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/sigin/sigin.ts:
+161:8:
+[37m      161 Γöé        
+ [32mthis.authService[37
+m.setUser(response.data.us
+er);
+          Γò╡         
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS7006: Parameter 
+'error' implicitly has an 
+'any' type.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/sigin/sigin.ts:
+178:14:
+[37m      178 Γöé       
+error: ([32merror[37m) 
+=> {
+          Γò╡             
+  [32m~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2307: Cannot find 
+module '../../../../core/s
+ervice/auth.service' or 
+its corresponding type 
+declarations.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/signup/signup.t
+s:17:28:
+[37m      17 Γöé import 
+{ AuthService } from [32m
+'../../../../core/service/
+auth.service'[37m;
+         Γò╡              
+               [32m~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS2571: Object is of 
+type 'unknown'.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/signup/signup.t
+s:216:4:
+[37m      216 Γöé     [3
+2mthis.authService[37m.re
+gister(payload).subscribe(
+{
+          Γò╡     
+[32m~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mER
+ROR[41;31m][0m 
+[1mTS7006: Parameter 
+'error' implicitly has an 
+'any' type.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/auth/
+components/signup/signup.t
+s:234:14:
+[37m      234 Γöé       
+error: ([32merror[37m) 
+=> {
+          Γò╡             
+  [32m~~~~~[0m
+
+[39m[22m

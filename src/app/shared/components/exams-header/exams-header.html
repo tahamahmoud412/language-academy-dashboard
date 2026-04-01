@@ -1,0 +1,75 @@
+<!-- Header & Status Summary Section -->
+<section class="flex flex-col p-6 gap-6 border-b border-gray-100">
+    <!-- Header Row -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 w-full">
+        <!-- Title & Count -->
+        <div class="flex items-center gap-3">
+            <div class="flex justify-center items-center w-10 h-10 bg-blue-50 rounded-xl">
+                <img [ngSrc]="'images/icons/exams.svg'" alt="Exams Icon" class="w-6 h-6 object-contain" width="24" height="24" priority>
+            </div>
+            <div class="flex items-baseline gap-2">
+                <h2 class="text-gray-900 font-normal text-lg font-['Cairo'] m-0">جميع الاختبارات</h2>
+                @if (stats) {
+                    <span class="text-gray-500 font-normal text-sm font-['Cairo']">({{ totalExams }} اختبار)</span>
+                }
+            </div>
+        </div>
+        <!-- Add New Exam Button -->
+        <button
+            (click)="onAddExam.emit()"
+            class="flex items-center cursor-pointer gap-2 px-5 py-2 bg-[#155DFC] hover:bg-[#104CC3] transition-colors text-white text-sm font-normal font-['Cairo'] rounded-lg shadow-sm">
+            <img [ngSrc]="'images/icons/add.svg'" alt="Add Icon" class="w-4 h-4 object-contain" width="16" height="16" priority>
+            إضافة اختبار جديد
+        </button>
+    </div>
+
+    <!-- Status Summary Cards Grid -->
+    @if (stats) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+        <!-- All Exams Card (Blue Gradient) -->
+        <div
+            class="flex justify-between items-center p-4 bg-gradient-to-br from-[#155DFC] to-[#0A3D9A] rounded-2xl shadow-md min-h-[88px] text-white">
+            <div class="flex flex-col gap-1">
+                <p class="text-white/80 font-normal text-sm font-['Cairo'] m-0">جميع الاختبارات</p>
+                <p class="text-white font-normal text-2xl font-['Cairo'] m-0">{{ totalExams }}</p>
+            </div>
+            <div class="flex justify-center items-center w-8 h-8 rounded-lg bg-white/20">
+                <img [ngSrc]="'images/icons/exams.svg'" alt="All Icon" class="w-5 h-5 object-contain invert brightness-0" width="20" height="20" priority>
+            </div>
+        </div>
+
+        <!-- Upcoming Card (Purple) -->
+        <div class="flex justify-between items-center p-4 bg-[#F9F5FF] rounded-2xl min-h-[88px]">
+            <div class="flex flex-col gap-1">
+                <p class="text-[#721ED1] font-normal text-sm font-['Cairo'] m-0">قادمة</p>
+                <p class="text-[#2D31A6] font-normal text-2xl font-['Cairo'] m-0">{{ stats.total_upcoming }}</p>
+            </div>
+            <div class="flex justify-center items-center w-8 h-8 rounded-lg bg-transparent">
+                <img [ngSrc]="'images/icons/calendar.png'" alt="Upcoming Icon" class="w-6 h-6 object-contain" width="24" height="24">
+            </div>
+        </div>
+
+        <!-- Ongoing Card (Green) -->
+        <div class="flex justify-between items-center p-4 bg-[#F2FDF5] rounded-2xl min-h-[88px]">
+            <div class="flex flex-col gap-1">
+                <p class="text-[#10A342] font-normal text-sm font-['Cairo'] m-0">جارية</p>
+                <p class="text-[#065F27] font-normal text-2xl font-['Cairo'] m-0">{{ stats.total_ongoing }}</p>
+            </div>
+            <div class="flex justify-center items-center w-8 h-8 rounded-lg">
+                <img [ngSrc]="'images/icons/pulse.png'" alt="Ongoing Icon" class="w-6 h-6 object-contain" width="24" height="24">
+            </div>
+        </div>
+
+        <!-- Ended Card (Gray) -->
+        <div class="flex justify-between items-center p-4 bg-[#F9FAFB] rounded-2xl min-h-[88px]">
+            <div class="flex flex-col gap-1">
+                <p class="text-[#4A5565] font-normal text-sm font-['Cairo'] m-0">منتهية</p>
+                <p class="text-[#020617] font-normal text-2xl font-['Cairo'] m-0">{{ stats.total_finished }}</p>
+            </div>
+            <div class="flex justify-center items-center w-8 h-8 rounded-lg border border-gray-200">
+                <img [ngSrc]="'images/icons/check-circle.png'" alt="Ended Icon" class="w-5 h-5 object-contain" width="20" height="20">
+            </div>
+        </div>
+    </div>
+    }
+</section>

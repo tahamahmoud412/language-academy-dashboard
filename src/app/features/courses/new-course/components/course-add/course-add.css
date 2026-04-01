@@ -1,0 +1,29 @@
+@keyframes modal-fade-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: modal-fade-in;
+}
+
+.zoom-in {
+  animation-name: modal-fade-in;
+}
+
+.duration-300 {
+  animation-duration: 300ms;
+}
+
+/* Custom no-scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

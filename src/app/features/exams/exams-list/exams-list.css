@@ -1,0 +1,5 @@
+/* Exams List Feature Styles */
+:host {
+    display: block;
+    width: 100%;
+}

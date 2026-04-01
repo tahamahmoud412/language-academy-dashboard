@@ -1,0 +1,5 @@
+/* Exams Filter Component Styles */
+:host {
+    display: block;
+    width: 100%;
+}

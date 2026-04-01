@@ -1,0 +1,182 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto" (click)="close()"
+    dir="rtl">
+    <div class="bg-white rounded-2xl w-full max-w-[800px] max-h-[90vh] shadow-xl overflow-hidden"
+        (click)="$event.stopPropagation()">
+
+        <div class="max-h-[90vh] overflow-y-auto">
+            <!-- Header -->
+            <div
+                class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-[#F9FAFB] sticky top-0 z-10">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-orange-100 rounded-xl">
+                        <i class="pi pi-user-plus text-[#FF6900] text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-[#101828] font-['Cairo']">{{ enrollmentToEdit() ? 'مراجعة وتعديل
+                        بيانات التسجيل' : 'إضافة تسجيل جديد' }}</h2>
+                </div>
+                <button (click)="close()" class="p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-500">
+                    <i class="pi pi-times"></i>
+                </button>
+            </div>
+
+            <form [formGroup]="enrollmentForm" (ngSubmit)="save()" class="p-8 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Status (Primary focus for admin) -->
+                    <div class="space-y-2 col-span-2 bg-orange-50/50 p-4 rounded-xl border border-orange-100">
+                        <label class="block text-sm font-bold text-gray-700 font-['Cairo']">حالة التسجيل
+                            (Status)</label>
+                        <select formControlName="status"
+                            class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                            <option value="pending">قيد المراجعة (Pending)</option>
+                            <option value="approved">مقبول (Approved)</option>
+                            <option value="rejected">مرفوض (Rejected)</option>
+                            <option value="rejected_and_resend">مرفوض مع طلب إعادة الإرسال (Rejected & Resend)</option>
+                        </select>
+                    </div>
+
+                    <!-- Personal Info -->
+                    <div class="space-y-4 col-span-2">
+                        <h3 class="text-sm font-bold text-[#FF6900] border-b pb-1 font-['Cairo']">المعلومات الشخصية</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">الاسم
+                                    الكامل</label>
+                                <input type="text" formControlName="full_name"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">رقم
+                                    الهاتف</label>
+                                <input type="text" formControlName="phone" dir="ltr"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm text-right">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">الجنسية</label>
+                                <select formControlName="nationality"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                                    <option selected value="egyptian">مصري</option>
+                                    <option value="expatriate">وافد / أجنبي</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">الدرجة
+                                    العلمية</label>
+                                <input type="text" formControlName="degree"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Info -->
+                    <div class="space-y-4 col-span-2">
+                        <h3 class="text-sm font-bold text-[#FF6900] border-b pb-1 font-['Cairo']">المعلومات الأكاديمية
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">الجامعة</label>
+                                <input type="text" formControlName="university_name"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">الكلية</label>
+                                <input type="text" formControlName="faculty_name"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Identification & Payment -->
+                    <div class="space-y-4 col-span-2">
+                        <h3 class="text-sm font-bold text-[#FF6900] border-b pb-1 font-['Cairo']">بيانات الهوية والدفع
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            @if (enrollmentForm.get('nationality')?.value === 'egyptian') {
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">الرقم
+                                    القومي</label>
+                                <input type="text" formControlName="national_id"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">رقم إيصال
+                                    فوري</label>
+                                <input type="text" formControlName="fawry_receipt"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                            </div>
+                            } @else {
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">رقم جواز
+                                    السفر</label>
+                                <input type="text" formControlName="passport_number"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">رقم الإيصال
+                                    البنكي</label>
+                                <input type="text" formControlName="bank_receipt"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                            </div>
+                            }
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">تاريخ
+                                    الدفع</label>
+                                <input type="date" formControlName="payment_date"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receipt Image -->
+                    <div class="space-y-4 col-span-2">
+                        <h3 class="text-sm font-bold text-[#FF6900] border-b pb-1 font-['Cairo']">صورة الإيصال</h3>
+                        <div class="flex items-center gap-6">
+                            <div
+                                class="w-48 h-32 rounded-xl bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden relative group">
+                                @if (imagePreview()) {
+                                <img [src]="imagePreview()" class="w-full h-full object-contain">
+                                <div
+                                    class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <button type="button" (click)="fileInput.click()"
+                                        class="text-white text-xs font-bold">تغيير الصورة</button>
+                                </div>
+                                } @else {
+                                <i class="pi pi-image text-gray-300 text-3xl"></i>
+                                }
+                                <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*"
+                                    class="hidden">
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <button type="button" (click)="fileInput.click()"
+                                    class="px-4 py-2 bg-[#155DFC] text-white rounded-lg text-xs font-bold font-['Cairo'] hover:bg-blue-600 transition-colors">
+                                    إرفاق إيصال جديد
+                                </button>
+                                @if (imagePreview()) {
+                                <a [href]="imagePreview()" target="_blank"
+                                    class="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg text-xs font-bold font-['Cairo'] hover:bg-gray-200 transition-colors text-center">
+                                    عرض بالحجم الكامل
+                                </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div
+                    class="pt-6 border-t border-gray-100 flex justify-end gap-3 font-['Cairo'] bottom-0 bg-white">
+                    <button type="button" (click)="close()"
+                        class="px-8 py-3 bg-white border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 transition-colors font-bold">
+                        إلغاء
+                    </button>
+                    <button type="submit" [disabled]="isLoading()"
+                        class="px-10 py-3 bg-[#FF6900] text-white rounded-xl hover:bg-[#e55e00] transition-all font-bold shadow-lg shadow-orange-100 flex items-center gap-2">
+                        <span *ngIf="!isLoading()">حفظ التغييرات</span>
+                        <i *ngIf="isLoading()" class="pi pi-spin pi-spinner"></i>
+                        <span *ngIf="isLoading()">جاري الحفظ...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

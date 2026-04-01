@@ -1,0 +1,126 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50  p-4 overflow-y-auto" (click)="close()"
+    dir="rtl">
+
+    <div class="bg-white rounded-2xl w-full max-w-[700px] max-h-[90vh] shadow-xl overflow-hidden" (click)="$event.stopPropagation()">
+
+        <div class="max-h-[90vh] overflow-y-auto">
+            <!-- Header -->
+            <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-[#F9FAFB]">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-orange-100 rounded-xl">
+                        <i class="pi pi-pencil text-[#FF6900] text-xl" *ngIf="serviceToEdit()"></i>
+                        <i class="pi pi-plus text-[#FF6900] text-xl" *ngIf="!serviceToEdit()"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-[#101828] font-['Cairo']">{{ serviceToEdit() ? 'تعديل الخدمة' : 'إضافة خدمة جديدة' }}</h2>
+                </div>
+                <button (click)="close()" class="p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-500">
+                    <i class="pi pi-times"></i>
+                </button>
+            </div>
+
+            <form [formGroup]="serviceForm" (ngSubmit)="saveService()" class="p-8 space-y-6">
+
+                <!-- Title -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">عنوان الخدمة</label>
+                    <div class="relative">
+                        <input type="text" formControlName="title" placeholder="أدخل عنوان الخدمة..."
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] focus:ring-4 focus:ring-orange-50 transition-all font-['Cairo'] text-sm">
+                    </div>
+                    @if (serviceForm.get('title')?.touched && serviceForm.get('title')?.invalid) {
+                    <span class="text-xs text-red-500 font-['Cairo']">العنوان مطلوب (3 أحرف على الأقل)</span>
+                    }
+                </div>
+
+                <!-- Description -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">وصف الخدمة</label>
+                    <textarea formControlName="description" rows="4" placeholder="أدخل وصف تفصيلي للخدمة..."
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] focus:ring-4 focus:ring-orange-50 transition-all font-['Cairo'] text-sm resize-none"></textarea>
+                    @if (serviceForm.get('description')?.touched && serviceForm.get('description')?.invalid) {
+                    <span class="text-xs text-red-500 font-['Cairo']">الوصف مطلوب (10 أحرف على الأقل)</span>
+                    }
+                </div>
+
+                <!-- Features -->
+                <div class="space-y-4">
+                    <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">المميزات</label>
+                    <div class="flex gap-2">
+                        <input type="text" formControlName="newFeature" placeholder="أدخل ميزة جديدة..."
+                            (keyup.enter)="addFeature()"
+                            class="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-[#FF6900] transition-all font-['Cairo'] text-sm">
+                        <button type="button" (click)="addFeature()"
+                            class="px-6 py-3 bg-blue-50 text-[#155DFC] rounded-xl font-bold font-['Cairo'] text-sm hover:bg-blue-100 transition-colors">
+                            إضافة
+                        </button>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        @for (feature of features.controls; track $index) {
+                        <div
+                            class="flex items-center gap-2 px-3 py-1.5 bg-orange-50 text-[#FF6900] rounded-lg border border-orange-100 animate-in fade-in zoom-in duration-200">
+                            <span class="text-sm font-['Cairo'] font-medium">{{ feature.value }}</span>
+                            <button type="button" (click)="removeFeature($index)"
+                                class="text-[#FF6900] hover:text-red-600">
+                                <i class="pi pi-times-circle text-xs"></i>
+                            </button>
+                        </div>
+                        } @empty {
+                        <p class="text-xs text-gray-400 italic font-['Cairo']">لم يتم إضافة أي مميزات بعد.</p>
+                        }
+                    </div>
+                    @if (features.touched && features.invalid && features.length === 0) {
+                    <span class="text-xs text-red-500 font-['Cairo']">يجب إضافة ميزة واحدة على الأقل</span>
+                    }
+                </div>
+
+                <!-- Image Upload -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700 font-['Cairo']">صورة الخدمة</label>
+                    <div class="flex items-center gap-6">
+                        <div
+                            class="w-24 h-24 rounded-2xl bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden relative group">
+                            @if (imagePreview()) {
+                            <img [src]="imagePreview()" class="w-full h-full object-cover">
+                            <div
+                                class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                <i class="pi pi-camera text-white"></i>
+                            </div>
+                            } @else {
+                            <i class="pi pi-image text-gray-300 text-3xl"></i>
+                            }
+                            <input type="file" (change)="onFileSelected($event)" accept="image/*"
+                                class="absolute inset-0 opacity-0 cursor-pointer">
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-xs text-gray-500 font-['Cairo'] mb-2">اختر صورة معبرة للخدمة (PNG, JPG، بحد
+                                أقصى 2MB)</p>
+                            <button type="button"
+                                class="text-sm text-[#155DFC] font-bold font-['Cairo'] hover:underline relative">
+                                تغيير الصورة
+                                <input type="file" (change)="onFileSelected($event)" accept="image/*"
+                                    class="absolute inset-0 opacity-0 cursor-pointer">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="pt-6 border-t border-gray-100 flex justify-end gap-3 font-['Cairo']">
+                    <button type="button" (click)="close()"
+                        class="px-8 py-3 bg-white border border-gray-200 text-gray-600 rounded-xl hover:bg-gray-50 transition-colors font-bold">
+                        إلغاء
+                    </button>
+                    <button type="submit" [disabled]="isLoading()"
+                        class="px-10 py-3 bg-[#FF6900] text-white rounded-xl hover:bg-[#e55e00] transition-all font-bold shadow-lg shadow-orange-100 flex items-center gap-2">
+                        <span *ngIf="!isLoading()">{{ serviceToEdit() ? 'تحديث الخدمة' : 'حفظ الخدمة' }}</span>
+                        <i *ngIf="isLoading()" class="pi pi-spin pi-spinner"></i>
+                        <span *ngIf="isLoading()">جاري الحفظ...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>

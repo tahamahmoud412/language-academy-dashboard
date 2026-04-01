@@ -1,0 +1,101 @@
+<div class="flex flex-col gap-6 w-full" *ngIf="form">
+    <!-- Main Summary Header Container -->
+    <div class="bg-gradient-to-r from-[#EFF6FF] to-[#FAF5FF] border-2 border-[#0066CC] rounded-[24px] p-6 md:p-8 flex flex-col gap-6">
+        <div class="flex items-center gap-3 justify-start">
+            <span class="text-[#0066CC]">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                </svg>
+            </span>
+            <h3 class="font-['Cairo'] font-normal text-2xl text-[#101828] m-0">ملخص الدورة</h3>
+        </div>
+
+        <!-- Basic Info Section -->
+        <div class="bg-white rounded-2xl p-5 md:p-6 flex flex-col gap-5 shadow-sm">
+            <h4 class="font-['Cairo'] font-normal text-lg text-[#101828] border-b border-gray-100 pb-3 m-0">معلومات أساسية</h4>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12">
+                <!-- Course Name -->
+                <div class="flex justify-between items-center text-sm md:text-base">
+                    <span class="font-['Cairo'] text-[#4A5565]">اسم الدورة:</span>
+                    <span class="font-['Cairo'] text-[#101828] font-medium">{{ courseInfo?.name || '-' }}</span>
+                </div>
+                <!-- Lecturer -->
+                <div class="flex justify-between items-center text-sm md:text-base">
+                    <span class="font-['Cairo'] text-[#4A5565]">المحاضر:</span>
+                    <span class="font-['Cairo'] text-[#101828] font-medium">{{ courseInfo?.instructor_name || '-' }}</span>
+                </div>
+                <!-- Start Date -->
+                <div class="flex justify-between items-center text-sm md:text-base">
+                    <span class="font-['Cairo'] text-[#4A5565]">تاريخ البداية:</span>
+                    <span class="font-['Cairo'] text-[#101828] font-medium">{{ courseInfo?.startDate || '-' }}</span>
+                </div>
+                <!-- End Date -->
+                <div class="flex justify-between items-center text-sm md:text-base">
+                    <span class="font-['Cairo'] text-[#4A5565]">تاريخ النهاية:</span>
+                    <span class="font-['Cairo'] text-[#101828] font-medium">{{ courseInfo?.endDate || '-' }}</span>
+                </div>
+                <!-- Price -->
+                <div class="flex justify-between items-center text-sm md:text-base">
+                    <span class="font-['Cairo'] text-[#4A5565]">السعر:</span>
+                    <span class="font-['Cairo'] text-[#101828] font-medium">{{ additionalDetails?.price || 0 }} جنيه</span>
+                </div>
+                <!-- Duration -->
+                <div class="flex justify-between items-center text-sm md:text-base">
+                    <span class="font-['Cairo'] text-[#4A5565]">المدة:</span>
+                    <span class="font-['Cairo'] text-[#101828] font-medium">{{ courseInfo?.duration || '-' }}</span>
+                </div>
+                <!-- Location -->
+                <div class="flex justify-between items-center text-sm md:text-base">
+                    <span class="font-['Cairo'] text-[#4A5565]">المكان:</span>
+                    <span class="bg-[#DCFCE7] text-[#016630] px-3 py-1 rounded-full text-xs font-medium font-['Cairo']">{{ additionalDetails?.location || '-' }}</span>
+                </div>
+                <!-- Capacity -->
+                <div class="flex justify-between items-center text-sm md:text-base">
+                    <span class="font-['Cairo'] text-[#4A5565]">الحد الأقصى:</span>
+                    <span class="font-['Cairo'] text-[#101828] font-medium">{{ additionalDetails?.maxStudents || 0 }} طالب</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Grid (Schedule & Content) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Schedule Stats -->
+            <div class="bg-white rounded-2xl p-5 md:p-6 flex flex-col gap-3 shadow-sm relative overflow-hidden group">
+                <div class="flex items-center gap-2">
+                    <span class="text-[#9810FA]">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </span>
+                    <h4 class="font-['Cairo'] text-lg text-[#101828] m-0">الجدول</h4>
+                </div>
+                <p class="font-['Cairo'] text-3xl font-bold text-[#9810FA] m-0">{{ lectures.length }}</p>
+                <p class="font-['Cairo'] text-sm text-[#4A5565] m-0">موعد محاضرة</p>
+            </div>
+
+            <!-- Content Stats -->
+            <div class="bg-white rounded-2xl p-5 md:p-6 flex flex-col gap-3 shadow-sm relative overflow-hidden group">
+                <div class="flex items-center gap-2">
+                    <span class="text-[#0066CC]">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        </svg>
+                    </span>
+                    <h4 class="font-['Cairo'] text-lg text-[#101828] m-0">المحتوى</h4>
+                </div>
+                <p class="font-['Cairo'] text-3xl font-bold text-[#0066CC] m-0">{{ topics.length }}</p>
+                <p class="font-['Cairo'] text-sm text-[#4A5565] m-0">موضوع</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Warning Banner -->
+    <div *ngIf="topics.length === 0" class="bg-[#FEFCE8] border-2 border-[#FFF085] rounded-2xl p-4 md:p-5 flex flex-col gap-1 items-center text-center">
+        <p class="font-['Cairo'] font-bold text-base text-[#894B00] m-0 flex items-center gap-2">
+            <span>⚠️</span>
+            تحذير
+        </p>
+        <p class="font-['Cairo'] text-sm text-[#D08700] m-0">لم تقم بإضافة محتوى الدورة. يمكنك العودة للخلف لإضافته أو المتابعة.</p>
+    </div>
+</div>

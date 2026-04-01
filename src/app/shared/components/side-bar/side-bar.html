@@ -1,51 +1,148 @@
-<aside class="flex flex-col w-[256px] min-h-screen bg-white border-l border-[#E5E7EB]" dir="rtl">
+<aside class="flex flex-col w-[280px] h-full bg-[#FCFDFF] border-l border-[#E5E7EB] overflow-y-auto shadow-2xl lg:shadow-none transition-all duration-300" dir="rtl">
+  
+  <!-- Mobile Close Button -->
+  <div class="lg:hidden flex justify-end p-4 border-b border-slate-50">
+    <button (click)="close.emit()" class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-xl transition-colors">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+
   <!-- Navigation -->
-  <nav class="flex-1 flex flex-col pt-4 px-4 gap-1 w-full">
-    <!-- Active Item: Overview -->
-    <a href="#" class="flex items-center gap-3 px-3 w-[223px] h-[44px] bg-[#EFF6FF] rounded-[14px] hover:bg-blue-50 transition-colors">
-      <img src="images/icons/overview.svg" alt="Overview" class="w-5 h-5 object-contain">
-      <span class="text-[#155DFC] font-medium text-[14px] leading-5 font-['Cairo'] text-right">نظرة عامة</span>
+  <nav class="flex-1 px-4 space-y-1.5 pt-6">
+    <!-- Dashboard -->
+    <a routerLink="/home" routerLinkActive="bg-blue-50 text-[#155DFC]" [routerLinkActiveOptions]="{exact: true}"
+      class="flex items-center gap-3 px-3 py-2.5 w-full rounded-xl transition-all duration-200 group hover:bg-slate-50">
+      <div class="p-1.5 rounded-lg bg-orange-100 group-[.active]:bg-blue-100 transition-colors">
+        <img [ngSrc]="'images/icons/overview.svg'" alt="نظرة عامة" class="w-5 h-5 object-contain" width="20" height="20" priority>
+      </div>
+      <span class="text-[#4A5565] group-[.active]:text-[#155DFC] font-semibold text-[14px] font-['Cairo']">نظرة عامة</span>
     </a>
 
-    <!-- Inactive Item: Tests -->
-    <a href="#" class="flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
-      <img src="images/icons/exams.svg" alt="Tests" class="w-5 h-5 object-contain">
-      <span class="text-[#4A5565] font-medium text-[14px] leading-5 font-['Cairo'] text-right">الاختبارات</span>
-    </a>
-
-    <!-- Inactive Item: Courses -->
-    <a href="#" class="flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
-      <img src="images/icons/courses.svg" alt="Courses" class="w-5 h-5 object-contain">
-      <span class="text-[#4A5565] font-medium text-[14px] leading-5 font-['Cairo'] text-right">الكورسات</span>
-    </a>
-
-    <!-- Inactive Item: Services -->
-    <a href="#" class="flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
-      <img src="images/icons/services.svg" alt="Services" class="w-5 h-5 object-contain">
-      <span class="text-[#4A5565] font-medium text-[14px] leading-5 font-['Cairo'] text-right">الخدمات</span>
-    </a>
-
-    <!-- Inactive Item: Service Requests -->
-    <a href="#" class="flex items-center gap-3 px-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
-      <img src="images/icons/services-requests.svg" alt="Service Requests" class="w-5 h-5 object-contain">
-      <span class="text-[#4A5565] font-medium text-[14px] leading-5 font-['Cairo'] text-right">طلبات الخدمات</span>
-    </a>
-  </nav>
-
-  <!-- Bottom Container -->
-  <div class="flex flex-col pt-[17px] px-4 pb-4 gap-3 w-full border-t border-[#E5E7EB]">
-    <!-- Quick Actions Card -->
-    <div class="flex flex-col p-4 pb-0 gap-3 w-[223px] h-[96px] bg-gradient-to-br from-[#2B7FFF] to-[#9810FA] rounded-[14px]">
-      <h3 class="text-white font-normal text-[14px] leading-5 font-['Cairo'] m-0">إجراءات سريعة</h3>
-      <button class="w-full h-8 bg-white/20 rounded-[10px] text-white cursor-pointer font-normal text-[12px] leading-4 font-['Cairo'] flex items-center justify-start px-3 hover:bg-white/30 transition-colors">
-        إدارة TOEFL
+    <!-- Courses (Parent) -->
+    <div class="space-y-1">
+      <button (click)="toggleSection('courses')"
+        class="flex items-center justify-between w-full px-3 py-2.5 rounded-xl transition-all duration-200 hover:bg-slate-50 group">
+        <div class="flex items-center gap-3">
+          <div class="p-1.5 rounded-lg bg-blue-100">
+            <img [ngSrc]="'images/icons/courses.svg'" alt="الكورسات" class="w-5 h-5 object-contain" width="20" height="20">
+          </div>
+          <span class="text-[#4A5565] font-semibold text-[14px] font-['Cairo']">الكورسات</span>
+        </div>
+        <div [ngClass]="{'-rotate-90': isSectionOpen('courses')}"
+          class="w-4 h-4 transition-transform duration-200 opacity-60 flex items-center justify-center">
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 1L1 5L5 9" stroke="#4A5565" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
       </button>
+
+      @if(isSectionOpen('courses')) {
+        <div class="pr-12 space-y-1 animate-in slide-in-from-top-2 duration-200">
+          <a routerLink="/categories" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">تصنيفات الكورسات</a>
+          <a routerLink="/courses" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">كورس جديد</a>
+          <a routerLink="/enrollments" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">تسجيلات الكورسات</a>
+        </div>
+      }
     </div>
 
-    <!-- Logout Button -->
-    <button class="flex items-center justify-center cursor-pointer gap-3 w-[223px] h-[44px] bg-transparent rounded-[14px] hover:bg-gray-50 transition-colors">
-      <img src="images/icons/signout.svg" alt="Logout" class="w-5 h-5 object-contain">
-      <span class="text-[#4A5565] font-normal text-[14px] leading-5 font-['Cairo'] text-center">تسجيل الخروج</span>
+    <!-- Exams (Parent) -->
+    <div class="space-y-1">
+      <button (click)="toggleSection('exams')"
+        class="flex items-center justify-between w-full px-3 py-2.5 rounded-xl transition-all duration-200 hover:bg-slate-50 group">
+        <div class="flex items-center gap-3">
+          <div class="p-1.5 rounded-lg bg-emerald-100">
+            <img [ngSrc]="'images/icons/exams.svg'" alt="الاختبارات" class="w-5 h-5 object-contain" width="20" height="20">
+          </div>
+          <span class="text-[#4A5565] font-semibold text-[14px] font-['Cairo']">الاختبارات</span>
+        </div>
+        <div [ngClass]="{'-rotate-90': isSectionOpen('exams')}"
+          class="w-4 h-4 transition-transform duration-200 opacity-60 flex items-center justify-center">
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 1L1 5L5 9" stroke="#4A5565" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </button>
+
+      @if(isSectionOpen('exams')) {
+        <div class="pr-12 space-y-1 animate-in slide-in-from-top-2 duration-200">
+          <a routerLink="/exams/types" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">أنواع الاختبارات</a>
+          <a routerLink="/exams/list" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">الاختبارات</a>
+          <a routerLink="/exams/enrollments" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">حجوزات الاختبارات</a>
+          <a routerLink="/exams/audio" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">الصوتيات</a>
+        </div>
+      }
+    </div>
+
+    <!-- Content (Parent) -->
+    <div class="space-y-1">
+      <button (click)="toggleSection('content')"
+        class="flex items-center justify-between w-full px-3 py-2.5 rounded-xl transition-all duration-200 hover:bg-slate-50 group">
+        <div class="flex items-center gap-3">
+          <div class="p-1.5 rounded-lg bg-indigo-100">
+            <img [ngSrc]="'images/icons/services.svg'" alt="المحتوى" class="w-5 h-5 object-contain" width="20" height="20">
+          </div>
+          <span class="text-[#4A5565] font-semibold text-[14px] font-['Cairo']">المحتوى</span>
+        </div>
+        <div [ngClass]="{'-rotate-90': isSectionOpen('content')}"
+          class="w-4 h-4 transition-transform duration-200 opacity-60 flex items-center justify-center">
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 1L1 5L5 9" stroke="#4A5565" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </button>
+
+      @if(isSectionOpen('content')) {
+        <div class="pr-12 space-y-1 animate-in slide-in-from-top-2 duration-200">
+          <a routerLink="/faq" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">الأسئلة الشائعة</a>
+          <a routerLink="/services" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">الخدمات</a>
+        </div>
+      }
+    </div>
+
+    <!-- Who We Are (Parent) -->
+    <div class="space-y-1">
+      <button (click)="toggleSection('aboutUs')"
+        class="flex items-center justify-between w-full px-3 py-2.5 rounded-xl transition-all duration-200 hover:bg-slate-50 group">
+        <div class="flex items-center gap-3">
+          <div class="rounded-lg ">
+            <img [ngSrc]="'images/icons/students.svg'" alt="من نحن" class="w-8 h-8 object-contain" width="20" height="20">
+          </div>
+          <span class="text-[#4A5565] font-semibold text-[14px] font-['Cairo']">من نحن</span>
+        </div>
+        <div [ngClass]="{'-rotate-90': isSectionOpen('aboutUs')}"
+          class="w-4 h-4 transition-transform duration-200 opacity-60 flex items-center justify-center">
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 1L1 5L5 9" stroke="#4A5565" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </button>
+
+      @if(isSectionOpen('aboutUs')) {
+        <div class="pr-12 space-y-1 animate-in slide-in-from-top-2 duration-200">
+          <a routerLink="/events" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">الأحداث الزمنية</a>
+          <a routerLink="/about-us" routerLinkActive="text-[#155DFC]" class="block py-2 text-sm text-[#4A5565] hover:text-[#155DFC] transition-colors font-['Cairo']">تفاصيل عننا</a>
+        </div>
+      }
+    </div>
+  </nav>
+
+  <!-- Bottom Container: Settings / Profile / Logout -->
+  <div class="p-4 mt-auto border-t border-slate-100 space-y-1">
+    <a routerLink="/settings" class="flex items-center gap-3 px-3 py-2.5 w-full rounded-xl transition-all duration-200 hover:bg-slate-50">
+      <div class="w-8 h-8 rounded-full bg-[#F1F5F9] flex items-center justify-center overflow-hidden border border-slate-200">
+        <span class="text-xs font-bold text-[#4A5565] font-['Cairo']">أدمن</span>
+      </div>
+      <span class="text-[#4A5565] font-semibold text-[14px] font-['Cairo']">الإعدادات والملف الشخصي</span>
+    </a>
+
+    <button (click)="logout()" class="flex items-center gap-3 px-3 py-2.5 w-full rounded-xl transition-all duration-200 text-rose-500 hover:bg-rose-50 group">
+      <div class="p-1.5 rounded-lg bg-rose-50 group-hover:bg-rose-100 transition-colors">
+        <img [ngSrc]="'images/icons/signout.svg'" alt="خروج" class="w-4 h-4 object-contain" width="16" height="16">
+      </div>
+      <span class="font-bold text-[14px] font-['Cairo']">تسجيل الخروج</span>
     </button>
   </div>
 </aside>

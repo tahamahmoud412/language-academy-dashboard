@@ -1,0 +1,31 @@
+:host {
+    display: block;
+}
+
+.text-blue-700 {
+    color: #1d4ed8;
+}
+
+table tr:last-child {
+    border-bottom: none;
+}
+
+th {
+    font-weight: 600;
+}
+
+td {
+    color: #4b5563;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.bg-blue-50 {
+    background-color: #f0f9ff;
+}
+
+.border-blue-100 {
+    border-color: #e0f2fe;
+}

@@ -1,0 +1,103 @@
+<div class="flex flex-col w-full min-h-screen p-4 md:p-8 space-y-6 bg-[#F9FAFB]" dir="rtl">
+    <app-top-metric-cards></app-top-metric-cards>
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-rose-100 rounded-xl">
+                <i class="pi pi-info-circle text-[#FF6384] text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-[#101828] font-['Cairo']">تفاصيل عننا (About Us)</h1>
+                <p class="text-sm text-[#6A7282] font-['Cairo']">إدارة محتوى صفحة من نحن</p>
+            </div>
+        </div>
+
+        <button
+            (click)="openEdit()"
+            class="bg-[#FF6900] text-white px-6 py-2.5 rounded-xl flex items-center gap-2 hover:bg-[#e55e00] transition-all font-['Cairo'] shadow-[0px_1px_3px_rgba(0,0,0,0.1)] active:scale-95">
+            <i class="pi pi-pencil text-xs"></i>
+            <span>تعديل البيانات</span>
+        </button>
+    </div>
+
+    <!-- About Us Content -->
+    @if (aboutUsData(); as data) {
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Hero Section -->
+            <div class="md:col-span-2 bg-white p-8 rounded-2xl border border-[#F3F4F6] shadow-sm space-y-4">
+                <div class="flex justify-between items-start">
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-[#FF6384] uppercase tracking-wider font-['Cairo']">قسم الواجهة (Hero)</label>
+                        <h2 class="text-2xl font-bold text-[#101828] font-['Cairo']">{{ data.hero_title }}</h2>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="flex-1">
+                        <p class="text-[#4A5565] leading-relaxed font-['Cairo']">{{ data.hero_description }}</p>
+                    </div>
+                    <div class="w-full md:w-64 h-40 rounded-xl overflow-hidden relative bg-gray-100">
+                        <img [ngSrc]="data.image.replace('//storage', '/storage')" fill class="object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision & Mission -->
+            <div class="bg-white p-6 rounded-2xl border border-[#F3F4F6] shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-50 rounded-lg">
+                        <i class="pi pi-eye text-blue-500"></i>
+                    </div>
+                    <h3 class="font-bold text-[#101828] font-['Cairo']">رؤيتنا</h3>
+                </div>
+                <p class="text-sm text-[#4A5565] font-['Cairo'] leading-relaxed">{{ data.vision }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-[#F3F4F6] shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-purple-50 rounded-lg">
+                        <i class="pi pi-compass text-purple-500"></i>
+                    </div>
+                    <h3 class="font-bold text-[#101828] font-['Cairo']">رسالتنا</h3>
+                </div>
+                <p class="text-sm text-[#4A5565] font-['Cairo'] leading-relaxed">{{ data.mission }}</p>
+            </div>
+
+            <!-- Goals & Advantages -->
+            <div class="bg-white p-6 rounded-2xl border border-[#F3F4F6] shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-green-50 rounded-lg">
+                        <i class="pi pi-flag text-green-500"></i>
+                    </div>
+                    <h3 class="font-bold text-[#101828] font-['Cairo']">أهدافنا</h3>
+                </div>
+                <p class="text-sm text-[#4A5565] font-['Cairo'] leading-relaxed">{{ data.goals }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-[#F3F4F6] shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-orange-50 rounded-lg">
+                        <i class="pi pi-check-circle text-orange-500"></i>
+                    </div>
+                    <h3 class="font-bold text-[#101828] font-['Cairo']">مميزاتنا</h3>
+                </div>
+                <ul class="space-y-2">
+                    @for (adv of data.advantages; track adv) {
+                        <li class="text-sm text-[#4A5565] font-['Cairo'] flex items-start gap-2">
+                            <i class="pi pi-check text-[10px] mt-1 text-orange-400"></i>
+                            <span>{{ adv }}</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    } @else {
+        <div class="bg-white p-20 rounded-2xl border border-[#F3F4F6] text-center space-y-4">
+            <i class="pi pi-spin pi-spinner text-3xl text-gray-300"></i>
+            <p class="text-gray-500 font-['Cairo']">جاري تحميل البيانات...</p>
+        </div>
+    }
+</div>
+
+@if (isAddVisible()) {
+    <app-about-us-add [aboutUsToEdit]="selectedItem()" (onClose)="closeAdd()" (onSaved)="handleSaved()"></app-about-us-add>
+}

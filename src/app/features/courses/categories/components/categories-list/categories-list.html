@@ -1,0 +1,77 @@
+<div class="flex flex-col w-full min-h-screen p-4 md:p-8 space-y-6 bg-[#F9FAFB]" dir="rtl">
+    <app-top-metric-cards></app-top-metric-cards>
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-orange-100 rounded-xl">
+                <i class="pi pi-tags text-[#FF6900] text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-[#101828] font-['Cairo']">تصنيفات الكورسات</h1>
+                <p class="text-sm text-[#6A7282] font-['Cairo']">عدد التصنيفات ({{ totalCategories() }} تصنيف)</p>
+            </div>
+        </div>
+
+        <button
+            (click)="openAdd()"
+            class="bg-[#FF6900] text-white px-6 py-2.5 rounded-xl flex items-center gap-2 hover:bg-[#e55e00] transition-all font-['Cairo'] shadow-[0px_1px_3px_rgba(0,0,0,0.1)] active:scale-95">
+            <i class="pi pi-plus text-xs"></i>
+            <span>إضافة تصنيف جديد</span>
+        </button>
+    </div>
+
+    <!-- Categories Table -->
+    <div class="bg-white border border-[#F3F4F6] rounded-2xl shadow-[0px_1px_3px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-right border-collapse">
+                <thead class="bg-[#F9FAFB] border-b border-[#F3F4F6]">
+                    <tr>
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] w-[30%]">اسم التصنيف</th>
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">ترتيب العرض</th>
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">الحالة</th>
+                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">إجراءات</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-[#F9FAFB]">
+                    @for (category of categories(); track category.id) {
+                        <tr class="hover:bg-gray-50/50 transition-colors group">
+                            <td class="px-6 py-5 text-sm font-medium text-[#101828] font-['Cairo']">
+                                {{ category.name }}
+                            </td>
+                            <td class="px-6 py-5 text-center text-sm text-[#4A5565] font-['Cairo']">
+                                {{ category.sort_order }}
+                            </td>
+                            <td class="px-6 py-5 text-center">
+                                <span 
+                                    [ngClass]="category.is_active ? 'bg-green-50 text-green-700 border-green-100' : 'bg-gray-50 text-gray-500 border-gray-100'"
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold font-['Cairo'] border">
+                                    {{ category.is_active ? 'نشط' : 'غير نشط' }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-5">
+                                <div class="flex items-center justify-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <button (click)="openEdit(category)" class="cursor-pointer p-2 text-[#98A2B3] hover:text-[#FF6900] hover:bg-orange-50 rounded-lg transition-all" title="تعديل">
+                                        <i class="pi pi-pencil text-sm"></i>
+                                    </button>
+                                    <button (click)="deleteCategory(category.id)" class="cursor-pointer p-2 text-[#98A2B3] hover:text-[#E7000B] hover:bg-red-50 rounded-lg transition-all" title="حذف">
+                                        <i class="pi pi-trash text-sm"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr>
+                            <td colspan="4" class="px-6 py-10 text-center text-gray-500 font-['Cairo']">
+                                لا توجد تصنيفات متاحة حالياً.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@if (isAddVisible()) {
+    <app-categories-add [categoryToEdit]="selectedCategory()" (onClose)="closeAdd()" (onSaved)="handleSaved()"></app-categories-add>
+}

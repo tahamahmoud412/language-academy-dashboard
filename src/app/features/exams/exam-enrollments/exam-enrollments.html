@@ -1,0 +1,238 @@
+<div class="flex flex-col w-full min-h-screen p-4 md:p-8 space-y-8 bg-[#F8FAFC]" dir="rtl">
+    <!-- Header Section with Stats -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 animate-in fade-in slide-in-from-top-4 duration-700">
+        <div class="flex items-center gap-4">
+            <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-[#1e293b] font-['Cairo'] tracking-tight">حجوزات الاختبارات</h1>
+                <p class="text-slate-500 font-['Cairo'] mt-0.5 text-sm">إدارة الطلبات والتحقق من حالات الدفع</p>
+            </div>
+        </div>
+        
+        <!-- Quick Stats Summary -->
+        <div class="flex items-center gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm">
+            <div class="px-4 py-2 text-center border-l border-slate-100 last:border-0 md:border-l-0 md:ltr:border-r md:rtl:border-l">
+                <span class="block text-xs font-['Cairo'] text-slate-400">إجمالي الطلبات</span>
+                <span class="block text-lg font-bold text-slate-700">{{ pagination()?.total || 0 }}</span>
+            </div>
+            <div class="hidden md:block w-px h-8 bg-slate-100 mx-2"></div>
+            <div class="px-4 py-2 text-center">
+                <span class="block text-xs font-['Cairo'] text-slate-400">الصفحة السابقة</span>
+                <span class="block text-lg font-bold text-blue-600">{{ currentPage() }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Card -->
+    <div class="bg-white border border-slate-200/60 rounded-[2rem] shadow-xl shadow-slate-200/50 overflow-hidden flex flex-col min-h-[500px] animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
+        @if (loading()) {
+            <div class="flex flex-1 flex-col justify-center items-center py-32 space-y-4">
+                <div class="relative w-16 h-16">
+                    <div class="absolute inset-0 rounded-full border-4 border-blue-50"></div>
+                    <div class="absolute inset-0 rounded-full border-4 border-blue-600 border-t-transparent animate-spin"></div>
+                </div>
+                <span class="text-slate-500 font-medium font-['Cairo'] animate-pulse text-sm text-[#155DFC]">جاري جلب البيانات...</span>
+            </div>
+        } @else {
+            @if (enrollments().length > 0) {
+                <!-- Table View (Desktop Only) -->
+                <div class="hidden lg:block overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-right border-separate border-spacing-0">
+                        <thead>
+                            <tr class="bg-slate-50/80 backdrop-blur-sm">
+                                <th class="sticky top-0 z-10 px-6 py-5 text-slate-500 font-bold text-[13px] font-['Cairo'] uppercase tracking-wider border-b border-slate-100">اسم الطالب</th>
+                                <th class="sticky top-0 z-10 px-6 py-5 text-slate-500 font-bold text-[13px] font-['Cairo'] uppercase tracking-wider border-b border-slate-100">الاختبار</th>
+                                <th class="sticky top-0 z-10 px-6 py-5 text-slate-500 font-bold text-[13px] font-['Cairo'] uppercase tracking-wider border-b border-slate-100">الدرجة / الجامعة</th>
+                                <th class="sticky top-0 z-10 px-6 py-5 text-slate-500 font-bold text-[13px] font-['Cairo'] uppercase tracking-wider border-b border-slate-100">تفاصيل الدفع</th>
+                                <th class="sticky top-0 z-10 px-6 py-5 text-slate-500 font-bold text-[13px] font-['Cairo'] uppercase tracking-wider border-b border-slate-100 text-center">الحالة</th>
+                                <th class="sticky top-0 z-10 px-6 py-5 text-slate-500 font-bold text-[13px] font-['Cairo'] uppercase tracking-wider border-b border-slate-100 text-center">الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50/80">
+                            @for (enrollment of enrollments(); track enrollment.id; let i = $index) {
+                                <tr class="hover:bg-blue-50/30 transition-all duration-300 group">
+                                    <td class="px-6 py-5 whitespace-nowrap">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-['Cairo'] font-bold group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">
+                                                {{ enrollment.full_name.charAt(0) }}
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <span class="text-slate-800 font-bold font-['Cairo'] group-hover:text-blue-600 transition-colors">{{ enrollment.full_name }}</span>
+                                                <span class="text-slate-400 text-[11px] font-medium flex items-center gap-1 mt-0.5">
+                                                    {{ enrollment.phone }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 whitespace-nowrap">
+                                        <div class="flex flex-col">
+                                            <span class="text-slate-700 font-bold font-['Cairo'] text-sm">{{ enrollment.exam_name }}</span>
+                                            <span class="text-blue-600 font-extrabold text-[12px] mt-1">{{ enrollment.price }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 whitespace-nowrap">
+                                        <div class="flex flex-col text-sm">
+                                            <span class="text-slate-600 font-bold font-['Cairo']">{{ enrollment.degree }}</span>
+                                            <span class="text-slate-400 text-xs mt-0.5 font-['Cairo'] line-clamp-1 max-w-[150px]">{{ enrollment.university_name }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 whitespace-nowrap text-sm">
+                                        <div class="flex flex-col">
+                                            <span class="text-slate-600 font-bold">{{ enrollment.payment_date }}</span>
+                                            <span class="text-slate-400 text-[11px] font-mono mt-0.5">{{ enrollment.fawry_receipt || '--' }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 whitespace-nowrap text-center">
+                                        <span [class]="'inline-flex items-center px-4 py-1.5 rounded-full text-[11px] font-bold font-[\'Cairo\'] shadow-sm ' + getStatusClass(enrollment.status)">
+                                            <span [class]="'w-1.5 h-1.5 rounded-full ltr:mr-2 rtl:ml-2 ' + (enrollment.status === 'completed' ? 'bg-green-600' : enrollment.status === 'approved' ? 'bg-blue-600' : 'bg-yellow-600')"></span>
+                                            {{ getStatusText(enrollment.status) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-5 whitespace-nowrap text-center">
+                                        <div class="flex items-center justify-center gap-1.5">
+                                            <button (click)="onUpdateStatus(enrollment)"
+                                                    class="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 text-slate-400 border border-slate-100 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
+                                                    title="تعديل الحالة">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                            </button>
+                                            <button (click)="viewReceipt(enrollment.receipt_url)"
+                                                    class="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 text-slate-400 border border-slate-100 hover:bg-emerald-500 hover:text-white transition-all shadow-sm"
+                                                    title="وصل الدفع">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                            </button>
+                                            <button (click)="onDeleteEnrollment(enrollment.id)"
+                                                    class="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 text-slate-400 border border-slate-100 hover:bg-rose-500 hover:text-white transition-all shadow-sm"
+                                                    title="حذف">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Card View (Mobile/Tablet Only) -->
+                <div class="lg:hidden p-4 space-y-4">
+                    @for (enrollment of enrollments(); track enrollment.id) {
+                        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 space-y-5 flex flex-col group animate-in fade-in slide-in-from-bottom-2 duration-500">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-lg font-['Cairo']">
+                                        {{ enrollment.full_name.charAt(0) }}
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-slate-800 font-bold font-['Cairo']">{{ enrollment.full_name }}</span>
+                                        <span class="text-slate-400 text-sm font-medium">{{ enrollment.phone }}</span>
+                                    </div>
+                                </div>
+                                <span [class]="'px-3 py-1 rounded-full text-[10px] font-bold font-[\'Cairo\'] shadow-sm ' + getStatusClass(enrollment.status)">
+                                    {{ getStatusText(enrollment.status) }}
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 py-4 border-y border-slate-50">
+                                <div class="space-y-1">
+                                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider font-['Cairo']">الاختبار</span>
+                                    <p class="text-slate-700 font-bold text-sm font-['Cairo']">{{ enrollment.exam_name }}</p>
+                                    <p class="text-blue-600 font-extrabold text-xs">{{ enrollment.price }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider font-['Cairo']">الدرجة / الجامعة</span>
+                                    <p class="text-slate-700 font-bold text-sm font-['Cairo']">{{ enrollment.degree }}</p>
+                                    <p class="text-slate-400 text-xs font-['Cairo'] line-clamp-1 italic">{{ enrollment.university_name }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider font-['Cairo']">تاريخ الدفع</span>
+                                    <p class="text-slate-700 font-bold text-sm">{{ enrollment.payment_date }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider font-['Cairo']">رقم فوري</span>
+                                    <p class="text-slate-500 font-medium text-xs font-mono">{{ enrollment.fawry_receipt || '--' }}</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 pt-1">
+                                <button (click)="onUpdateStatus(enrollment)"
+                                        class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-blue-50 text-blue-600 font-bold text-xs font-['Cairo'] hover:bg-blue-100 transition-colors border border-blue-100">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                    تحديث الحالة
+                                </button>
+                                <button (click)="viewReceipt(enrollment.receipt_url)"
+                                        class="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-colors border border-emerald-100"
+                                        title="وصل الدفع">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                </button>
+                                <button (click)="onDeleteEnrollment(enrollment.id)"
+                                        class="p-2.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 transition-colors border border-rose-100"
+                                        title="حذف">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Enhanced Pagination -->
+                <div class="px-8 py-6 bg-slate-50/50 backdrop-blur-md border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center gap-3">
+                        <span class="text-[13px] text-slate-500 font-['Cairo'] font-medium">
+                            عرض {{ pagination()?.from }} - {{ pagination()?.to }} من إجمالي <span class="font-bold text-slate-800">{{ pagination()?.total }}</span> طلب
+                        </span>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 scale-90 sm:scale-100">
+                        <button (click)="onPageChange(currentPage() - 1)" 
+                                [disabled]="currentPage() === 1"
+                                class="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+
+                        <div class="flex items-center gap-2">
+                            @for (page of [].constructor(pagination()?.last_page || 0); track $index) {
+                                @if ($index + 1 === 1 || $index + 1 === pagination()?.last_page || ($index + 1 >= currentPage() - 1 && $index + 1 <= currentPage() + 1)) {
+                                    <button (click)="onPageChange($index + 1)"
+                                            [class]="'min-w-[38px] h-9 rounded-xl text-[13px] font-bold transition-all shadow-sm flex items-center justify-center px-4 font-[\'Cairo\'] ' + 
+                                                     (currentPage() === ($index + 1) ? 'bg-blue-600 text-white shadow-blue-200' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50')">
+                                        {{ $index + 1 }}
+                                    </button>
+                                } @else if ($index + 1 === 2 || $index + 1 === (pagination()?.last_page || 0) - 1) {
+                                    <span class="px-0.5 text-slate-400 font-bold">...</span>
+                                }
+                            }
+                        </div>
+
+                        <button (click)="onPageChange(currentPage() + 1)" 
+                                [disabled]="currentPage() === pagination()?.last_page"
+                                class="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            } @else {
+                <!-- Enhanced Empty State -->
+                <div class="flex flex-1 flex-col items-center justify-center py-32 animate-in zoom-in duration-500">
+                    <div class="relative mb-6">
+                        <div class="absolute inset-0 bg-blue-50 rounded-full scale-[2.2] blur-xl opacity-50"></div>
+                        <div class="relative w-20 h-20 bg-white rounded-[1.5rem] shadow-xl flex items-center justify-center border border-slate-100">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="12" x2="22" y2="12"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-700 font-['Cairo']">لا توجد حجوزات</h3>
+                    <p class="text-slate-400 font-['Cairo'] mt-2 max-w-xs text-center text-sm">لم نتمكن من العثور على أي طلبات حجز حالياً.</p>
+                </div>
+            }
+        }
+    </div>
+</div>

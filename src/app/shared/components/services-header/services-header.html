@@ -1,0 +1,19 @@
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div class="flex items-center gap-3">
+        <div class="p-2 bg-orange-100 rounded-xl">
+            <i class="pi pi-th-large text-[#FF6900] text-xl"></i>
+        </div>
+        <div>
+            <h1 class="text-xl font-bold text-[#101828] font-['Cairo']">جميع الخدمات</h1>
+            <p class="text-sm text-[#6A7282] font-['Cairo']">اجمالي الخدمات ({{ totalServices() }} خدمة)</p>
+        </div>
+    </div>
+
+    <button
+        (click)="addService()"
+        class="bg-[#FF6900] text-white px-6 py-2.5 rounded-xl flex items-center gap-2 hover:bg-[#e55e00] transition-all font-['Cairo'] shadow-[0px_1px_3px_rgba(0,0,0,0.1)] active:scale-95">
+        <i class="pi pi-plus text-xs"></i>
+        <span>إضافة خدمة جديدة</span>
+    </button>
+</div>
+
