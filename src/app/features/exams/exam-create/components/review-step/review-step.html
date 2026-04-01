@@ -1,0 +1,98 @@
+<div class="flex flex-col gap-8">
+  
+    <!-- Welcome Review -->
+    <div class="text-center py-6">
+      <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i class="pi pi-check text-2xl"></i>
+      </div>
+      <h2 class="text-xl font-['Cairo'] font-bold text-gray-900">مراجعة البيانات النهائية</h2>
+      <p class="text-gray-500 font-['Cairo']">يرجى التأكد من جميع المعلومات قبل حفظ وإنشاء الاختبار</p>
+      
+      @if (form().invalid) {
+        <div class="mt-4 p-4 bg-red-50 border border-red-100 rounded-xl flex items-center gap-3 justify-center text-red-600 font-['Cairo']">
+          <i class="pi pi-exclamation-triangle"></i>
+          <span>انتبه: توجد بيانات غير مكتملة أو خاطئة في الخطوات السابقة، يرجى مراجعتها</span>
+        </div>
+      }
+    </div>
+  
+    <!-- Summary Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Basic Info Box -->
+      <div class="p-4 md:p-6 bg-gray-50 rounded-2xl border border-gray-100 flex flex-col gap-4">
+        <h3 class="text-base md:text-lg font-['Cairo'] font-semibold text-gray-800 border-b border-gray-200 pb-3">معلومات الاختبار</h3>
+        <div class="grid grid-cols-2 gap-y-4">
+          <div class="flex flex-col gap-1">
+            <span class="text-[10px] md:text-xs text-gray-400 font-['Cairo']">عنوان الاختبار</span>
+            <span class="text-xs md:text-sm font-semibold font-['Cairo'] text-gray-700">{{ info.name || 'غير محدد' }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-[10px] md:text-xs text-gray-400 font-['Cairo']">تاريخ الاختبار</span>
+            <span class="text-xs md:text-sm font-semibold font-['Cairo'] text-gray-700">{{ info.exam_date }}</span>
+          </div>
+          <div class="flex flex-col gap-1">
+              <span class="text-[10px] md:text-xs text-gray-400 font-['Cairo']">السعر</span>
+              <span class="text-xs md:text-sm font-bold font-['Cairo'] text-blue-600">{{ info.price }} ج.م</span>
+            </div>
+            <div class="flex flex-col gap-1">
+              <span class="text-[10px] md:text-xs text-gray-400 font-['Cairo']">الحد الأقصى</span>
+              <span class="text-xs md:text-sm font-semibold font-['Cairo'] text-gray-700">{{ info.max_students }} طالب</span>
+            </div>
+        </div>
+      </div>
+  
+      <!-- Statistics Box -->
+      <div class="p-4 md:p-6 bg-blue-50 rounded-2xl border border-blue-100 flex flex-col gap-4">
+        <h3 class="text-base md:text-lg font-['Cairo'] font-semibold text-blue-800 border-b border-blue-200 pb-3">إحصائيات الأسئلة</h3>
+        <div class="grid grid-cols-2 gap-y-4">
+          <div class="flex flex-col gap-1">
+            <span class="text-[10px] md:text-xs text-blue-400 font-['Cairo']">إجمالي الأسئلة</span>
+            <span class="text-xs md:text-sm font-bold font-['Cairo'] text-blue-700">{{ totalQuestions }} سؤال</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-[10px] md:text-xs text-blue-400 font-['Cairo']">إجمالي الوقت</span>
+            <span class="text-xs md:text-sm font-bold font-['Cairo'] text-blue-700">{{ totalDuration }} دقيقة</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-[10px] md:text-xs text-blue-400 font-['Cairo']">عدد الأقسام</span>
+            <span class="text-xs md:text-sm font-bold font-['Cairo'] text-blue-700">{{ getSectionStats().length }} أقسام نشطة</span>
+          </div>
+        </div>
+      </div>/div>
+    </div>
+  
+    <!-- Detailed Sections List -->
+    <div class="flex flex-col gap-4">
+      <h3 class="text-lg font-['Cairo'] font-semibold text-gray-800">تفاصيل الأقسام المضافة</h3>
+      <div class="overflow-x-auto bg-white border border-gray-100 rounded-2xl shadow-sm custom-scrollbar">
+        <table class="w-full text-right font-['Cairo'] min-w-[600px]">
+          <thead class="bg-gray-50 text-gray-500 text-xs uppercase">
+            <tr>
+              <th class="px-6 py-4">القسم</th>
+              <th class="px-6 py-4">عدد الأسئلة</th>
+              <th class="px-6 py-4">وقت القسم</th>
+              <th class="px-6 py-4">الحالة</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
+            @for (stat of getSectionStats(); track stat.type) {
+                <tr>
+                    <td class="px-6 py-4 capitalize font-semibold">{{ stat.name }}</td>
+                    <td class="px-6 py-4">{{ stat.count }} سؤال</td>
+                    <td class="px-6 py-4">{{ stat.time }} دقيقة</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 bg-green-100 text-green-600 rounded-md text-xs">مكتمل</span>
+                    </td>
+                </tr>
+            } @empty {
+                <tr>
+                    <td colspan="4" class="px-6 py-8 text-center text-gray-400 italic">لا توجد أقسام تحتوي على أسئلة حتى الآن</td>
+                </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </div>

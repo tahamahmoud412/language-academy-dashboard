@@ -21,13 +21,54 @@ export class Courses implements OnInit {
   coursesList = signal<Course[]>([]);
   loading = signal(true);
   isAddCourseVisible = signal(false);
+  editingCourseId = signal<number | null>(null);
 
   openAddCourse(): void {
+    this.editingCourseId.set(null);
     this.isAddCourseVisible.set(true);
+  }
+
+  onEditCourse(id: number): void {
+    this.editingCourseId.set(id);
+    this.isAddCourseVisible.set(true);
+  }
+
+  onDeleteCourse(id: number): void {
+    import('sweetalert2').then((Swal) => {
+      Swal.default.fire({
+        title: 'هل أنت متأكد؟',
+        text: 'لن تتمكن من استرجاع هذا الكورس!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'نعم، احذف',
+        cancelButtonText: 'إلغاء',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.courseService.destroyCourse(id).subscribe({
+            next: () => {
+              Swal.default.fire('تم الحذف!', 'تم حذف الكورس بنجاح.', 'success');
+              this.fetchCourses();
+            },
+            error: (err) => {
+              console.error('Delete error', err);
+              Swal.default.fire('خطأ!', 'حدث خطأ أثناء محاولة الحذف.', 'error');
+            },
+          });
+        }
+      });
+    });
   }
 
   closeAddCourse(): void {
     this.isAddCourseVisible.set(false);
+    this.editingCourseId.set(null);
+  }
+
+  handleCourseAddClose(): void {
+    this.closeAddCourse();
+    this.fetchCourses();
   }
 
   ngOnInit(): void {

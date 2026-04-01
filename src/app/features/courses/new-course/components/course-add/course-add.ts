@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, signal, inject } from '@angular/core';
+import { Component, Output, EventEmitter, signal, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CourseInfo } from '../../../../../shared/components/course-info/course-info';
@@ -17,10 +17,11 @@ import Swal from 'sweetalert2';
   templateUrl: './course-add.html',
   styleUrl: './course-add.css',
 })
-export class CourseAdd {
+export class CourseAdd implements OnInit {
   private fb = inject(FormBuilder);
   private courseService = inject(CourseService);
   @Output() onClose = new EventEmitter<void>();
+  @Input() courseId: number | null = null;
 
   currentStep = signal(1);
   totalSteps = 5;
@@ -126,29 +127,54 @@ export class CourseAdd {
 
       console.log(courseRequest.course_category_id)
 
-      this.courseService.createCourse(courseRequest).subscribe({
-        next: (res) => {
-          console.log('Course Success:', res);
-          Swal.fire({
-            title: 'تم بنجاح!',
-            text: 'تم حفظ الدورة بنجاح في النظام.',
-            icon: 'success',
-            confirmButtonText: 'حسناً',
-            confirmButtonColor: '#0066CC'
-          });
-          this.close();
-        },
-        error: (err) => {
-          console.error('Course Error:', err);
-          Swal.fire({
-            title: 'خطأ!',
-            text: 'حدث خطأ أثناء حفظ الدورة. يرجى المحاولة مرة أخرى.',
-            icon: 'error',
-            confirmButtonText: 'حسناً',
-            confirmButtonColor: '#0066CC'
-          });
-        }
-      });
+      if (this.courseId) {
+        this.courseService.updateCourse(this.courseId, courseRequest).subscribe({
+          next: (res) => {
+            Swal.fire({
+              title: 'تم التعديل!',
+              text: 'تم تحديث بيانات الدورة بنجاح.',
+              icon: 'success',
+              confirmButtonText: 'حسناً',
+              confirmButtonColor: '#0066CC'
+            });
+            this.close();
+          },
+          error: (err) => {
+            console.error('Update Error:', err);
+            Swal.fire({
+              title: 'خطأ!',
+              text: 'حدث خطأ أثناء تحديث الدورة.',
+              icon: 'error',
+              confirmButtonText: 'حسناً',
+              confirmButtonColor: '#0066CC'
+            });
+          }
+        });
+      } else {
+        this.courseService.createCourse(courseRequest).subscribe({
+          next: (res) => {
+            console.log('Course Success:', res);
+            Swal.fire({
+              title: 'تم بنجاح!',
+              text: 'تم حفظ الدورة بنجاح في النظام.',
+              icon: 'success',
+              confirmButtonText: 'حسناً',
+              confirmButtonColor: '#0066CC'
+            });
+            this.close();
+          },
+          error: (err) => {
+            console.error('Course Error:', err);
+            Swal.fire({
+              title: 'خطأ!',
+              text: 'حدث خطأ أثناء حفظ الدورة. يرجى المحاولة مرة أخرى.',
+              icon: 'error',
+              confirmButtonText: 'حسناً',
+              confirmButtonColor: '#0066CC'
+            });
+          }
+        });
+      }
     } else {
       this.courseForm.markAllAsTouched();
       Swal.fire({
@@ -190,6 +216,44 @@ export class CourseAdd {
       'en': 'en'
     };
     return langs[lang] || 'ar';
+  }
+
+  ngOnInit(): void {
+    if (this.courseId) {
+      this.fetchCourseData(this.courseId);
+    }
+  }
+
+  private fetchCourseData(id: number): void {
+    this.courseService.getCourseById(id).subscribe({
+      next: (res) => {
+        if (res.success) {
+          const course = res.data;
+          this.courseForm.patchValue({
+            courseInfo: {
+              name: course.name,
+              instructor_name: course.instructor_name,
+              type: course.course_category_id,
+              startDate: course.start_date,
+              endDate: course.end_date,
+              duration: course.duration_days + ' يوم'
+            },
+            additionalDetails: {
+              price: course.price,
+              maxStudents: course.max_students,
+              lastRegistrationDate: course.registration_deadline,
+              location: course.location,
+              level: course.level,
+              language: course.language === 'ar' ? 'العربية' : 'الإنجليزية',
+              description: course.description,
+              status: course.status
+            }
+          });
+          // Handling FormArrays (topics and schedules) would go here if needed,
+          // but for now let's focus on the basics.
+        }
+      }
+    });
   }
 
   prevStep(): void {

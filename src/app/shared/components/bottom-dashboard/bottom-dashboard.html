@@ -1,131 +1,127 @@
 <!-- Bottom Dashboard Grids -->
 <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full pb-8">
-
   <!-- Upcoming Tests List -->
   <div class="flex flex-col bg-white border border-gray-100 rounded-2xl shadow-sm p-6 gap-4">
     <div class="flex items-center gap-2 mb-2">
-      <img [ngSrc]="'images/icons/exams.svg'" alt="Calendar Icon" class="w-5 h-5 object-contain" width="20" height="20">
+      <img
+        [ngSrc]="'images/icons/exams.svg'"
+        alt="Calendar Icon"
+        class="w-5 h-5 object-contain"
+        width="20"
+        height="20"
+      />
       <h3 class="text-gray-900 font-normal text-lg font-['Cairo'] m-0">الاختبارات القادمة</h3>
     </div>
 
     <!-- List Items (Upcoming Tests) -->
     <div class="flex flex-col gap-3">
-      @for (exam of paginatedExams(); track exam.id) {
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-gray-50 rounded-xl gap-4 sm:gap-0 border border-gray-100 w-full relative overflow-hidden transition-all hover:shadow-md">
-          <!-- Colored left border accent -->
-          <div class="absolute right-0 top-0 bottom-0 w-1 bg-[#155DFC]"></div>
-          
-          <div class="flex flex-col gap-2 w-full sm:w-auto pr-3">
-            <div class="flex flex-wrap items-center gap-2">
-              <p class="text-gray-900 font-bold text-sm font-['Cairo'] m-0">{{ exam.name }}</p>
-              <span class="bg-blue-100 text-[#155DFC] text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-['Cairo'] font-semibold">
-                {{ exam.exam_type.name }}
-              </span>
-              <span class="bg-green-100 text-green-700 text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-['Cairo'] font-semibold ml-auto sm:hidden">
-                {{ exam.price.formatted }}
-              </span>
-            </div>
-            
-            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-gray-500 text-xs sm:text-sm font-['Cairo']">
-              <span class="flex items-center gap-1.5" dir="ltr">
-                <i class="pi pi-calendar text-xs text-gray-400"></i> {{ exam.exam_date }}
-              </span>
-              <span class="flex items-center gap-1.5" dir="ltr">
-                <i class="pi pi-clock text-xs text-gray-400"></i> {{ exam.exam_time }} ({{ exam.formatted_duration }})
-              </span>
-            </div>
-            
-            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-gray-500 text-xs sm:text-sm font-['Cairo']">
-              <span class="hidden sm:flex items-center gap-1.5 text-green-600 font-bold">
-                <i class="pi pi-wallet text-xs"></i> {{ exam.price.formatted }}
-              </span>
-              <span class="flex items-center gap-1.5">
-                <i class="pi pi-chart-line text-xs text-gray-400"></i> {{ exam.statistics.total_questions }} سؤال ({{ exam.statistics.total_points }} نقطة)
-              </span>
-            </div>
+      @for (exam of upcomingExams(); track exam.id) {
+        <div
+          class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-3 sm:px-4 bg-gray-50 rounded-xl gap-3 sm:gap-0"
+        >
+          <div class="flex flex-col gap-1 text-right">
+            <p class="text-gray-900 font-normal text-sm font-['Cairo'] m-0">{{ exam.name }}</p>
+            <p class="text-gray-500 font-normal text-xs font-['Cairo'] m-0" dir="ltr">
+              {{ exam.exam_date }} - {{ exam.exam_time }}
+            </p>
           </div>
-          
-          <div class="flex flex-col items-center justify-center gap-1 shrink-0 bg-white px-4 py-2 sm:py-3 rounded-lg border border-gray-200 min-w-[90px] self-end sm:self-auto shadow-sm">
-            <span class="text-[#FF6900] font-bold text-lg leading-none font-['Cairo']" dir="ltr">
-              {{ exam.enrolled_students }} <span class="text-gray-400 text-sm font-normal">/ {{ exam.max_students }}</span>
-            </span>
-            <span class="text-gray-500 font-medium text-[10px] font-['Cairo']">طالب مسجل</span>
+          <div class="flex flex-col items-end gap-1">
+            <span class="text-blue-600 font-medium text-sm font-['Cairo']" dir="ltr"
+              >{{ exam.enrolled_students }}/{{ exam.max_students }}</span
+            >
+            <span class="text-gray-500 font-normal text-xs font-['Cairo']">مسجل</span>
           </div>
-          
-
-          
         </div>
-
       } @empty {
-        <p class="text-center text-gray-500 font-['Cairo'] py-4">لا توجد اختبارات قادمة</p>
+        <p class="text-center text-gray-500 font-['Cairo'] py-4">
+          لا توجد اختبارات قادمة حظاً موفقاً!
+        </p>
       }
     </div>
 
     <!-- Exam Pagination -->
     @if (examTotalPages() > 1) {
-    <div class="flex items-center justify-between pt-4 mt-2 border-t border-gray-100">
-      <button 
-        (click)="changeExamPage(examCurrentPage() - 1)" 
-        [disabled]="examCurrentPage() === 1"
-        class="px-3 py-1.5 text-sm font-['Cairo'] text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-gray-200">
-        السابق
-      </button>
-      <div class="text-sm font-['Cairo'] text-gray-600 font-semibold" dir="ltr">
-        {{ examCurrentPage() }} / {{ examTotalPages() }}
+      <div class="flex items-center justify-between pt-4 mt-2 border-t border-gray-100">
+        <button
+          (click)="changeExamPage(examCurrentPage() - 1)"
+          [disabled]="examCurrentPage() === 1"
+          class="px-3 py-1.5 text-sm font-['Cairo'] text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-gray-200"
+        >
+          السابق
+        </button>
+        <div class="text-sm font-['Cairo'] text-gray-600 font-semibold" dir="ltr">
+          {{ examCurrentPage() }} / {{ examTotalPages() }}
+        </div>
+        <button
+          (click)="changeExamPage(examCurrentPage() + 1)"
+          [disabled]="examCurrentPage() === examTotalPages()"
+          class="px-3 py-1.5 text-sm font-['Cairo'] text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-gray-200"
+        >
+          التالي
+        </button>
       </div>
-      <button 
-        (click)="changeExamPage(examCurrentPage() + 1)" 
-        [disabled]="examCurrentPage() === examTotalPages()"
-        class="px-3 py-1.5 text-sm font-['Cairo'] text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-gray-200">
-        التالي
-      </button>
-    </div>
     }
   </div>
   <!-- Needs Review List -->
   <div class="flex flex-col bg-white border border-gray-100 rounded-2xl shadow-sm p-6 gap-4">
     <div class="flex items-center gap-2 mb-2">
-      <img [ngSrc]="'images/icons/alert.svg'" alt="Alert Icon" class="w-5 h-5 object-contain" width="20" height="20">
+      <img
+        [ngSrc]="'images/icons/alert.svg'"
+        alt="Alert Icon"
+        class="w-5 h-5 object-contain"
+        width="20"
+        height="20"
+      />
       <h3 class="text-gray-900 font-normal text-lg font-['Cairo'] m-0">يحتاج مراجعة</h3>
     </div>
 
     <!-- List Items (Needs Review) -->
     <div class="flex flex-col gap-3">
       @for (review of paginatedReviews(); track $index) {
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-3 sm:px-4 bg-orange-50 rounded-xl gap-3 sm:gap-0">
+        <div
+          class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-3 sm:px-4 bg-orange-50 rounded-xl gap-3 sm:gap-0"
+        >
           <div class="flex flex-col gap-1">
-            <p class="text-gray-900 font-normal text-sm font-['Cairo'] m-0">{{ review?.title || 'طلب مراجعة جديد' }}</p>
+            <p class="text-gray-900 font-normal text-sm font-['Cairo'] m-0">
+              {{ review?.title || 'طلب مراجعة جديد' }}
+            </p>
             <p class="text-gray-500 font-normal text-xs font-['Cairo'] m-0">قيد المراجعة</p>
           </div>
           <div class="flex items-center gap-4">
-            <button class="text-blue-600 font-normal text-xs font-['Cairo'] hover:underline">مراجعة</button>
+            <button class="text-blue-600 font-normal text-xs font-['Cairo'] hover:underline">
+              مراجعة
+            </button>
           </div>
         </div>
       } @empty {
-        <p class="text-center text-gray-500 font-['Cairo'] py-4">لا توجد طلبات تحتاج مراجعة حالياً</p>
+        <p class="text-center text-gray-500 font-['Cairo'] py-4">
+          لا توجد طلبات تحتاج مراجعة حالياً
+        </p>
       }
     </div>
 
     <!-- Review Pagination -->
     @if (reviewTotalPages() > 1) {
-    <div class="flex items-center justify-between pt-4 mt-2 border-t border-gray-100">
-      <button 
-        (click)="changeReviewPage(reviewCurrentPage() - 1)" 
-        [disabled]="reviewCurrentPage() === 1"
-        class="px-3 py-1.5 text-sm font-['Cairo'] text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-gray-200">
-        السابق
-      </button>
-      <div class="text-sm font-['Cairo'] text-gray-600 font-semibold" dir="ltr">
-        {{ reviewCurrentPage() }} / {{ reviewTotalPages() }}
+      <div class="flex items-center justify-between pt-4 mt-2 border-t border-gray-100">
+        <button
+          (click)="changeReviewPage(reviewCurrentPage() - 1)"
+          [disabled]="reviewCurrentPage() === 1"
+          class="px-3 py-1.5 text-sm font-['Cairo'] text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-gray-200"
+        >
+          السابق
+        </button>
+        <div class="text-sm font-['Cairo'] text-gray-600 font-semibold" dir="ltr">
+          {{ reviewCurrentPage() }} / {{ reviewTotalPages() }}
+        </div>
+        <button
+          (click)="changeReviewPage(reviewCurrentPage() + 1)"
+          [disabled]="reviewCurrentPage() === reviewTotalPages()"
+          class="px-3 py-1.5 text-sm font-['Cairo'] text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-gray-200"
+        >
+          التالي
+        </button>
       </div>
-      <button 
-        (click)="changeReviewPage(reviewCurrentPage() + 1)" 
-        [disabled]="reviewCurrentPage() === reviewTotalPages()"
-        class="px-3 py-1.5 text-sm font-['Cairo'] text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors border border-gray-200">
-        التالي
-      </button>
-    </div>
     }
   </div>
-
-</section> <!-- End Bottom Dashboard -->
+</section>
+<!-- End Bottom Dashboard -->

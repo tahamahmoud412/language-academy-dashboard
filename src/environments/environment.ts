@@ -1,3 +1,3 @@
 export const environment = {
-    baseUrl: 'https://translate.ghosnworld.com/public/api/admin',
+  baseUrl: 'https://translate.ghosnworld.com/public/api/',
 };

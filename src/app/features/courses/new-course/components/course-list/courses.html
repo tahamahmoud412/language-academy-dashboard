@@ -15,12 +15,12 @@
             <app-courses-filter></app-courses-filter>
 
             <!-- Table Container -->
-            <app-courses-table [courses]="coursesList()"></app-courses-table>
+            <app-courses-table [courses]="coursesList()" (edit)="onEditCourse($event)" (delete)="onDeleteCourse($event)"></app-courses-table>
         }
        
     </div>
 
     @if (isAddCourseVisible()) {
-        <app-course-add (onClose)="closeAddCourse()"></app-course-add>
+        <app-course-add [courseId]="editingCourseId()" (onClose)="handleCourseAddClose()"></app-course-add>
     }
 </div>

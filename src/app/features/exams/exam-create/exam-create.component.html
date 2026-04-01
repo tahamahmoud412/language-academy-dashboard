@@ -1,0 +1,169 @@
+<div class="flex flex-col w-full space-y-6 bg-white" dir="rtl">
+  <!-- Header with Title and Close -->
+  <div
+    class="flex justify-between items-center bg-white p-6 rounded-t-2xl border-b border-gray-100"
+  >
+    <div class="flex items-center gap-3">
+      <h1 class="text-2xl font-['Cairo'] font-semibold text-gray-900">
+        {{ editExamId ? 'تعديل الاختبار' : 'إضافة اختبار جديد أونلاين' }}
+      </h1>
+    </div>
+    <button (click)="cancel()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+      <i class="pi pi-times text-gray-400"></i>
+    </button>
+  </div>
+
+  @if (loadingExam()) {
+    <div class="flex flex-col items-center justify-center py-32 gap-4">
+      <i class="pi pi-spin pi-spinner text-4xl text-blue-600"></i>
+      <p class="font-['Cairo'] text-gray-600 text-lg">جاري تحميل بيانات الاختبار...</p>
+    </div>
+  } @else {
+  <!-- Stepper Navigation Header -->
+  <!-- Premium Stepper Navigation Header -->
+  <div class="bg-white/90 backdrop-blur-sm px-4 py-6 md:px-8 md:py-8 border-b border-gray-100 relative shadow-sm">
+    <div
+      class="flex items-center w-full mx-auto overflow-x-auto pb-6 md:pb-10 hide-scrollbar min-h-[130px] md:min-h-[160px]"
+    >
+      @for (step of steps; track $index) {
+        <div
+          class="flex flex-col items-center relative group cursor-pointer transition-all duration-300 min-w-[100px] md:min-w-[120px]"
+          (click)="$index <= currentStep() ? currentStep.set($index) : null"
+        >
+          <!-- Icon Container -->
+          <div
+            class="w-14 h-14 md:w-20 md:h-20 rounded-2xl md:rounded-3xl flex items-center justify-center transition-all duration-500 border-2 z-10 relative"
+            [ngClass]="{
+              'bg-linear-to-br from-blue-600 to-indigo-600 border-blue-400 text-white shadow-2xl shadow-blue-200 scale-110 ring-8 ring-blue-50':
+                currentStep() === $index,
+              'bg-emerald-50 border-emerald-200 text-emerald-600 shadow-sm': currentStep() > $index,
+              'bg-gray-50 border-gray-50 text-gray-300': currentStep() < $index,
+            }"
+          >
+            @if (currentStep() > $index) {
+              <i class="pi pi-check text-xl md:text-2xl font-bold"></i>
+            } @else {
+              <i [class]="step.icon" class="text-xl md:text-2xl"></i>
+            }
+
+            <!-- Validation Error Dot -->
+            @if (
+              $index === 0
+                ? examForm.get('info')?.invalid && examForm.get('info')?.touched
+                : $index >= 1 && $index <= 3
+                  ? sections.at($index - 1).invalid && sections.at($index - 1).touched
+                  : false
+            ) {
+              <div
+                class="absolute -top-1 -right-1 w-4 h-4 md:w-5 md:h-5 bg-red-500 border-2 border-white rounded-full flex items-center justify-center animate-pulse shadow-md"
+              >
+                <i class="pi pi-exclamation text-[8px] md:text-[10px] text-white font-bold"></i>
+              </div>
+            }
+          </div>
+          <!-- Enhanced Arabic Label (Absolute to Icon) -->
+          <div
+            class="absolute top-16 md:top-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2 w-max"
+          >
+            <span
+              class="text-[11px] md:text-[13px] font-['Cairo'] font-bold tracking-wide transition-all duration-300 text-center"
+              [ngClass]="{
+                'text-blue-700 scale-105': currentStep() === $index,
+                'text-emerald-600': currentStep() > $index,
+                'text-gray-400 font-medium': currentStep() < $index,
+                'text-red-500':
+                  $index === 0
+                    ? examForm.get('info')?.invalid && examForm.get('info')?.touched
+                    : $index >= 1 && $index <= 3
+                      ? sections.at($index - 1).invalid && sections.at($index - 1).touched
+                      : false,
+              }"
+            >
+              {{ step.label }}
+            </span>
+            @if (currentStep() === $index) {
+              <div class="w-1.5 md:w-2 h-0.5 bg-blue-600 rounded-full animate-bounce"></div>
+            }
+          </div>
+        </div>
+
+        <!-- Conditional Strategic Connector line -->
+        @if ($index < steps.length - 1) {
+          <div
+            class="flex-1 h-[2px] transition-all duration-700 mx-2"
+            [ngClass]="{
+              'bg-linear-to-r from-blue-600 to-indigo-600 opacity-100': currentStep() > $index,
+              'bg-transparent opacity-0': currentStep() <= $index,
+            }"
+          ></div>
+        }
+      }
+    </div>
+  </div>
+
+  <!-- Step Content Area -->
+  <div class="flex-1 bg-white p-4 md:p-8 w-full transition-all duration-500">
+    <form [formGroup]="examForm">
+      @switch (currentStep()) {
+        @case (0) {
+          <app-exam-info-step
+            [form]="asFormGroup(examForm.get('info')!)"
+            [examTypes]="examTypes()"
+          ></app-exam-info-step>
+        }
+        @case (1) {
+          <app-section-questions-step
+            [sectionForm]="asFormGroup(sections.at(0)!)"
+            [title]="'Reading'"
+          ></app-section-questions-step>
+        }
+        @case (2) {
+          <app-section-questions-step
+            [sectionForm]="asFormGroup(sections.at(1)!)"
+            [title]="'Listening'"
+            (deleteExistingAudio)="onDeleteExistingAudio($event)"
+          ></app-section-questions-step>
+        }
+        @case (3) {
+          <app-section-questions-step
+            [sectionForm]="asFormGroup(sections.at(2)!)"
+            [title]="'Grammar'"
+          ></app-section-questions-step>
+        }
+        @case (4) {
+          <app-review-step [form]="examForm" (submit)="onSubmit()"></app-review-step>
+        }
+      }
+    </form>
+  </div>
+
+  <!-- Navigation Buttons Footer -->
+  <div class="flex justify-between items-center w-full pt-4 pb-8 px-4 md:px-8 border-t border-gray-100 gap-3">
+    @if (currentStep() > 0) {
+      <button
+        (click)="prevStep()"
+        class="px-5 md:px-8 py-2.5 md:py-3 bg-white border border-blue-600 text-blue-600 rounded-xl font-['Cairo'] font-semibold hover:bg-blue-50 transition-all shadow-sm text-sm md:text-base"
+      >
+        رجوع
+      </button>
+    }
+    <div class="flex-1"></div>
+    @if (currentStep() < steps.length - 1) {
+      <button
+        (click)="nextStep()"
+        class="px-6 md:px-10 py-2.5 md:py-3 bg-blue-600 text-white rounded-xl font-['Cairo'] font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm md:text-base"
+      >
+        التالي
+      </button>
+    }
+    @if (currentStep() === steps.length - 1) {
+      <button
+        (click)="onSubmit()"
+        class="px-6 md:px-10 py-2.5 md:py-3 bg-green-600 text-white rounded-xl font-['Cairo'] font-semibold hover:bg-green-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm md:text-base"
+      >
+        {{ editExamId ? 'حفظ التعديلات' : 'حفظ وإنشاء الاختبار' }}
+      </button>
+    }
+  </div>
+  }
+</div>

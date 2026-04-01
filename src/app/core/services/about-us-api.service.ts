@@ -6,11 +6,11 @@ import { AboutUs } from '../models/about-us.model';
 import { ApiResponse } from '../models/service.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AboutUsApiService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.baseUrl}/about-us`;
+  private apiUrl = `${environment.baseUrl}admin/about-us`;
 
   getAboutUs(): Observable<ApiResponse<AboutUs>> {
     return this.http.get<ApiResponse<AboutUs>>(this.apiUrl);

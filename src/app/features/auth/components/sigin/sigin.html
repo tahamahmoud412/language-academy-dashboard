@@ -1,0 +1,98 @@
+@if (isOpen()) {
+<div class="fixed inset-0 z-50 overflow-y-auto" dir="rtl">
+  <div class="fixed inset-0 transition-opacity" style="background-color: rgba(0, 0, 0, 0.5)"
+    (click)="!isSubmitting() && close()"></div>
+
+  <div class="flex min-h-full items-center justify-center p-4 pointer-events-none">
+    <div
+      class="relative bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[95vh] overflow-y-auto p-8 transform transition-all pointer-events-auto elegant-scroll">
+      <button type="button" (click)="close()" [disabled]="isSubmitting()"
+        class="absolute top-4 left-4 text-gray-400 hover:text-gray-600 transition-colors shadow rounded-full p-1 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="text-center mb-6">
+        <h2 class="text-[36px] font-400 mb-2 text-[#0066CC]">تسجيل الدخول</h2>
+        <p class="text-gray-600 text-md font-400">ادخل بياناتك للوصول إلى حسابك</p>
+      </div>
+
+      <!-- API Error Alert -->
+      @if (apiError()) {
+      <div class="bg-red-50 border border-red-200 rounded-lg p-3 mb-4 flex items-center gap-2">
+        <svg class="w-5 h-5 text-red-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+            clip-rule="evenodd" />
+        </svg>
+        <span class="text-red-700 text-sm">{{ apiError() }}</span>
+      </div>
+      }
+
+      <!-- Form -->
+      <form [formGroup]="loginForm" class="space-y-4" (ngSubmit)="onSubmit($event)">
+        <!-- Email -->
+        <div>
+          <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+            <img src="/images/icon/email.svg" alt="Email Icon" class="w-4 h-4" />
+            البريد الإلكتروني <span class="text-red-500">*</span>
+          </label>
+          <input type="email" formControlName="email" placeholder="example@email.com" (input)="clearErrors()"
+            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-left text-[#0A0A0A80]"
+            [class.border-red-500]="shouldShowError('email')" [class.border-gray-300]="!shouldShowError('email')" />
+          @if (shouldShowError('email')) {
+          <p class="mt-1 text-sm text-red-500 text-right">{{ getErrorMessage('email') }}</p>
+          }
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+            <img src="/images/icon/pass.svg" alt="Password Icon" class="w-4 h-4" />
+            كلمة المرور <span class="text-red-500">*</span>
+          </label>
+          <input type="password" formControlName="password" placeholder="••••••••" (input)="clearErrors()"
+            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-left text-[#0A0A0A80]"
+            [class.border-red-500]="shouldShowError('password')"
+            [class.border-gray-300]="!shouldShowError('password')" />
+          @if (shouldShowError('password')) {
+          <p class="mt-1 text-sm text-red-500 text-right">{{ getErrorMessage('password') }}</p>
+          }
+        </div>
+
+        <a href="#" class="text-blue-600 hover:text-blue-700 cursor-pointer text-sm text-left font-bold block" (click)="closeSignInAndOpenForgotPassword(); $event.preventDefault()">نسيت كلمة المرور؟</a>
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="isSubmitting() || loginForm.invalid"
+          class="w-full bg-[linear-gradient(180deg,#0066CC_0%,#6B4FBB_100%)] hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+          @if (isSubmitting()) {
+          <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+            </path>
+          </svg>
+          <span>جاري تسجيل الدخول...</span>
+          } @else {
+          <img src="/images/icon/login.svg" alt="Login Icon" class="w-5 h-5" />
+          <span>تسجيل الدخول</span>
+          }
+        </button>
+      </form>
+
+      <div class="mt-6 text-center">
+        <p class="text-sm text-gray-600">
+          ليس لديك حساب؟
+          <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold"
+            (click)="closeSignInAndOpenSignUp(); $event.preventDefault()">إنشاء حساب جديد</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+<app-confirmation [(visible)]="showConfirmation" [title]="confirmTitle()" [message]="confirmMessage()"
+  [icon]="confirmIcon()" />

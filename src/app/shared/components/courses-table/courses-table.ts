@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { Course } from '../../../core/models/courses.model';
 
@@ -10,6 +10,8 @@ import { Course } from '../../../core/models/courses.model';
 })
 export class CoursesTable {
   @Input() courses: Course[] = [];
+  @Output() edit = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<number>();
 
   getProgressWidth(course: Course): string {
     if (course.max_students === 0) return '0%';
@@ -42,8 +44,12 @@ export class CoursesTable {
     }
   }
 
-  deleteCourse(){
-    
+  onEdit(id: number): void {
+    this.edit.emit(id);
+  }
+
+  onDelete(id: number): void {
+    this.delete.emit(id);
   }
 }
 

@@ -1,9 +1,8 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MainBanner } from '../../../shared/components/main-banner/main-banner';
 import { BottomDashboard } from '../../../shared/components/bottom-dashboard/bottom-dashboard';
+import { DashboardService } from '../../../core/services/dashboard.service';
 import { TopMetricCards } from '../../../shared/components/top-metric-cards/top-metric-cards';
-import { DashboardApiService } from '../../../core/services/dashboard-api.service';
-import { DashboardStats } from '../../../core/models/dashboard.model';
 
 @Component({
   selector: 'app-home-page',
@@ -12,20 +11,7 @@ import { DashboardStats } from '../../../core/models/dashboard.model';
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })
-export class HomePage implements OnInit {
-  private dashboardApi = inject(DashboardApiService);
-
-  stats = signal<DashboardStats | null>(null);
-
-  ngOnInit() {
-    this.dashboardApi.getDashboardStats().subscribe({
-      next: (res) => {
-        if (res.success && res.data) {
-          this.stats.set(res.data);
-        }
-      },
-      error: (err) => console.error('Failed to load dashboard stats', err)
-    });
-  }
+export class HomePage {
+  private dashboardService = inject(DashboardService);
+  stats = this.dashboardService.stats;
 }
-

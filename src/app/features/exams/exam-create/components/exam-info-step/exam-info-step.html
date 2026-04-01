@@ -1,0 +1,101 @@
+<div [formGroup]="form()" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-x-8 md:gap-y-6">
+  
+    <!-- Exam Type -->
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-['Cairo'] font-semibold text-gray-700">نوع الاختبار *</label>
+      <select formControlName="exam_type_id" 
+              class="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-['Cairo']"
+              [class.border-red-500]="isInvalid('exam_type_id')">
+        <option [ngValue]="null" disabled>اختر النوع</option>
+        @for (type of examTypes; track type.id) {
+            <option [ngValue]="type.id">{{ type.name }}</option>
+        }
+      </select>
+    </div>
+  
+    <!-- Exam Name (Implicitly "name" in payload) -->
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-['Cairo'] font-semibold text-gray-700">عنوان الاختبار *</label>
+      <input type="text" formControlName="name" placeholder="مثلاً: TOEFL - الدفعة الثانية"
+             class="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-['Cairo']"
+             [class.border-red-500]="isInvalid('name')">
+    </div>
+  
+    <!-- Exam Date -->
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-['Cairo'] font-semibold text-gray-700">تاريخ الاختبار *</label>
+      <div class="relative group">
+        <input type="date" formControlName="exam_date" 
+               class="w-full h-12 px-10 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-['Cairo'] cursor-pointer group-hover:bg-white group-hover:border-gray-300"
+               [class.border-red-500]="isInvalid('exam_date')">
+        <i class="pi pi-calendar absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors pointer-events-none"></i>
+      </div>
+      @if (isInvalid('exam_date')) {
+        <span class="text-xs text-red-500 font-['Cairo']">
+          {{ form().get('exam_date')?.errors?.['required'] ? 'هذا الحقل مطلوب' : 'التاريخ يجب أن يكون اليوم أو في المستقبل' }}
+        </span>
+      }
+    </div>
+  
+    <!-- Exam Time -->
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-['Cairo'] font-semibold text-gray-700">وقت الاختبار *</label>
+      <div class="relative">
+        <input type="time" formControlName="exam_time"
+               class="w-full h-12 px-10 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-['Cairo']"
+               [class.border-red-500]="isInvalid('exam_time')">
+        <i class="pi pi-clock absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+      </div>
+    </div>
+  
+    <!-- Duration -->
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-['Cairo'] font-semibold text-gray-700">مدة الاختبار (بالدقائق) *</label>
+      <input type="number" formControlName="duration_minutes" placeholder="مثلاً: 120"
+             class="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-['Cairo']"
+             [class.border-red-500]="isInvalid('duration_minutes')">
+    </div>
+  
+    <!-- Price -->
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-['Cairo'] font-semibold text-gray-700">السعر (جنيه مصري) *</label>
+      <input type="number" formControlName="price" placeholder="مثلاً: 1500"
+             class="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-['Cairo']"
+             [class.border-red-500]="isInvalid('price')">
+    </div>
+  
+    <!-- Max Students -->
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-['Cairo'] font-semibold text-gray-700">الحد الأقصى للطلاب *</label>
+      <input type="number" formControlName="max_students" placeholder="مثلاً: 30"
+             class="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-['Cairo']"
+             [class.border-red-500]="isInvalid('max_students')">
+    </div>
+  
+    <!-- Registration Deadline -->
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-['Cairo'] font-semibold text-gray-700">آخر موعد للتسجيل *</label>
+      <div class="relative group">
+        <input type="date" formControlName="registration_deadline" 
+               class="w-full h-12 px-10 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-['Cairo'] cursor-pointer group-hover:bg-white group-hover:border-gray-300"
+               [class.border-red-500]="isInvalid('registration_deadline') || form().errors?.['deadlineAfterExam']">
+        <i class="pi pi-calendar absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors pointer-events-none"></i>
+      </div>
+      @if (isInvalid('registration_deadline')) {
+        <span class="text-xs text-red-500 font-['Cairo']">
+          {{ form().get('registration_deadline')?.errors?.['required'] ? 'هذا الحقل مطلوب' : 'التاريخ يجب أن يكون اليوم أو في المستقبل' }}
+        </span>
+      }
+      @if (form().errors?.['deadlineAfterExam'] && (form().get('registration_deadline')?.touched || form().get('exam_date')?.touched)) {
+        <span class="text-xs text-red-500 font-['Cairo']">آخر موعد للتسجيل لا يمكن أن يكون بعد تاريخ الاختبار</span>
+      }
+    </div>
+  
+    <!-- Description (Full width) -->
+    <div class="flex flex-col gap-2 md:col-span-2">
+      <label class="text-sm font-['Cairo'] font-semibold text-gray-700">وصف الاختبار (اختياري)</label>
+      <textarea formControlName="description" rows="4" placeholder="أضف وصفاً مختصراً عن محتوى الاختبار..."
+                class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-['Cairo']"
+                [class.border-red-500]="isInvalid('description')"></textarea>
+    </div>
+  </div>

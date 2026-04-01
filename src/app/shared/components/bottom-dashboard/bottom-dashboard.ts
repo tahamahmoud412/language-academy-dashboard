@@ -1,5 +1,6 @@
-import { Component, input, signal, computed } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { Exam } from '../../../core/models/exams.model';
 import { DashboardStats } from '../../../core/models/dashboard.model';
 
 @Component({
@@ -10,6 +11,8 @@ import { DashboardStats } from '../../../core/models/dashboard.model';
   styleUrl: './bottom-dashboard.css',
 })
 export class BottomDashboard {
+  upcomingExams = input<Exam[]>([]);
+  recentReviews = input<any[]>([]);
   stats = input<DashboardStats | null>(null);
 
   // Exams Pagination

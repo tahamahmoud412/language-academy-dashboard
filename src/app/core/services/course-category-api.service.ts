@@ -10,7 +10,7 @@ import { ApiResponse } from '../models/service.model';
 })
 export class CourseCategoryApiService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.baseUrl}/course-categories`;
+  private apiUrl = `${environment.baseUrl}admin/course-categories`;
 
   getCategories(): Observable<ApiResponse<CourseCategory[]>> {
     return this.http.get<ApiResponse<CourseCategory[]>>(this.apiUrl);

@@ -9,7 +9,7 @@ import { ApiResponse, Service } from '../models/service.model';
 })
 export class ServicesApiService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.baseUrl}/services`;
+  private apiUrl = `${environment.baseUrl}admin/services`;
 
   getServices(): Observable<ApiResponse<Service[]>> {
     return this.http.get<ApiResponse<Service[]>>(this.apiUrl);

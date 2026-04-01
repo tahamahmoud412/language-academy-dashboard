@@ -10,7 +10,7 @@ import { ApiResponse } from '../models/service.model';
 })
 export class EnrollmentApiService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.baseUrl}/course-enrollments`;
+  private apiUrl = `${environment.baseUrl}admin/course-enrollments`;
 
   getEnrollments(): Observable<ApiResponse<Enrollment[]>> {
     return this.http.get<ApiResponse<Enrollment[]>>(this.apiUrl);

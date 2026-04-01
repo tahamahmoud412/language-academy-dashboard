@@ -10,7 +10,7 @@ import { CourseRequest } from '../models/course.model';
 })
 export class CourseService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.baseUrl}/courses`;
+  private apiUrl = `${environment.baseUrl}admin/courses`;
 
   getCourses(): Observable<CoursesResponse> {
     return this.http.get<CoursesResponse>(this.apiUrl);
@@ -21,10 +21,18 @@ export class CourseService {
   }
 
   getCourseCategories(): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrl}/course-categories`);
+    return this.http.get<any>(`${environment.baseUrl}admin/course-categories`);
   }
 
   destroyCourse(id: number): Observable<any>{
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  getCourseById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  updateCourse(id: number, course: CourseRequest): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, course);
   }
 }

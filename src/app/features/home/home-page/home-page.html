@@ -1,15 +1,16 @@
-<div class="flex flex-col w-full min-h-screen p-4 md:p-8 space-y-6" dir="rtl">
+<div class="px-6 space-y-6">
 
   @if (stats()) {
-    <app-top-metric-cards [stats]="stats()"></app-top-metric-cards>
+    <app-top-metric-cards
+      [totalStudents]="stats()?.total_students ?? 0"
+      [activeCourses]="stats()?.active_courses ?? 0"
+      [upcomingExams]="stats()?.upcoming_exams ?? 0"
+      [newServices]="stats()?.new_services ?? 0">
+    </app-top-metric-cards>
 
-    <app-main-banner></app-main-banner>
+    <app-bottom-dashboard
+      [stats]="stats()">
+    </app-bottom-dashboard>
 
-    <app-bottom-dashboard [stats]="stats()"></app-bottom-dashboard>
-  } @else {
-    <div class="w-full flex justify-center py-20">
-      <i class="pi pi-spin pi-spinner text-4xl text-[#155DFC]"></i>
-    </div>
   }
-
-</div>
+</div>

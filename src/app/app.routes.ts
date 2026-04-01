@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guard/auth.guard';
+import { guestGuard } from './core/guard/guest.guard';
 
 export const routes: Routes = [
   {
@@ -7,8 +9,14 @@ export const routes: Routes = [
   },
 
   {
+    path: 'auth',
+    loadChildren: () => import('./features/auth/auth.routes').then((m) => m.routes),
+    canActivate: [guestGuard]
+  },
+  {
     path: '',
     loadComponent: () => import('./layouts/main-layout/main-layout').then((m) => m.MainLayout),
+    canActivate: [authGuard],
     children: [
       {
         path: 'home',
@@ -37,6 +45,10 @@ export const routes: Routes = [
       {
         path: 'events',
         loadChildren: () => import('./features/who-we-are/events/events.routes').then((m) => m.eventsRoutes),
+      },
+      {
+        path: 'exams',
+        loadChildren: () => import('./features/exams/exams.routes').then((m) => m.examsRoutes),
       }
       ,
       {
