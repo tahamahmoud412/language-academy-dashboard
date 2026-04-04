@@ -97,6 +97,12 @@ export class ExamsList implements OnInit {
     });
   }
 
+  onViewEnrollments(examId: number): void {
+    this.router.navigate(['/exams/enrollments'], {
+      queryParams: { examId },
+    });
+  }
+
   closeAddExam(): void {
     this.isAddExamVisible.set(false);
     this.editingExamId.set(null);

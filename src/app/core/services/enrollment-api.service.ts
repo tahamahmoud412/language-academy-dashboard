@@ -12,9 +12,10 @@ export class EnrollmentApiService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.baseUrl}admin/course-enrollments`;
 
-  getEnrollments(): Observable<ApiResponse<Enrollment[]>> {
-    return this.http.get<ApiResponse<Enrollment[]>>(this.apiUrl);
+  getEnrollments(page: number = 1, perPage: number = 15): Observable<ApiResponse<Enrollment[]>> {
+    return this.http.get<ApiResponse<Enrollment[]>>(`${this.apiUrl}?page=${page}&per_page=${perPage}`);
   }
+
 
   updateEnrollment(id: number, data: any): Observable<ApiResponse<Enrollment>> {
     // If it's FormData, use the _method=PUT workaround

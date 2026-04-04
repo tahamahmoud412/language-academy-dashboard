@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { Course } from '../../../core/models/courses.model';
 
@@ -7,11 +7,26 @@ import { Course } from '../../../core/models/courses.model';
   imports: [NgOptimizedImage],
   templateUrl: './courses-table.html',
   styleUrl: './courses-table.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoursesTable {
-  @Input() courses: Course[] = [];
-  @Output() edit = new EventEmitter<number>();
-  @Output() delete = new EventEmitter<number>();
+  courses = input<Course[]>([]);
+  edit = output<number>();
+  delete = output<number>();
+  toggleActive = output<Course>();
+
+  isCourseActive(course: Course): boolean {
+    const normalized = (course.status ?? '').toLowerCase();
+    return normalized === 'published' || normalized === 'نشط';
+  }
+
+  getToggleActiveLabel(course: Course): string {
+    return this.isCourseActive(course) ? 'إلغاء التفعيل' : 'تفعيل';
+  }
+
+  getToggleActiveAriaLabel(course: Course): string {
+    return this.isCourseActive(course) ? 'إلغاء تفعيل الكورس' : 'تفعيل الكورس';
+  }
 
   getProgressWidth(course: Course): string {
     if (course.max_students === 0) return '0%';
@@ -50,6 +65,10 @@ export class CoursesTable {
 
   onDelete(id: number): void {
     this.delete.emit(id);
+  }
+
+  onToggleActive(course: Course): void {
+    this.toggleActive.emit(course);
   }
 }
 

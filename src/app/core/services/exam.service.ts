@@ -55,11 +55,12 @@ export class ExamService {
     return this.http.delete<any>(`${this.apiUrl}/${exam_id}/audio/${audio_id}`);
   }
 
-  getExamEnrollments(page: number = 1, perPage: number = 10): Observable<ExamEnrollmentsResponse> {
+  getExamEnrollments(page: number = 1, perPage: number = 15): Observable<ExamEnrollmentsResponse> {
     let params = new HttpParams()
       .set('page', page.toString())
-      .set('perPage', perPage.toString())
-      .set('_', new Date().getTime().toString());
+      .set('per_page', perPage.toString())
+      
+    
     return this.http.get<ExamEnrollmentsResponse>(`${environment.baseUrl}admin/exam-enrollments`, { params });
   }
 

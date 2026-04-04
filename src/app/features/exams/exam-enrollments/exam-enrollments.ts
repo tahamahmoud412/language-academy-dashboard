@@ -1,5 +1,6 @@
 import { Component, signal, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { ExamService } from '../../../core/services/exam.service';
 import { ExamEnrollment, Pagination } from '../../../core/models/exam-enrollment.model';
 import Swal from 'sweetalert2';
@@ -13,15 +14,22 @@ import Swal from 'sweetalert2';
 })
 export class ExamEnrollments implements OnInit {
   private examService = inject(ExamService);
+  private route = inject(ActivatedRoute);
 
   loading = signal<boolean>(true);
   enrollments = signal<ExamEnrollment[]>([]);
   pagination = signal<Pagination | null>(null);
   currentPage = signal<number>(1);
-  pageSize = signal<number>(10);
+  pageSize = signal<number>(15);
+  examId = signal<number | null>(null);
 
   ngOnInit(): void {
-    this.fetchEnrollments();
+    this.route.queryParamMap.subscribe((params) => {
+      const raw = params.get('examId');
+      const parsed = raw ? Number(raw) : NaN;
+      this.examId.set(Number.isFinite(parsed) ? parsed : null);
+      this.fetchEnrollments(1);
+    });
   }
 
   fetchEnrollments(page: number = 1): void {
@@ -30,8 +38,11 @@ export class ExamEnrollments implements OnInit {
       next: (response) => {
         if (response.success) {
           this.enrollments.set(response.data);
-          this.pagination.set(response.data.length > 0 ? (response as any).pagination : null);
-          this.currentPage.set(page);
+          this.pagination.set(response.pagination ?? null);
+          this.currentPage.set(response.pagination?.current_page ?? page);
+          if (response.pagination?.per_page) {
+            this.pageSize.set(response.pagination.per_page);
+          }
         }
         this.loading.set(false);
       },

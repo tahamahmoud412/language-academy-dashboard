@@ -1,26 +1,26 @@
 <div class="flex flex-col w-full min-h-screen p-4 md:p-8 space-y-6" dir="rtl">
-    <app-top-metric-cards></app-top-metric-cards>
     <!-- Courses Main Container -->
     <div class="flex flex-col bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden min-h-[533px]">
-        
+
         @if (loading()) {
-            <div class="flex justify-center items-center py-20 font-['Cairo']">
-                <span>جاري التحميل...</span>
-            </div>
+        <div class="flex justify-center items-center py-20 font-['Cairo']">
+            <span>جاري التحميل...</span>
+        </div>
         } @else {
-            <!-- Courses Header -->
-            <app-courses-header [stats]="stats()" (onAddCourse)="openAddCourse()"></app-courses-header>
+        <!-- Courses Header -->
+        <app-courses-header [stats]="stats()" (onAddCourse)="openAddCourse()"></app-courses-header>
 
-            <!-- Filters Section -->
-            <app-courses-filter></app-courses-filter>
+        <!-- Filters Section -->
+        <app-courses-filter></app-courses-filter>
 
-            <!-- Table Container -->
-            <app-courses-table [courses]="coursesList()" (edit)="onEditCourse($event)" (delete)="onDeleteCourse($event)"></app-courses-table>
+        <!-- Table Container -->
+        <app-courses-table [courses]="coursesList()" (edit)="onEditCourse($event)" (delete)="onDeleteCourse($event)"
+            (toggleActive)="onToggleCourseActive($event)"></app-courses-table>
         }
-       
+
     </div>
 
     @if (isAddCourseVisible()) {
-        <app-course-add [courseId]="editingCourseId()" (onClose)="handleCourseAddClose()"></app-course-add>
+    <app-course-add [courseId]="editingCourseId()" (onClose)="handleCourseAddClose()"></app-course-add>
     }
 </div>
