@@ -61,6 +61,42 @@ export class Courses implements OnInit {
     });
   }
 
+  private isActiveStatus(status: string | null | undefined): boolean {
+    const normalized = (status ?? '').toLowerCase();
+    return normalized === 'published' || normalized === 'نشط';
+  }
+
+  onToggleCourseActive(course: Course): void {
+    const willActivate = !this.isActiveStatus(course.status);
+    const nextStatus = willActivate ? 'published' : 'draft';
+
+    import('sweetalert2').then((Swal) => {
+      Swal.default.fire({
+        title: willActivate ? 'تفعيل الكورس' : 'إلغاء تفعيل الكورس',
+        text: willActivate ? 'هل تريد تفعيل هذا الكورس؟' : 'هل تريد إلغاء تفعيل هذا الكورس؟',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'تأكيد',
+        cancelButtonText: 'إلغاء',
+      }).then((result) => {
+        if (!result.isConfirmed) return;
+
+        this.courseService.updateCourse(course.id, { status: nextStatus }).subscribe({
+          next: () => {
+            Swal.default.fire('تم!', willActivate ? 'تم تفعيل الكورس.' : 'تم إلغاء تفعيل الكورس.', 'success');
+            this.fetchCourses();
+          },
+          error: (err) => {
+            console.error('Status update error', err);
+            Swal.default.fire('خطأ!', 'حدث خطأ أثناء تحديث حالة الكورس.', 'error');
+          },
+        });
+      });
+    });
+  }
+
   closeAddCourse(): void {
     this.isAddCourseVisible.set(false);
     this.editingCourseId.set(null);

@@ -1,16 +1,10 @@
 <div class="px-6 space-y-6">
 
   @if (stats()) {
-    <app-top-metric-cards
-      [totalStudents]="stats()?.total_students ?? 0"
-      [activeCourses]="stats()?.active_courses ?? 0"
-      [upcomingExams]="stats()?.upcoming_exams ?? 0"
-      [newServices]="stats()?.new_services ?? 0">
-    </app-top-metric-cards>
 
-    <app-bottom-dashboard
-      [stats]="stats()">
-    </app-bottom-dashboard>
 
+  <app-bottom-dashboard [upcomingExams]="stats()?.upcoming_exams_list ?? []"
+    [recentReviews]="stats()?.recent_reviews ?? []">
+  </app-bottom-dashboard>
   }
-</div>
+</div>
