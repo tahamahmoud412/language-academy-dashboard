@@ -32,7 +32,13 @@ export class CourseService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  updateCourse(id: number, course: CourseRequest): Observable<any> {
+  updateCourse(id: number, course: any): Observable<any> {
+    // Handling updates via POST with _method=PUT to support Laravel's requirements, 
+    // especially useful when dealing with FormData or restrictive server configs.
+    if (course instanceof FormData) {
+      course.append('_method', 'PUT');
+      return this.http.post(`${this.apiUrl}/${id}`, course);
+    }
     return this.http.put(`${this.apiUrl}/${id}`, course);
   }
 }

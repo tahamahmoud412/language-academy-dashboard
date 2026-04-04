@@ -35,7 +35,7 @@ export interface Exam {
     max_students: number;
     enrolled_students: number;
     registration_deadline: string;
-    status: 'upcoming' | 'ongoing' | 'finished' | string;
+    status: 'upcoming' | 'ongoing' | 'finished' | 'completed' | string;
     statistics: ExamStatistics;
     created_at?: string;
     updated_at?: string;

@@ -1,5 +1,4 @@
 <div class="flex flex-col w-full min-h-screen p-4 md:p-8 space-y-6 bg-[#F9FAFB]" dir="rtl">
-    <app-top-metric-cards></app-top-metric-cards>
     <!-- Header Section -->
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div class="flex items-center gap-3">
@@ -16,22 +15,30 @@
     </div>
 
     <!-- Enrollments Table -->
-    <div class="bg-white border border-[#F3F4F6] rounded-2xl shadow-[0px_1px_3px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full text-right border-collapse">
-                <thead class="bg-[#F9FAFB] border-b border-[#F3F4F6]">
-                    <tr>
-                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo']">اسم الطالب</th>
-                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo']">الكورس</th>
-                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">تاريخ الدفع</th>
-                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">المبلغ</th>
-                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">الجنسية</th>
-                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">الحالة</th>
-                        <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">إجراءات</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-[#F9FAFB]">
-                    @for (enrollment of enrollments(); track enrollment.id) {
+    <div
+        class="bg-white border border-[#F3F4F6] rounded-2xl shadow-[0px_1px_3px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden">
+        
+        @if (loading()) {
+            <div class="flex flex-col gap-4 p-6">
+                @for (i of [1,2,3,4,5]; track i) {
+                    <div class="h-16 w-full bg-gray-50 animate-pulse rounded-xl"></div>
+                }
+            </div>
+        } @else {
+            <div class="overflow-x-auto">
+                <table class="w-full text-right border-collapse">
+                    <thead class="bg-[#F9FAFB] border-b border-[#F3F4F6]">
+                        <tr>
+                            <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo']">اسم الطالب</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo']">الكورس</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">تاريخ الدفع</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">المبلغ</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">الحالة</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-[#4A5565] font-['Cairo'] text-center">إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-[#F9FAFB]">
+                        @for (enrollment of enrollments(); track enrollment.id) {
                         <tr class="hover:bg-gray-50/50 transition-colors group">
                             <td class="px-6 py-5 text-sm font-medium text-[#101828] font-['Cairo'] whitespace-nowrap">
                                 {{ enrollment.full_name }}
@@ -40,53 +47,99 @@
                                 {{ enrollment.course_name }}
                             </td>
                             <td class="px-6 py-5 text-center text-sm text-[#4A5565] font-['Cairo']">
-                                {{ enrollment.payment_date }}
+                                <span dir="ltr">{{ enrollment.payment_date }}</span>
                             </td>
                             <td class="px-6 py-5 text-center text-sm font-bold text-[#101828] font-['Cairo']">
                                 {{ enrollment.price }}
                             </td>
-                            <td class="px-6 py-5 text-center text-sm text-[#4A5565] font-['Cairo']">
-                                {{ enrollment.nationality === 'egyptian' ? 'مصري' : 'وافد' }}
-                            </td>
                             <td class="px-6 py-5 text-center">
-                                <span 
+                                <button (click)="onUpdateStatus(enrollment)" 
                                     [ngClass]="{
-                                        'bg-green-50 text-green-700 border-green-100': enrollment.status === 'approved',
-                                        'bg-orange-50 text-orange-700 border-orange-100': enrollment.status === 'pending',
-                                        'bg-red-50 text-red-700 border-red-100': enrollment.status === 'rejected' || enrollment.status === 'rejected_and_resend'
-                                    }"
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold font-['Cairo'] border">
-                                    {{ 
-                                        enrollment.status === 'approved' ? 'مقبول' : 
-                                        enrollment.status === 'pending' ? 'قيد المراجعة' : 
-                                        enrollment.status === 'rejected_and_resend' ? 'مرفوض (إعادة إرسال)' : 'مرفوض' 
+                                            'bg-green-50 text-green-700 border-green-100': enrollment.status === 'approved',
+                                            'bg-orange-50 text-orange-700 border-orange-100': enrollment.status === 'pending',
+                                            'bg-red-50 text-red-700 border-red-100': enrollment.status === 'rejected' || enrollment.status === 'rejected_and_resend',
+                                            'bg-gray-50 text-gray-700 border-gray-100': !['approved', 'pending', 'rejected', 'rejected_and_resend'].includes(enrollment.status)
+                                        }"
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold font-['Cairo'] border cursor-pointer hover:scale-105 transition-transform">
+                                    {{
+                                    enrollment.status === 'approved' ? 'مقبول' :
+                                    enrollment.status === 'pending' ? 'قيد المراجعة' :
+                                    enrollment.status === 'rejected_and_resend' ? 'مرفوض (إعادة إرسال)' : 
+                                    enrollment.status === 'rejected' ? 'مرفوض' : enrollment.status
                                     }}
-                                </span>
+                                </button>
                             </td>
                             <td class="px-6 py-5">
-                                <div class="flex items-center justify-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
-                                    <button (click)="openEdit(enrollment)" class="cursor-pointer p-2 text-[#98A2B3] hover:text-[#FF6900] hover:bg-orange-50 rounded-lg transition-all" title="تعديل">
+                                <div
+                                    class="flex items-center justify-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <button (click)="openEdit(enrollment)"
+                                        class="cursor-pointer p-2 text-[#98A2B3] hover:text-[#FF6900] hover:bg-orange-50 rounded-lg transition-all"
+                                        title="تعديل">
                                         <i class="pi pi-pencil text-sm"></i>
                                     </button>
-                                    <button (click)="deleteEnrollment(enrollment.id)" class="cursor-pointer p-2 text-[#98A2B3] hover:text-[#E7000B] hover:bg-red-50 rounded-lg transition-all" title="حذف">
+                                    <a [href]="enrollment.receipt_url" target="_blank"
+                                        class="cursor-pointer p-2 text-[#98A2B3] hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                                        title="عرض الإيصال">
+                                        <i class="pi pi-file text-sm"></i>
+                                    </a>
+                                    <button (click)="deleteEnrollment(enrollment.id)"
+                                        class="cursor-pointer p-2 text-[#98A2B3] hover:text-[#E7000B] hover:bg-red-50 rounded-lg transition-all"
+                                        title="حذف">
                                         <i class="pi pi-trash text-sm"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                    } @empty {
+                        } @empty {
                         <tr>
                             <td colspan="6" class="px-6 py-10 text-center text-gray-500 font-['Cairo']">
                                 لا توجد تسجيلات متاحة حالياً.
                             </td>
                         </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Footer -->
+            @if (pagination(); as pag) {
+                <div class="flex items-center justify-between px-6 py-4 bg-[#F9FAFB] border-t border-[#F3F4F6]">
+                    <div class="text-sm text-[#4A5565] font-['Cairo']">
+                        عرض {{ pag.from }} إلى {{ pag.to }} من إجمالي {{ pag.total }} تسجيل
+                    </div>
+                    
+                    <div class="flex items-center gap-2">
+                        <button (click)="onPageChange(currentPage() - 1)"
+                            [disabled]="currentPage() === 1"
+                            class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#4A5565] bg-white border border-[#D0D5DD] rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-['Cairo'] shadow-sm">
+                            <i class="pi pi-chevron-right text-xs"></i>
+                            السابق
+                        </button>
+                        
+                        <div class="flex items-center gap-1">
+                            <span class="px-3 py-2 text-sm font-bold text-[#FF6900] bg-orange-50 border border-orange-200 rounded-lg font-['Cairo'] min-w-[40px] text-center">
+                                {{ currentPage() }}
+                            </span>
+                            <span class="text-gray-400 font-['Cairo'] mx-1">من</span>
+                            <span class="px-3 py-2 text-sm font-medium text-[#4A5565] bg-white border border-[#D0D5DD] rounded-lg font-['Cairo'] min-w-[40px] text-center">
+                                {{ pag.last_page }}
+                            </span>
+                        </div>
+
+                        <button (click)="onPageChange(currentPage() + 1)"
+                            [disabled]="currentPage() === pag.last_page"
+                            class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#4A5565] bg-white border border-[#D0D5DD] rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-['Cairo'] shadow-sm">
+                            التالي
+                            <i class="pi pi-chevron-left text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </div>
 
 @if (isEditVisible()) {
-    <app-enrollments-add [enrollmentToEdit]="selectedEnrollment()" (onClose)="closeEdit()" (onSaved)="handleSaved()"></app-enrollments-add>
-}
+<app-enrollments-add [enrollmentToEdit]="selectedEnrollment()" (onClose)="closeEdit()"
+    (onSaved)="handleSaved()"></app-enrollments-add>
+}
